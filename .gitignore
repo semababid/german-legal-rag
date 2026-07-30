@@ -1,0 +1,24 @@
+# The corpus is regenerable via scripts/fetch_corpus.sh, so it stays out of the
+# repo. provenance.txt does not regenerate identically and is what ties a run to
+# a specific revision of the law, so it is tracked.
+#
+# Ignore the files inside data/raw/<law>/ rather than the directory itself. Git
+# does not descend into an ignored directory, so "data/raw/*" would make the
+# negation below unreachable and provenance.txt would be silently dropped.
+data/raw/*/*
+!data/raw/*/provenance.txt
+data/processed/
+
+# Vector stores and model caches
+.chroma/
+qdrant_storage/
+*.faiss
+
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+.DS_Store
+.ipynb_checkpoints/

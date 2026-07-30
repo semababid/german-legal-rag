@@ -1,0 +1,6 @@
+law=bgb
+source_url=https://www.gesetze-im-internet.de/bgb/xml.zip
+xml_file=BJNR001950896.xml
+builddate=20260722220010
+sha256=44ebcbdd2091b670e55617eed7a5deb0133f0a73281dd74230b1f8350513cf0f
+fetched_at=2026-07-26T18:34:57Z
