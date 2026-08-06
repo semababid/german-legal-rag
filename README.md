@@ -9,7 +9,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Part | State |
 | --- | --- |
 | Corpus and parser | Done |
-| Evaluation set | 46 of 120 questions written |
+| Evaluation set | 60 of 120 questions written |
 | Retrieval | Not started |
 | Generation and serving | Not started |
 
