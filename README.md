@@ -9,9 +9,9 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Part | State |
 | --- | --- |
 | Corpus and parser | Done |
-| Evaluation set | 60 of 120 questions written |
-| Retrieval | Best so far hit@1 0.77, MRR 0.85, see [RESULTS.md](RESULTS.md) |
-| Experiments | BM25, hybrid, breadcrumb done. Reranking and chunk size next |
+| Evaluation set | 68 questions, expanded from error analysis |
+| Retrieval | hit@1 0.74, MRR 0.82 on the final config, see [RESULTS.md](RESULTS.md) |
+| Experiments | Six run, two helped. Phase complete |
 | Generation and serving | Not started |
 
 ## The corpus

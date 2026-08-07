@@ -150,6 +150,47 @@ class HybridRetriever:
 
 DEFAULT_RERANKER = "BAAI/bge-reranker-v2-m3"
 
+# Residential tenancy law lives in §§ 535 to 580a. The corpus is the whole BGB, so
+# a tenancy question can and does drift into property or family law.
+MIETRECHT_RANGE = (535, 580)
+SECTION_NUM_RE = re.compile(r"§+\s*(\d+)")
+
+
+def section_number(citation: str | None) -> int | None:
+    match = SECTION_NUM_RE.search(citation or "")
+    return int(match.group(1)) if match else None
+
+
+class DomainFilteredRetriever:
+    """Restrict a base retriever's results to a range of sections.
+
+    The corpus covers the entire BGB, but every question this system answers is
+    about residential tenancy. Sections outside §§ 535 to 580a are not plausible
+    answers, so keeping them in the candidate list only creates opportunities to
+    rank a wrong one first.
+
+    This narrows what the system can answer, which is the intended trade: a
+    tenancy assistant that silently returns a property-law section is worse than
+    one that stays in scope.
+    """
+
+    name = "domain"
+
+    def __init__(self, base, section_range: tuple[int, int] = MIETRECHT_RANGE, overfetch: int = 5):
+        self.base = base
+        self.low, self.high = section_range
+        self.overfetch = overfetch
+
+    def _in_scope(self, hit: dict) -> bool:
+        n = section_number(hit["payload"].get("citation"))
+        return n is not None and self.low <= n <= self.high
+
+    def search(self, query: str, k: int = 10) -> list[dict]:
+        # Overfetch, because filtering removes candidates and the caller still
+        # expects k results.
+        pool = self.base.search(query, k * self.overfetch)
+        return [h for h in pool if self._in_scope(h)][:k]
+
 
 class RerankedRetriever:
     """Second-stage reranking of a base retriever's candidates.
@@ -230,6 +271,13 @@ def build_retriever(kind: str, collection: str = "absatz_raw", model: str | None
         dense = build_retriever("dense", collection=collection, model=model)
         bm25 = build_retriever("bm25", granularity=granularity, with_context=with_context)
         return HybridRetriever([dense, bm25])
+
+    if kind == "domain":
+        inner = build_retriever(
+            base, collection=collection, model=model,
+            granularity=granularity, with_context=with_context,
+        )
+        return DomainFilteredRetriever(inner)
 
     if kind == "rerank":
         inner = build_retriever(

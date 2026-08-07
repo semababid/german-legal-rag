@@ -141,7 +141,7 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank"), default="dense")
+    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="dense")
     ap.add_argument("--collection", default="absatz_raw", help="dense only")
     ap.add_argument("--granularity", choices=("absatz", "paragraph"), default="absatz")
     ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
