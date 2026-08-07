@@ -87,15 +87,15 @@ def print_report(metrics: dict, label: str, ks=DEFAULT_KS) -> None:
         print(f"  {name:14}{row}  {t['mrr']:.3f}   (n={t['n']})")
 
 
-def run(collection: str, model: str, eval_path: Path, ks=DEFAULT_KS) -> tuple[dict, list[dict]]:
-    from qdrant_client import QdrantClient
-
-    from embedder import Embedder
-    from retrieve import QDRANT_PATH, DenseRetriever
+def run(kind: str, collection: str, model: str | None, eval_path: Path,
+        with_context: bool = False, granularity: str = "absatz", ks=DEFAULT_KS) -> tuple[dict, list[dict]]:
+    from retrievers import build_retriever
 
     questions = load_jsonl(eval_path)
-    client = QdrantClient(path=str(QDRANT_PATH))
-    retriever = DenseRetriever(client, Embedder(model), collection)
+    retriever = build_retriever(
+        kind, collection=collection, model=model,
+        granularity=granularity, with_context=with_context,
+    )
 
     max_k = max(ks)
     results = []
@@ -112,7 +112,6 @@ def run(collection: str, model: str, eval_path: Path, ks=DEFAULT_KS) -> tuple[di
                 "retrieved_ids": [h["record_id"] for h in hits],
             }
         )
-    client.close()
 
     metrics = compute_metrics(results, ks)
     metrics["latency_p50_ms"] = round(sorted(latencies)[len(latencies) // 2] * 1000, 1)
@@ -121,14 +120,20 @@ def run(collection: str, model: str, eval_path: Path, ks=DEFAULT_KS) -> tuple[di
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--collection", default="absatz_raw")
-    ap.add_argument("--model", default="BAAI/bge-m3")
+    ap.add_argument("--retriever", choices=("dense", "bm25"), default="dense")
+    ap.add_argument("--collection", default="absatz_raw", help="dense only")
+    ap.add_argument("--granularity", choices=("absatz", "section"), default="absatz")
+    ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
+    ap.add_argument("--model", default=None)
     ap.add_argument("--label", default=None, help="name for this run in the report and results file")
     ap.add_argument("--eval", type=Path, default=REPO_ROOT / "data" / "eval" / "mietrecht.jsonl")
     args = ap.parse_args()
 
-    label = args.label or f"dense/{args.collection}"
-    metrics, results = run(args.collection, args.model, args.eval)
+    label = args.label or (f"{args.retriever}/{args.collection}" if args.retriever == "dense" else args.retriever)
+    metrics, results = run(
+        args.retriever, args.collection, args.model, args.eval,
+        with_context=args.with_context, granularity=args.granularity,
+    )
     print_report(metrics, label)
 
     out_dir = REPO_ROOT / "results"
@@ -136,7 +141,7 @@ def main() -> int:
     slug = label.replace("/", "_").replace(" ", "_")
     out_path = out_dir / f"{slug}.json"
     with out_path.open("w", encoding="utf-8") as fh:
-        json.dump({"label": label, "collection": args.collection, "metrics": metrics, "results": results}, fh, ensure_ascii=False, indent=2)
+        json.dump({"label": label, "retriever": args.retriever, "collection": args.collection, "metrics": metrics, "results": results}, fh, ensure_ascii=False, indent=2)
     print(f"\nwrote {out_path.relative_to(REPO_ROOT)}")
     return 0
 

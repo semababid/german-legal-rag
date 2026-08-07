@@ -1,62 +1,40 @@
-"""Dense retrieval over a Qdrant collection.
-
-Thin wrapper so the eval harness, and later the API, share one retrieval path.
-Later phases add BM25 and hybrid retrievers with the same `.search()` shape, so
-the eval harness does not need to know which one it is holding.
+"""Query the corpus from the command line.
 
     python src/retrieve.py "Wie hoch darf die Kaution sein?"
-    python src/retrieve.py --collection absatz_ctx "Kündigungsfrist Wohnung" -k 5
+    python src/retrieve.py --retriever bm25 "Kuendigungsfrist Wohnung"
+    python src/retrieve.py --collection absatz_ctx -k 5 "Schimmel in der Wohnung"
+
+Retrieval strategies live in retrievers.py; this is the thin CLI over them.
 """
 
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
-from qdrant_client import QdrantClient
-
-from embedder import DEFAULT_MODEL, Embedder
-
-REPO_ROOT = Path(__file__).resolve().parent.parent
-QDRANT_PATH = REPO_ROOT / "qdrant_storage"
-
-
-class DenseRetriever:
-    def __init__(self, client: QdrantClient, embedder: Embedder, collection: str):
-        self.client = client
-        self.embedder = embedder
-        self.collection = collection
-
-    def search(self, query: str, k: int = 10) -> list[dict]:
-        vector = self.embedder.encode([query])[0]
-        result = self.client.query_points(
-            collection_name=self.collection,
-            query=vector.tolist(),
-            limit=k,
-            with_payload=True,
-        )
-        return [
-            {"record_id": p.payload["record_id"], "score": p.score, "payload": p.payload}
-            for p in result.points
-        ]
+from retrievers import build_retriever
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("query")
-    ap.add_argument("--collection", default="absatz_raw")
+    ap.add_argument("--retriever", choices=("dense", "bm25"), default="dense")
+    ap.add_argument("--collection", default="absatz_raw", help="dense only")
+    ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
     ap.add_argument("-k", type=int, default=10)
-    ap.add_argument("--model", default=DEFAULT_MODEL)
+    ap.add_argument("--model", default=None)
     args = ap.parse_args()
 
-    client = QdrantClient(path=str(QDRANT_PATH))
-    retriever = DenseRetriever(client, Embedder(args.model), args.collection)
+    retriever = build_retriever(
+        args.retriever,
+        collection=args.collection,
+        model=args.model,
+        with_context=args.with_context,
+    )
 
     for rank, hit in enumerate(retriever.search(args.query, args.k), 1):
         p = hit["payload"]
         print(f"{rank:2}. {hit['score']:.3f}  {p['citation']}  {p.get('title') or ''}")
         print(f"     {p['text'][:120]}")
-    client.close()
     return 0
 
 
