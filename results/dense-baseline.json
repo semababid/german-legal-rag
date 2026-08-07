@@ -1,5 +1,6 @@
 {
   "label": "dense-baseline",
+  "retriever": "dense",
   "collection": "absatz_raw",
   "metrics": {
     "overall": {
@@ -36,7 +37,7 @@
         "hit@10": 0.6666666666666666
       }
     },
-    "latency_p50_ms": 26.3
+    "latency_p50_ms": 25.5
   },
   "results": [
     {
