@@ -67,6 +67,9 @@ class DenseRetriever:
         self.embedder = embedder
         self.collection = collection
 
+    def close(self) -> None:
+        self.client.close()
+
     def search(self, query: str, k: int = 10) -> list[dict]:
         vector = self.embedder.encode([query])[0]
         result = self.client.query_points(
@@ -129,6 +132,11 @@ class HybridRetriever:
 
     name = "hybrid"
 
+    def close(self) -> None:
+        for r in self.retrievers:
+            if hasattr(r, "close"):
+                r.close()
+
     def __init__(self, retrievers: list, rrf_k: int = 60, candidates: int = 50):
         self.retrievers = retrievers
         self.rrf_k = rrf_k
@@ -176,6 +184,10 @@ class DomainFilteredRetriever:
 
     name = "domain"
 
+    def close(self) -> None:
+        if hasattr(self.base, "close"):
+            self.base.close()
+
     def __init__(self, base, section_range: tuple[int, int] = MIETRECHT_RANGE,
                  overfetch: int = 40, max_fetch: int = 2000):
         self.base = base
@@ -217,6 +229,10 @@ class RerankedRetriever:
     """
 
     name = "rerank"
+
+    def close(self) -> None:
+        if hasattr(self.base, "close"):
+            self.base.close()
 
     def __init__(self, base, model_name: str = DEFAULT_RERANKER, candidates: int = 25,
                  device: str | None = None, with_context: bool = False,

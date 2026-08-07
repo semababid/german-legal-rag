@@ -134,6 +134,9 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
             }
         )
 
+    if hasattr(retriever, "close"):
+        retriever.close()
+
     metrics = compute_metrics(results, ks)
     metrics["latency_p50_ms"] = round(sorted(latencies)[len(latencies) // 2] * 1000, 1)
     return metrics, results

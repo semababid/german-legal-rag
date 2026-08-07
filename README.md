@@ -11,6 +11,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Corpus and parser | Done |
 | Evaluation set | 68 questions, expanded from error analysis |
 | Retrieval | hit@1 0.74, MRR 0.82 on the final config, see [RESULTS.md](RESULTS.md) |
+| Measurement | Every comparison significance tested, 68 questions |
 | Experiments | Six run, two helped. Phase complete |
 | Generation and serving | Not started |
 
@@ -56,6 +57,11 @@ python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label 
 
 # or query it directly
 python src/retrieve.py "Wie hoch darf die Kaution sein?"
+
+# check whether a difference between two runs is real or noise
+python src/compare_runs.py --all
+
+python -m pytest tests/ -q
 ```
 
 To reproduce the raw-text baseline instead, index without `--with-context` and score
@@ -72,6 +78,8 @@ src/embedder.py           the embedding model wrapper
 src/index_corpus.py       embed records into Qdrant
 src/retrieve.py           dense retrieval + query CLI
 src/eval_retrieval.py     hit-rate@k and MRR against the eval set
+src/compare_runs.py       significance testing between two runs
+tests/                    unit tests for the metric and retrieval logic
 data/eval/mietrecht.jsonl the evaluation questions
 RESULTS.md                retrieval scores
 ROADMAP.md                phases and metrics

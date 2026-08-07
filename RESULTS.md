@@ -23,7 +23,74 @@ python src/index_corpus.py --granularity absatz --with-context
 python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label domain-scoped
 ```
 
-## Experiments, 60-question set
+## How much of this is real
+
+Sixty-eight questions is a small sample. A five point difference in hit@1 is three
+or four questions, which is well inside what chance produces, so every comparison
+the table makes is tested rather than eyeballed.
+
+Two tests, both on paired per-question outcomes. McNemar's exact test on hit@1
+looks only at questions where the two runs disagree. A bootstrap confidence
+interval on the paired MRR difference uses the whole ranking instead of collapsing
+to hit or miss, so it has more power to detect a small consistent shift.
+
+All comparisons below are on the same 68 questions.
+
+```bash
+python src/compare_runs.py --all
+```
+
+| Comparison | hit@1 | McNemar p | MRR | 95% CI of MRR diff | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| Add breadcrumb context | 0.588 to 0.691 | 0.167 | 0.670 to 0.780 | [+0.034, +0.188] | real on MRR |
+| Add domain scoping | 0.691 to 0.735 | 0.250 | 0.780 to 0.815 | [+0.007, +0.071] | real on MRR |
+| Absatz instead of section | 0.618 to 0.706 | 0.146 | 0.721 to 0.788 | [+0.012, +0.127] | real on MRR |
+| BM25 instead of dense | 0.588 to 0.294 | 0.0000 | 0.670 to 0.383 | [-0.382, -0.194] | real on both |
+| Hybrid RRF | 0.588 to 0.471 | 0.115 | 0.670 to 0.586 | [-0.171, +0.004] | not distinguishable |
+| Cross-encoder reranking | 0.691 to 0.647 | 0.607 | 0.780 to 0.749 | [-0.099, +0.037] | not distinguishable |
+
+This changes what can honestly be claimed, in two directions.
+
+Only one result is unambiguous: BM25 is much worse than dense retrieval, and no
+sample-size argument rescues it.
+
+The two changes that help, breadcrumb context and domain scoping, are real on MRR
+but not established on hit@1 at this sample size. Breadcrumb context moves 13
+questions up and 6 down, which is a clear direction but not enough separation for
+McNemar at n=68. Domain scoping fixes 3 and breaks 0, a strictly one-way effect
+with an obvious mechanism, but three questions is three questions.
+
+The two that appeared to hurt, hybrid fusion and reranking, are **not**
+statistically distinguishable from doing nothing. Earlier drafts of this file said
+reranking "loses", which overstates a 0.691 to 0.647 difference with p = 0.607.
+What survives for reranking is the latency argument, which needs no statistics: 76
+times slower for no measurable accuracy gain is a poor trade regardless.
+
+The eval set is the binding constraint. Detecting a ten point difference reliably
+needs a few hundred paired questions rather than 68, and growing it is the highest
+value next step for the measurement side of this project.
+
+## Experiments, 68-question set
+
+Every configuration on the same questions. This is the table to read.
+
+| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
+| --- | --- | --- | --- | --- | --- | --- |
+| BM25 | 0.294 | 0.426 | 0.500 | 0.603 | 0.383 | 4 |
+| Hybrid, reciprocal rank fusion | 0.471 | 0.676 | 0.721 | 0.809 | 0.586 | 32 |
+| Dense, raw Absatz text | 0.588 | 0.721 | 0.794 | 0.838 | 0.670 | 26 |
+| Whole-section chunks | 0.618 | 0.794 | 0.868 | 0.912 | 0.721 | 26 |
+| Rerank on top of context | 0.647 | 0.853 | 0.882 | 0.941 | 0.749 | 1984 |
+| Dense + breadcrumb context | 0.691 | 0.853 | 0.868 | 0.941 | 0.780 | 26 |
+| **Dense + context + domain scope** | **0.735** | **0.882** | **0.912** | **0.941** | **0.815** | **28** |
+
+The two chunk rows are scored at paragraph level, for the reason given under Chunk
+size below.
+
+## Earlier runs, 60-question set
+
+Kept because the per-type breakdowns and the error analysis were done on this set,
+before the eval grew. Not comparable with the table above.
 
 | Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -32,16 +99,9 @@ python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label 
 | Hybrid, reciprocal rank fusion | 0.500 | 0.667 | 0.733 | 0.817 | 0.601 | 32 |
 | Rerank on context, raw pair text | 0.683 | 0.867 | 0.933 | 0.950 | 0.787 | 1551 |
 | Rerank on context, matched pair text | 0.700 | 0.900 | 0.917 | 0.983 | 0.798 | 1984 |
-| **Dense + breadcrumb context** | **0.767** | **0.917** | **0.933** | **0.983** | **0.850** | **26** |
+| Dense + breadcrumb context | 0.767 | 0.917 | 0.933 | 0.983 | 0.850 | 26 |
 
-## Experiments, 68-question set
-
-| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
-| --- | --- | --- | --- | --- | --- | --- |
-| Dense + breadcrumb context | 0.691 | 0.853 | 0.868 | 0.941 | 0.780 | 26 |
-| **Dense + context + domain scope** | **0.735** | **0.882** | **0.912** | **0.941** | **0.815** | **27** |
-
-## Breadcrumb context, the change that worked
+## Breadcrumb context, the change that helped most
 
 Same model, same corpus, same queries. The only difference is what goes into the
 embedding: the structural breadcrumb and section title, then the text.
@@ -84,7 +144,7 @@ This narrows what the system can answer, which is the intended trade. A tenancy
 assistant that silently returns a property-law section is worse than one that stays
 in scope.
 
-## BM25, and why it lost
+## BM25, the one clear loser
 
 | Type | n | hit@1 | hit@3 | hit@5 | hit@10 | MRR |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -135,9 +195,10 @@ is instructive: the candidates were found using context-enriched embeddings, so
 reranking on bare text discards the breadcrumb that made them findable. Feeding the
 reranker the same text the retriever matched on moved hit@1 from 0.683 to 0.700.
 
-It still loses to no reranking at all, which scores 0.767. Reranking improved the
-rank of 7 questions and worsened 12, with ev-052 dropping from 1 to 5. Layperson
-questions fell from 0.417 to 0.333, the opposite of the intent.
+It does not beat no reranking at all. On the 68-question set the difference is
+0.691 against 0.647 with McNemar p = 0.607, so the accuracy difference is not
+established either way; on the 60-question set it improved 7 questions and worsened
+12. What is not in doubt is that it does not help.
 
 There is very little left to fix. Dense plus context already places a gold section
 in the top three for 92% of questions. A general-purpose multilingual reranker
@@ -215,14 +276,14 @@ for this phase.
 
 ## What actually mattered
 
-| Change | Effect on hit@1 |
-| --- | --- |
-| Add BM25 as a second retriever | worse |
-| Fuse dense and BM25 with RRF | worse |
-| Add a cross-encoder reranker | worse |
-| Use whole sections instead of Absätze | worse |
-| Index the structural breadcrumb with the text | better, 0.617 to 0.767 |
-| Restrict results to the tenancy sections | better, 0.691 to 0.735 |
+| Change | Direction | Holds up? |
+| --- | --- | --- |
+| Use BM25 instead of dense | much worse | yes, p < 0.0001 |
+| Fuse dense and BM25 with RRF | worse | not distinguishable |
+| Add a cross-encoder reranker | worse, and 76x slower | accuracy not distinguishable, latency decisive |
+| Use whole sections instead of Absätze | worse | real on MRR |
+| Index the structural breadcrumb with the text | better | real on MRR |
+| Restrict results to the tenancy sections | better | real on MRR |
 
 Four of six changes made retrieval worse. Both that worked are cheap and structural:
 one changes what is stored, the other filters what is returned. Neither adds a model

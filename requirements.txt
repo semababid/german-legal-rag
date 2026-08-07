@@ -1,6 +1,14 @@
 # Retrieval stack. Python 3.13, Apple Silicon (MPS) or CPU.
-sentence-transformers>=3.3,<4
-torch>=2.5
+#
+# Pinned rather than ranged: the results in RESULTS.md come from these exact
+# versions, and an embedding model or tokenizer that shifts under a loose range
+# would change the numbers without changing the code.
+torch==2.13.0
+sentence-transformers==3.4.1
+transformers==4.57.6
 qdrant-client==1.19.0
 rank-bm25==0.2.2
-numpy>=2.0
+numpy==2.5.1
+
+# Tests only
+pytest==9.1.1

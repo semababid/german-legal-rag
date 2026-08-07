@@ -26,6 +26,11 @@ from qdrant_client import QdrantClient, models
 
 from embedder import DEFAULT_MODEL, Embedder
 
+# Shared with the retrievers on purpose. If the indexer and the reranker ever
+# built their pair text differently, the reranker would score text the index was
+# never built from, and nothing would fail loudly.
+from retrievers import indexed_text
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 QDRANT_PATH = REPO_ROOT / "qdrant_storage"
 
@@ -33,19 +38,6 @@ QDRANT_PATH = REPO_ROOT / "qdrant_storage"
 def load_records(path: Path) -> list[dict]:
     with path.open(encoding="utf-8") as fh:
         return [json.loads(line) for line in fh if line.strip()]
-
-
-def embedding_text(record: dict, with_context: bool) -> str:
-    """What actually gets embedded.
-
-    With context, the structural breadcrumb and section title are prepended, so a
-    query can match an Absatz whose own wording never repeats the section's topic.
-    § 573c Abs. 1 states a notice period without the words Mietvertrag, Wohnraum,
-    or Frist appearing anywhere in it; the breadcrumb carries them.
-    """
-    if with_context and record.get("context"):
-        return f"{record['context']}\n{record['text']}"
-    return record["text"]
 
 
 def collection_name(granularity: str, with_context: bool) -> str:
@@ -61,7 +53,7 @@ def build(granularity: str, with_context: bool, model_name: str, batch_size: int
         )
 
     records = load_records(corpus_path)
-    texts = [embedding_text(r, with_context) for r in records]
+    texts = [indexed_text(r, with_context) for r in records]
 
     print(f"Loading {model_name} ...")
     embedder = Embedder(model_name)

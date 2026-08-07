@@ -38,6 +38,9 @@ def main() -> int:
         p = hit["payload"]
         print(f"{rank:2}. {hit['score']:.3f}  {p['citation']}  {p.get('title') or ''}")
         print(f"     {p['text'][:120]}")
+
+    if hasattr(retriever, "close"):
+        retriever.close()
     return 0
 
 
