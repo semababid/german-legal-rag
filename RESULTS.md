@@ -215,6 +215,40 @@ The latency makes the decision easy regardless. Reranking 25 candidates per quer
 costs about 1,984 ms against 26 ms, roughly 76 times slower, to lose seven points
 of hit@1. It is not close, so the deployed system does not use it.
 
+## Chunk size: Absatz or whole section
+
+The corpus parses into two granularities: 4,921 Absatz records, or 2,486 whole
+sections. Larger chunks carry more surrounding context in a single vector, smaller
+ones are more topically focused. Which wins is an empirical question.
+
+Scoring needs care here. Ground truth is Absatz-level, so a section index that
+returns § 573c can never string-match a gold id of `bgb-573c-1`. Both runs are
+therefore scored at paragraph level, where a hit means the retriever surfaced the
+section containing a gold Absatz. That is the only way the two are comparable, and
+it makes the Absatz numbers here slightly higher than elsewhere in this file, since
+any Absatz of the right section now counts.
+
+| Chunk | Records | hit@1 | hit@3 | hit@5 | hit@10 | MRR |
+| --- | --- | --- | --- | --- | --- | --- |
+| Absatz | 4,921 | 0.783 | 0.917 | 0.933 | 0.983 | 0.858 |
+| Whole section | 2,486 | 0.683 | 0.850 | 0.933 | 0.967 | 0.788 |
+
+Absatz chunks win by 10 points at hit@1 and 7 on MRR. The gap closes by rank 5 and
+the two are level by rank 10, so the difference is about ranking precision rather
+than whether the right section is reachable at all.
+
+The likely mechanism is dilution. A section such as § 543 runs to several Absätze
+covering distinct rules, and averaging all of them into one vector blurs what the
+section is about. Splitting at the Absatz boundary keeps each vector on a single
+rule, which is exactly the granularity a question tends to target.
+
+I predicted Absatz would win on precision and section on recall. The first half
+held and the second did not: section chunks are no better at hit@10, so there is no
+recall argument for them either. The one place they lead is layperson questions at
+hit@5, 0.750 against 0.667, which fits the idea that a vaguer query benefits from a
+broader chunk, but they are worse than Absatz at hit@3 on the same questions, so it
+is not a pattern I would lean on.
+
 ## What actually mattered
 
 Three of the four techniques tried here made retrieval worse:
@@ -224,12 +258,18 @@ Three of the four techniques tried here made retrieval worse:
 | Add BM25 as a second retriever | worse |
 | Fuse dense and BM25 with RRF | worse |
 | Add a cross-encoder reranker | worse |
+| Use whole sections instead of Absätze | worse |
 | Index the structural breadcrumb with the text | better, 0.617 to 0.767 |
 
 The one that worked costs nothing at query time, because it changes what is stored
-rather than what happens per request. The three that failed all added machinery on
-top of retrieval that was already working. That is the useful lesson from this
-phase, and it is worth more than a table where every row goes up.
+rather than what happens per request. The four that failed all added machinery on
+top of retrieval that was already working, or coarsened the unit it works on. That
+is the useful lesson from this phase, and it is worth more than a table where every
+row goes up.
+
+The shipped configuration is therefore the simplest one tested: bge-m3 over
+Absatz-level chunks, each embedded with its structural breadcrumb, no second
+retriever and no reranking. It is also the fastest, at 26 ms per query.
 
 ## Setup
 

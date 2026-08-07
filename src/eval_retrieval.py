@@ -89,7 +89,7 @@ def print_report(metrics: dict, label: str, ks=DEFAULT_KS) -> None:
 
 def run(kind: str, collection: str, model: str | None, eval_path: Path,
         with_context: bool = False, granularity: str = "absatz",
-        base: str = "dense", candidates: int = 25, ks=DEFAULT_KS) -> tuple[dict, list[dict]]:
+        base: str = "dense", candidates: int = 25, match_level: str = "record", ks=DEFAULT_KS) -> tuple[dict, list[dict]]:
     from retrievers import build_retriever
 
     questions = load_jsonl(eval_path)
@@ -99,6 +99,17 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
         base=base, candidates=candidates,
     )
 
+    # Ground truth is Absatz-level ("bgb-573c-1"), but a section-granularity index
+    # returns whole sections ("bgb-573c"), so the two are not directly comparable.
+    # Matching at paragraph level puts both on the same footing: a hit means the
+    # retriever surfaced the section containing a gold Absatz. Both configurations
+    # must be scored this way for the comparison to mean anything.
+    gold_paragraph = {}
+    if match_level == "paragraph":
+        from retrievers import load_records
+
+        gold_paragraph = {r["id"]: r["paragraph"] for r in load_records("absatz")}
+
     max_k = max(ks)
     results = []
     latencies = []
@@ -106,12 +117,20 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
         t0 = time.perf_counter()
         hits = retriever.search(q["question"], k=max_k)
         latencies.append(time.perf_counter() - t0)
+
+        if match_level == "paragraph":
+            gold = [gold_paragraph.get(g, g) for g in q["ground_truth"]]
+            retrieved = [h["payload"]["paragraph"] for h in hits]
+        else:
+            gold = q["ground_truth"]
+            retrieved = [h["record_id"] for h in hits]
+
         results.append(
             {
                 "id": q["id"],
                 "type": q["type"],
-                "gold_ids": q["ground_truth"],
-                "retrieved_ids": [h["record_id"] for h in hits],
+                "gold_ids": gold,
+                "retrieved_ids": retrieved,
             }
         )
 
@@ -124,10 +143,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank"), default="dense")
     ap.add_argument("--collection", default="absatz_raw", help="dense only")
-    ap.add_argument("--granularity", choices=("absatz", "section"), default="absatz")
+    ap.add_argument("--granularity", choices=("absatz", "paragraph"), default="absatz")
     ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
     ap.add_argument("--base", choices=("dense", "bm25", "hybrid"), default="dense", help="rerank only: retriever supplying candidates")
     ap.add_argument("--candidates", type=int, default=25, help="rerank only: how many candidates to rescore")
+    ap.add_argument("--match-level", choices=("record", "paragraph"), default="record",
+                    help="paragraph puts Absatz and section indexes on comparable footing")
     ap.add_argument("--model", default=None)
     ap.add_argument("--label", default=None, help="name for this run in the report and results file")
     ap.add_argument("--eval", type=Path, default=REPO_ROOT / "data" / "eval" / "mietrecht.jsonl")
@@ -137,7 +158,7 @@ def main() -> int:
     metrics, results = run(
         args.retriever, args.collection, args.model, args.eval,
         with_context=args.with_context, granularity=args.granularity,
-        base=args.base, candidates=args.candidates,
+        base=args.base, candidates=args.candidates, match_level=args.match_level,
     )
     print_report(metrics, label)
 
@@ -146,7 +167,7 @@ def main() -> int:
     slug = label.replace("/", "_").replace(" ", "_")
     out_path = out_dir / f"{slug}.json"
     with out_path.open("w", encoding="utf-8") as fh:
-        json.dump({"label": label, "retriever": args.retriever, "collection": args.collection, "metrics": metrics, "results": results}, fh, ensure_ascii=False, indent=2)
+        json.dump({"label": label, "retriever": args.retriever, "collection": args.collection, "match_level": args.match_level, "metrics": metrics, "results": results}, fh, ensure_ascii=False, indent=2)
     print(f"\nwrote {out_path.relative_to(REPO_ROOT)}")
     return 0
 

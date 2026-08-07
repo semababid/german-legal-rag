@@ -7,13 +7,13 @@ point at a Docker Qdrant by changing one line.
 Collections are named <granularity>_<field> so the phase 3 experiments can each
 build their own without colliding:
 
-    absatz_raw    Absatz text only              (the baseline)
-    absatz_ctx    breadcrumb + title + text     (the context ablation)
-    section_raw   whole-section text            (the chunking comparison)
+    absatz_raw       Absatz text only           (the baseline)
+    absatz_ctx       breadcrumb + title + text  (the context ablation)
+    paragraph_ctx    whole-section text         (the chunking comparison)
 
-    python src/index_corpus.py                       # absatz_raw
-    python src/index_corpus.py --with-context        # absatz_ctx
-    python src/index_corpus.py --granularity section # section_raw
+    python src/index_corpus.py                                          # absatz_raw
+    python src/index_corpus.py --with-context                           # absatz_ctx
+    python src/index_corpus.py --granularity paragraph --with-context   # paragraph_ctx
 """
 
 from __future__ import annotations
@@ -106,7 +106,7 @@ def build(granularity: str, with_context: bool, model_name: str, batch_size: int
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--granularity", choices=("absatz", "section"), default="absatz")
+    ap.add_argument("--granularity", choices=("absatz", "paragraph"), default="absatz")
     ap.add_argument("--with-context", action="store_true", help="prepend breadcrumb + title before embedding")
     ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--batch-size", type=int, default=32)
