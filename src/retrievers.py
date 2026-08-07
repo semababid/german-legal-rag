@@ -115,6 +115,39 @@ class BM25Retriever:
         ]
 
 
+class HybridRetriever:
+    """Reciprocal rank fusion over two or more retrievers.
+
+    RRF scores a record by summing 1/(rrf_k + rank) across the retrievers that
+    returned it, so agreement between strategies outweighs any single strong score.
+    It needs no score normalisation, which matters here because cosine similarity
+    and BM25 scores are on unrelated scales.
+
+    Each retriever is asked for `candidates` results, well past the final k, so a
+    record ranked poorly by one and well by the other can still surface.
+    """
+
+    name = "hybrid"
+
+    def __init__(self, retrievers: list, rrf_k: int = 60, candidates: int = 50):
+        self.retrievers = retrievers
+        self.rrf_k = rrf_k
+        self.candidates = candidates
+
+    def search(self, query: str, k: int = 10) -> list[dict]:
+        fused: dict[str, float] = {}
+        payloads: dict[str, dict] = {}
+
+        for retriever in self.retrievers:
+            for rank, hit in enumerate(retriever.search(query, self.candidates), 1):
+                rid = hit["record_id"]
+                fused[rid] = fused.get(rid, 0.0) + 1.0 / (self.rrf_k + rank)
+                payloads.setdefault(rid, hit["payload"])
+
+        ranked = sorted(fused.items(), key=lambda kv: kv[1], reverse=True)[:k]
+        return [{"record_id": rid, "score": score, "payload": payloads[rid]} for rid, score in ranked]
+
+
 def build_retriever(kind: str, collection: str = "absatz_raw", model: str | None = None,
                     granularity: str = "absatz", with_context: bool = False):
     """Construct a retriever by name, loading only what that strategy needs.
@@ -132,5 +165,10 @@ def build_retriever(kind: str, collection: str = "absatz_raw", model: str | None
 
         client = QdrantClient(path=str(QDRANT_PATH))
         return DenseRetriever(client, Embedder(model or DEFAULT_MODEL), collection)
+
+    if kind == "hybrid":
+        dense = build_retriever("dense", collection=collection, model=model)
+        bm25 = build_retriever("bm25", granularity=granularity, with_context=with_context)
+        return HybridRetriever([dense, bm25])
 
     raise ValueError(f"unknown retriever {kind!r}")

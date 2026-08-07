@@ -10,8 +10,8 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | --- | --- |
 | Corpus and parser | Done |
 | Evaluation set | 60 of 120 questions written |
-| Retrieval | Dense baseline measured, see [RESULTS.md](RESULTS.md) |
-| Experiments (BM25, hybrid, rerank) | Next |
+| Retrieval | Best so far hit@1 0.77, MRR 0.85, see [RESULTS.md](RESULTS.md) |
+| Experiments | BM25, hybrid, breadcrumb done. Reranking and chunk size next |
 | Generation and serving | Not started |
 
 ## The corpus

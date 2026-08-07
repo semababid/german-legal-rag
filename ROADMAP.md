@@ -11,7 +11,7 @@ Assumed pace is six weeks part time, with no fixed deadline baked in. If you are
 | 0 | Corpus and parser | `fetch_corpus.sh`, `parse_bgb.py`, 4,921 Absatz records with breadcrumbs and citations | Done | Done |
 | 1 | Evaluation set | 120 to 150 German Q/A pairs with ground-truth § references, as JSONL | Every reference resolves to a real record ID and `validate_eval.py` confirms it | In progress: 60 written |
 | 2 | Baseline retrieval | Dense-only pipeline, deliberately untuned | hit-rate@1/3/5 and MRR recorded against the eval set | Done: hit@1 0.62, hit@5 0.85, MRR 0.71 |
-| 3 | Retrieval experiments | Six configurations, one results table | Table filled in and you can explain each result | 1.5 wk |
+| 3 | Retrieval experiments | Six configurations, one results table | Table filled in and you can explain each result | In progress: BM25, hybrid, breadcrumb done. Best hit@1 0.77 |
 | 4 | Generation and judging | Cited German answers, calibrated LLM judge, local vs API comparison | Faithfulness and relevance scored, cost and p95 latency reported for both models | 1 wk |
 | 5 | Serving | FastAPI, Docker Compose, thin frontend, structured logging, deployed | Public URL resolves and every request is logged with query, retrieved IDs, scores, tokens, latency | 1 wk |
 | 6 | Write-up | README in English, German screenshots and queries | Results table leads the README and limitations are stated plainly | 3 d |

@@ -17,7 +17,7 @@ from retrievers import build_retriever
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("query")
-    ap.add_argument("--retriever", choices=("dense", "bm25"), default="dense")
+    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid"), default="dense")
     ap.add_argument("--collection", default="absatz_raw", help="dense only")
     ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
     ap.add_argument("-k", type=int, default=10)
