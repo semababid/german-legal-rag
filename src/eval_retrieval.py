@@ -144,7 +144,7 @@ def main() -> int:
     ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="dense")
     ap.add_argument("--collection", default="absatz_raw", help="dense only")
     ap.add_argument("--granularity", choices=("absatz", "paragraph"), default="absatz")
-    ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
+    ap.add_argument("--with-context", action="store_true", help="score against breadcrumb + text (bm25 and rerank)")
     ap.add_argument("--base", choices=("dense", "bm25", "hybrid"), default="dense", help="rerank only: retriever supplying candidates")
     ap.add_argument("--candidates", type=int, default=25, help="rerank only: how many candidates to rescore")
     ap.add_argument("--match-level", choices=("record", "paragraph"), default="record",

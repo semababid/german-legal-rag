@@ -176,20 +176,31 @@ class DomainFilteredRetriever:
 
     name = "domain"
 
-    def __init__(self, base, section_range: tuple[int, int] = MIETRECHT_RANGE, overfetch: int = 5):
+    def __init__(self, base, section_range: tuple[int, int] = MIETRECHT_RANGE,
+                 overfetch: int = 40, max_fetch: int = 2000):
         self.base = base
         self.low, self.high = section_range
         self.overfetch = overfetch
+        self.max_fetch = max_fetch
 
     def _in_scope(self, hit: dict) -> bool:
         n = section_number(hit["payload"].get("citation"))
         return n is not None and self.low <= n <= self.high
 
     def search(self, query: str, k: int = 10) -> list[dict]:
-        # Overfetch, because filtering removes candidates and the caller still
-        # expects k results.
-        pool = self.base.search(query, k * self.overfetch)
-        return [h for h in pool if self._in_scope(h)][:k]
+        # Only about 6% of the BGB falls inside the tenancy range, so a modest
+        # overfetch leaves the caller short of k results. Escalate until enough
+        # in-scope candidates are found, or the corpus is exhausted; returning
+        # three results where ten were asked for silently depresses hit@10.
+        limit = k * self.overfetch
+        kept: list[dict] = []
+        while True:
+            pool = self.base.search(query, limit)
+            kept = [h for h in pool if self._in_scope(h)]
+            if len(kept) >= k or limit >= self.max_fetch or len(pool) < limit:
+                break
+            limit = min(limit * 4, self.max_fetch)
+        return kept[:k]
 
 
 class RerankedRetriever:

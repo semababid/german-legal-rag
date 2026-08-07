@@ -16,7 +16,7 @@ breadcrumb, restricted to §§ 535 to 580a. No second retriever, no reranking.
 
 | | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
 | --- | --- | --- | --- | --- | --- | --- |
-| Final | 0.735 | 0.882 | 0.912 | 0.941 | 0.815 | 27 |
+| Final | 0.735 | 0.882 | 0.912 | 0.941 | 0.815 | 28 |
 
 ```bash
 python src/index_corpus.py --granularity absatz --with-context

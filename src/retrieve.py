@@ -1,6 +1,6 @@
 """Query the corpus from the command line.
 
-    python src/retrieve.py "Wie hoch darf die Kaution sein?"
+    python src/retrieve.py "Wie hoch darf die Kaution sein?"        # final config
     python src/retrieve.py --retriever bm25 "Kuendigungsfrist Wohnung"
     python src/retrieve.py --collection absatz_ctx -k 5 "Schimmel in der Wohnung"
 
@@ -17,9 +17,9 @@ from retrievers import build_retriever
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("query")
-    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="dense")
-    ap.add_argument("--collection", default="absatz_raw", help="dense only")
-    ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
+    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="domain")
+    ap.add_argument("--collection", default="absatz_ctx", help="dense only")
+    ap.add_argument("--with-context", action="store_true", help="score against breadcrumb + text (bm25 and rerank)")
     ap.add_argument("-k", type=int, default=10)
     ap.add_argument("--base", choices=("dense", "bm25", "hybrid"), default="dense", help="rerank only: retriever supplying candidates")
     ap.add_argument("--candidates", type=int, default=25, help="rerank only: how many candidates to rescore")

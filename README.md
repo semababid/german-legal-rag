@@ -48,15 +48,19 @@ Retrieval needs the packages in `requirements.txt` (sentence-transformers, torch
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# embed the records into a local Qdrant collection (downloads bge-m3 once)
-python src/index_corpus.py --granularity absatz
+# embed the records with their structural breadcrumb (downloads bge-m3 once)
+python src/index_corpus.py --granularity absatz --with-context
 
-# score dense retrieval against the eval set
-python src/eval_retrieval.py --collection absatz_raw --label dense-baseline
+# score the final configuration against the eval set
+python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label domain-scoped
 
 # or query it directly
 python src/retrieve.py "Wie hoch darf die Kaution sein?"
 ```
+
+To reproduce the raw-text baseline instead, index without `--with-context` and score
+`--collection absatz_raw`. Every row in [RESULTS.md](RESULTS.md) lists the flags that
+produced it.
 
 ## Layout
 
