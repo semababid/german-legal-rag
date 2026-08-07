@@ -10,7 +10,8 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | --- | --- |
 | Corpus and parser | Done |
 | Evaluation set | 60 of 120 questions written |
-| Retrieval | Not started |
+| Retrieval | Dense baseline measured, see [RESULTS.md](RESULTS.md) |
+| Experiments (BM25, hybrid, rerank) | Next |
 | Generation and serving | Not started |
 
 ## The corpus
@@ -26,7 +27,7 @@ Each record keeps its place in the hierarchy. The source XML stores the Buch, Ab
 
 ## Running it
 
-Phase 0 needs only Python 3 and the standard library.
+Building the corpus and the eval set needs only Python 3 and the standard library.
 
 ```bash
 # download the BGB XML (records builddate and checksum in provenance.txt)
@@ -41,13 +42,34 @@ python src/validate_eval.py
 
 The corpus itself is not committed. It regenerates from the fetch script, and `provenance.txt` ties any run to a dated revision of the law.
 
+Retrieval needs the packages in `requirements.txt` (sentence-transformers, torch, qdrant-client). Qdrant runs on-disk in local mode, so there is no server to start.
+
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# embed the records into a local Qdrant collection (downloads bge-m3 once)
+python src/index_corpus.py --granularity absatz
+
+# score dense retrieval against the eval set
+python src/eval_retrieval.py --collection absatz_raw --label dense-baseline
+
+# or query it directly
+python src/retrieve.py "Wie hoch darf die Kaution sein?"
+```
+
 ## Layout
 
 ```
 scripts/fetch_corpus.sh   download and unpack a law
 src/parse_bgb.py          XML to JSONL records
 src/validate_eval.py      check ground-truth references
+src/embedder.py           the embedding model wrapper
+src/index_corpus.py       embed records into Qdrant
+src/retrieve.py           dense retrieval + query CLI
+src/eval_retrieval.py     hit-rate@k and MRR against the eval set
 data/eval/mietrecht.jsonl the evaluation questions
+RESULTS.md                retrieval scores
 ROADMAP.md                phases and metrics
 ```
 

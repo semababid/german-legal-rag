@@ -1,0 +1,6 @@
+# Retrieval stack. Python 3.13, Apple Silicon (MPS) or CPU.
+sentence-transformers>=3.3,<4
+torch>=2.5
+qdrant-client==1.19.0
+rank-bm25==0.2.2
+numpy>=2.0
