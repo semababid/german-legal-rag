@@ -148,8 +148,68 @@ class HybridRetriever:
         return [{"record_id": rid, "score": score, "payload": payloads[rid]} for rid, score in ranked]
 
 
+DEFAULT_RERANKER = "BAAI/bge-reranker-v2-m3"
+
+
+class RerankedRetriever:
+    """Second-stage reranking of a base retriever's candidates.
+
+    The base retriever scores query and document independently, so a record only
+    ever matches on how close the two embeddings sit. A cross-encoder reads the
+    query and the candidate together and scores the pair directly, which catches
+    relevance that separate encodings miss, at the cost of one model pass per
+    candidate rather than one per query.
+
+    Only `candidates` results are reranked, so anything the base retriever ranks
+    below that is unreachable no matter how relevant it is.
+    """
+
+    name = "rerank"
+
+    def __init__(self, base, model_name: str = DEFAULT_RERANKER, candidates: int = 25,
+                 device: str | None = None, with_context: bool = False,
+                 granularity: str = "absatz"):
+        from sentence_transformers import CrossEncoder
+
+        from embedder import pick_device
+
+        self.base = base
+        self.candidates = candidates
+        self.model_name = model_name
+        self.device = device or pick_device()
+        self.model = CrossEncoder(model_name, device=self.device)
+
+        # The reranker should read the same text the base retriever matched on.
+        # Scoring raw Absatz text against candidates found via context-enriched
+        # embeddings throws away the breadcrumb that made them findable.
+        self.context_by_id: dict[str, str] = {}
+        if with_context:
+            self.context_by_id = {
+                r["id"]: indexed_text(r, True) for r in load_records(granularity)
+            }
+
+    def _pair_text(self, hit: dict) -> str:
+        return self.context_by_id.get(hit["record_id"], hit["payload"]["text"])
+
+    def search(self, query: str, k: int = 10) -> list[dict]:
+        pool = self.base.search(query, self.candidates)
+        if not pool:
+            return []
+
+        scores = self.model.predict(
+            [(query, self._pair_text(hit)) for hit in pool],
+            show_progress_bar=False,
+        )
+        for hit, score in zip(pool, scores):
+            hit["score"] = float(score)
+
+        pool.sort(key=lambda h: h["score"], reverse=True)
+        return pool[:k]
+
+
 def build_retriever(kind: str, collection: str = "absatz_raw", model: str | None = None,
-                    granularity: str = "absatz", with_context: bool = False):
+                    granularity: str = "absatz", with_context: bool = False,
+                    base: str = "dense", candidates: int = 25):
     """Construct a retriever by name, loading only what that strategy needs.
 
     Dense pulls in torch and the embedding model; BM25 does not, so a lexical run
@@ -170,5 +230,15 @@ def build_retriever(kind: str, collection: str = "absatz_raw", model: str | None
         dense = build_retriever("dense", collection=collection, model=model)
         bm25 = build_retriever("bm25", granularity=granularity, with_context=with_context)
         return HybridRetriever([dense, bm25])
+
+    if kind == "rerank":
+        inner = build_retriever(
+            base, collection=collection, model=model,
+            granularity=granularity, with_context=with_context,
+        )
+        return RerankedRetriever(
+            inner, candidates=candidates,
+            with_context=with_context, granularity=granularity,
+        )
 
     raise ValueError(f"unknown retriever {kind!r}")

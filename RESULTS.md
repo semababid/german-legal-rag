@@ -14,15 +14,17 @@ python src/eval_retrieval.py --collection absatz_raw --label dense-baseline
 
 ## Overall
 
-| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR |
-| --- | --- | --- | --- | --- | --- |
-| Dense baseline (bge-m3, Absatz, raw text) | 0.617 | 0.767 | 0.850 | 0.900 | 0.709 |
-| BM25 (Absatz, raw text) | 0.333 | 0.483 | 0.550 | 0.650 | 0.427 |
-| Hybrid, reciprocal rank fusion | 0.500 | 0.667 | 0.733 | 0.817 | 0.601 |
-| **Dense + breadcrumb context** | **0.767** | **0.917** | **0.933** | **0.983** | **0.850** |
+| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
+| --- | --- | --- | --- | --- | --- | --- |
+| Dense baseline (bge-m3, Absatz, raw text) | 0.617 | 0.767 | 0.850 | 0.900 | 0.709 | 26 |
+| BM25 (Absatz, raw text) | 0.333 | 0.483 | 0.550 | 0.650 | 0.427 | 4 |
+| Hybrid, reciprocal rank fusion | 0.500 | 0.667 | 0.733 | 0.817 | 0.601 | 32 |
+| **Dense + breadcrumb context** | **0.767** | **0.917** | **0.933** | **0.983** | **0.850** | **26** |
+| Rerank on top of context, raw pair text | 0.683 | 0.867 | 0.933 | 0.950 | 0.787 | 1551 |
+| Rerank on top of context, matched pair text | 0.700 | 0.900 | 0.917 | 0.983 | 0.798 | 1984 |
 
-Later rows add hybrid fusion, reranking, the breadcrumb ablation, and the Absatz
-versus section comparison.
+One row won, and it is the cheapest one. Everything below covers what each attempt
+was testing and why the losing ones lost.
 
 ## Dense baseline by question type
 
@@ -176,6 +178,58 @@ question is not about heating at all. It is about what a tenant owes when someth
 is broken, and the heating is incidental. Adding structural context cannot fix this,
 because the failure is that the query's most salient word points at the wrong area
 of law. That is a query understanding problem, not an indexing one.
+
+## Cross-encoder reranking, and a mistake worth keeping
+
+The base retriever encodes query and document separately, so a record can only
+match on how close two independent embeddings sit. A cross-encoder reads the pair
+together and should catch relevance that separate encodings miss. The top 25
+candidates from the best config were rescored with `BAAI/bge-reranker-v2-m3`.
+
+The first run scored each candidate's raw Absatz text. That was wrong, and the
+error is instructive: the candidates were found using context-enriched embeddings,
+so reranking on bare text discards the breadcrumb that made them findable in the
+first place. Feeding the reranker the same text the retriever matched on recovered
+part of the gap, from 0.683 to 0.700 at hit@1.
+
+It still loses to no reranking at all.
+
+| Run | hit@1 | hit@5 | MRR | p50 ms |
+| --- | --- | --- | --- | --- |
+| Dense + context | 0.767 | 0.933 | 0.850 | 26 |
+| Rerank, matched pair text | 0.700 | 0.917 | 0.798 | 1984 |
+
+Against dense + context, reranking improved the rank of 7 questions and worsened 12.
+The largest drops are ev-026 from 3 to 8, ev-028 from 2 to 6, and ev-052 from 1 to 5.
+Layperson questions suffer most, falling from 0.417 to 0.333 at hit@1, which is the
+opposite of what a stronger relevance model was supposed to do.
+
+The likely reason is that there is very little left to fix. Dense plus context
+already places a gold section in the top three for 92% of questions and the top ten
+for 98%. A general-purpose multilingual reranker asked to reorder an already good
+list of short, formulaic statutory paragraphs mostly introduces noise. It has no
+German legal tuning, and the candidates it compares are often near-identical in
+register.
+
+The latency makes the decision easy regardless. Reranking 25 candidates per query
+costs about 1,984 ms against 26 ms, roughly 76 times slower, to lose seven points
+of hit@1. It is not close, so the deployed system does not use it.
+
+## What actually mattered
+
+Three of the four techniques tried here made retrieval worse:
+
+| Change | Effect on hit@1 |
+| --- | --- |
+| Add BM25 as a second retriever | worse |
+| Fuse dense and BM25 with RRF | worse |
+| Add a cross-encoder reranker | worse |
+| Index the structural breadcrumb with the text | better, 0.617 to 0.767 |
+
+The one that worked costs nothing at query time, because it changes what is stored
+rather than what happens per request. The three that failed all added machinery on
+top of retrieval that was already working. That is the useful lesson from this
+phase, and it is worth more than a table where every row goes up.
 
 ## Setup
 

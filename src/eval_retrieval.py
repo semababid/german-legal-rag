@@ -88,13 +88,15 @@ def print_report(metrics: dict, label: str, ks=DEFAULT_KS) -> None:
 
 
 def run(kind: str, collection: str, model: str | None, eval_path: Path,
-        with_context: bool = False, granularity: str = "absatz", ks=DEFAULT_KS) -> tuple[dict, list[dict]]:
+        with_context: bool = False, granularity: str = "absatz",
+        base: str = "dense", candidates: int = 25, ks=DEFAULT_KS) -> tuple[dict, list[dict]]:
     from retrievers import build_retriever
 
     questions = load_jsonl(eval_path)
     retriever = build_retriever(
         kind, collection=collection, model=model,
         granularity=granularity, with_context=with_context,
+        base=base, candidates=candidates,
     )
 
     max_k = max(ks)
@@ -120,10 +122,12 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid"), default="dense")
+    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank"), default="dense")
     ap.add_argument("--collection", default="absatz_raw", help="dense only")
     ap.add_argument("--granularity", choices=("absatz", "section"), default="absatz")
     ap.add_argument("--with-context", action="store_true", help="bm25 only: score against breadcrumb + text")
+    ap.add_argument("--base", choices=("dense", "bm25", "hybrid"), default="dense", help="rerank only: retriever supplying candidates")
+    ap.add_argument("--candidates", type=int, default=25, help="rerank only: how many candidates to rescore")
     ap.add_argument("--model", default=None)
     ap.add_argument("--label", default=None, help="name for this run in the report and results file")
     ap.add_argument("--eval", type=Path, default=REPO_ROOT / "data" / "eval" / "mietrecht.jsonl")
@@ -133,6 +137,7 @@ def main() -> int:
     metrics, results = run(
         args.retriever, args.collection, args.model, args.eval,
         with_context=args.with_context, granularity=args.granularity,
+        base=args.base, candidates=args.candidates,
     )
     print_report(metrics, label)
 
