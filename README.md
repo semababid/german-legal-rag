@@ -9,10 +9,10 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Part | State |
 | --- | --- |
 | Corpus and parser | Done |
-| Evaluation set | 68 questions, expanded from error analysis |
-| Retrieval | hit@1 0.74, MRR 0.82 on the final config, see [RESULTS.md](RESULTS.md) |
-| Measurement | Every comparison significance tested, 68 questions |
-| Experiments | Six run, two helped. Phase complete |
+| Evaluation set | 150 questions, 77 sections covered |
+| Retrieval | hit@1 0.63, MRR 0.73 on the final config, see [RESULTS.md](RESULTS.md) |
+| Measurement | Every comparison significance tested at n=150 |
+| Experiments | Six run, one significant improvement. Phase complete |
 | Generation and serving | Not started |
 
 ## The corpus
@@ -53,7 +53,7 @@ pip install -r requirements.txt
 python src/index_corpus.py --granularity absatz --with-context
 
 # score the final configuration against the eval set
-python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label domain-scoped
+python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label v150-domain
 
 # or query it directly
 python src/retrieve.py "Wie hoch darf die Kaution sein?"

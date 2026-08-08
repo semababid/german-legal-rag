@@ -1,0 +1,2945 @@
+{
+  "label": "v150-hybrid",
+  "retriever": "hybrid",
+  "collection": "absatz_ctx",
+  "match_level": "record",
+  "metrics": {
+    "overall": {
+      "n": 150,
+      "mrr": 0.4838068783068784,
+      "hit@1": 0.37333333333333335,
+      "hit@3": 0.56,
+      "hit@5": 0.6066666666666667,
+      "hit@10": 0.74
+    },
+    "by_type": {
+      "direct": {
+        "n": 76,
+        "mrr": 0.6066311612364246,
+        "hit@1": 0.5,
+        "hit@3": 0.6842105263157895,
+        "hit@5": 0.7236842105263158,
+        "hit@10": 0.8289473684210527
+      },
+      "multi_section": {
+        "n": 40,
+        "mrr": 0.5192261904761903,
+        "hit@1": 0.4,
+        "hit@3": 0.625,
+        "hit@5": 0.675,
+        "hit@10": 0.775
+      },
+      "layperson": {
+        "n": 34,
+        "mrr": 0.16758870214752566,
+        "hit@1": 0.058823529411764705,
+        "hit@3": 0.20588235294117646,
+        "hit@5": 0.2647058823529412,
+        "hit@10": 0.5
+      }
+    },
+    "latency_p50_ms": 30.8
+  },
+  "results": [
+    {
+      "id": "ev-001",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-551-1"
+      ],
+      "retrieved_ids": [
+        "bgb-551-1",
+        "bgb-556d-1",
+        "bgb-558-3",
+        "bgb-559-3a",
+        "bgb-1052-2",
+        "bgb-1995-1",
+        "bgb-559e-3",
+        "bgb-575a-2",
+        "bgb-551-3",
+        "bgb-675o-1"
+      ]
+    },
+    {
+      "id": "ev-002",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-551-2"
+      ],
+      "retrieved_ids": [
+        "bgb-557a-1",
+        "bgb-1612-3",
+        "bgb-1361-4",
+        "bgb-503-1",
+        "bgb-493-4",
+        "bgb-551-2",
+        "bgb-1880-1",
+        "bgb-1191-1",
+        "bgb-551-1",
+        "bgb-244-1"
+      ]
+    },
+    {
+      "id": "ev-003",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-551-3"
+      ],
+      "retrieved_ids": [
+        "bgb-551-3",
+        "bgb-547-1",
+        "bgb-555a-3",
+        "bgb-1382-2",
+        "bgb-641-4",
+        "bgb-556-4",
+        "bgb-556-3",
+        "bgb-698",
+        "bgb-537-1",
+        "bgb-556g-2"
+      ]
+    },
+    {
+      "id": "ev-004",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-550",
+        "bgb-573c-2",
+        "bgb-543-3",
+        "bgb-544",
+        "bgb-574-1",
+        "bgb-573c-1",
+        "bgb-565-1",
+        "bgb-580a-1",
+        "bgb-560-1",
+        "bgb-573a-1"
+      ]
+    },
+    {
+      "id": "ev-005",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556-3"
+      ],
+      "retrieved_ids": [
+        "bgb-556-3",
+        "bgb-556-4",
+        "bgb-555d-3",
+        "bgb-559c-5",
+        "bgb-555c-1",
+        "bgb-555a-3",
+        "bgb-556c-2",
+        "bgb-558-1",
+        "bgb-556g-2",
+        "bgb-559b-2"
+      ]
+    },
+    {
+      "id": "ev-006",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-548-1"
+      ],
+      "retrieved_ids": [
+        "bgb-548-1",
+        "bgb-591b-1",
+        "bgb-1057",
+        "bgb-606",
+        "bgb-1226",
+        "bgb-591b-3",
+        "bgb-591b-2",
+        "bgb-548-2",
+        "bgb-562a",
+        "bgb-199-2"
+      ]
+    },
+    {
+      "id": "ev-007",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-538"
+      ],
+      "retrieved_ids": [
+        "bgb-555a-3",
+        "bgb-539-1",
+        "bgb-537-1",
+        "bgb-567",
+        "bgb-539-2",
+        "bgb-540-1",
+        "bgb-571-1",
+        "bgb-582-2",
+        "bgb-555a-1",
+        "bgb-535-1"
+      ]
+    },
+    {
+      "id": "ev-008",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573-2"
+      ],
+      "retrieved_ids": [
+        "bgb-573-1",
+        "bgb-573-2",
+        "bgb-574b-2",
+        "bgb-574-1",
+        "bgb-553-1",
+        "bgb-547-1",
+        "bgb-573-3",
+        "bgb-1568a-5",
+        "bgb-573b-1",
+        "bgb-569-2"
+      ]
+    },
+    {
+      "id": "ev-009",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-543-1"
+      ],
+      "retrieved_ids": [
+        "bgb-594e-1",
+        "bgb-543-3",
+        "bgb-569-3",
+        "bgb-314-2",
+        "bgb-543-1",
+        "bgb-494-4",
+        "bgb-313-3",
+        "bgb-543-2",
+        "bgb-1283-3",
+        "bgb-594e-2"
+      ]
+    },
+    {
+      "id": "ev-010",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-566-1"
+      ],
+      "retrieved_ids": [
+        "bgb-565-1",
+        "bgb-577-1",
+        "bgb-573-2",
+        "bgb-535-1",
+        "bgb-573a-1",
+        "bgb-544",
+        "bgb-566a",
+        "bgb-566-2",
+        "bgb-1568a-3",
+        "bgb-575-1"
+      ]
+    },
+    {
+      "id": "ev-011",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-559-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559-3a",
+        "bgb-559e-1",
+        "bgb-559-1",
+        "bgb-556e-2",
+        "bgb-559e-3",
+        "bgb-559b-2",
+        "bgb-559c-2",
+        "bgb-558-3",
+        "bgb-556g-1a",
+        "bgb-558-1"
+      ]
+    },
+    {
+      "id": "ev-012",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-555c-1",
+        "bgb-555d-1",
+        "bgb-559b-2",
+        "bgb-555c-3",
+        "bgb-555d-4",
+        "bgb-559c-1",
+        "bgb-559e-3",
+        "bgb-555d-3",
+        "bgb-294",
+        "bgb-555c-2"
+      ]
+    },
+    {
+      "id": "ev-013",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-546-1"
+      ],
+      "retrieved_ids": [
+        "bgb-546-1",
+        "bgb-546-2",
+        "bgb-547-1",
+        "bgb-566a",
+        "bgb-571-1",
+        "bgb-565-1",
+        "bgb-571-2",
+        "bgb-573-2",
+        "bgb-574b-2",
+        "bgb-556g-2"
+      ]
+    },
+    {
+      "id": "ev-014",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-540-1"
+      ],
+      "retrieved_ids": [
+        "bgb-540-1",
+        "bgb-541",
+        "bgb-562b-1",
+        "bgb-553-1",
+        "bgb-553-2",
+        "bgb-573-2",
+        "bgb-574-1",
+        "bgb-539-1",
+        "bgb-536c-2",
+        "bgb-540-2"
+      ]
+    },
+    {
+      "id": "ev-015",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-558-1"
+      ],
+      "retrieved_ids": [
+        "bgb-558-1",
+        "bgb-556e-2",
+        "bgb-556d-1",
+        "bgb-559-3a",
+        "bgb-559e-1",
+        "bgb-559e-3",
+        "bgb-558-3",
+        "bgb-1568a-5",
+        "bgb-559-1",
+        "bgb-556e-1"
+      ]
+    },
+    {
+      "id": "ev-016",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-551-1",
+        "bgb-551-2"
+      ],
+      "retrieved_ids": [
+        "bgb-479-1",
+        "bgb-1190-1",
+        "bgb-294",
+        "bgb-551-1",
+        "bgb-1472-2",
+        "bgb-650m-2",
+        "bgb-171-2",
+        "bgb-551-2",
+        "bgb-1753-3",
+        "bgb-650f-2"
+      ]
+    },
+    {
+      "id": "ev-017",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-540-1",
+        "bgb-553-1"
+      ],
+      "retrieved_ids": [
+        "bgb-540-1",
+        "bgb-553-1",
+        "bgb-553-2",
+        "bgb-573a-2",
+        "bgb-562b-1",
+        "bgb-575-1",
+        "bgb-573-2",
+        "bgb-573a-1",
+        "bgb-1856-2",
+        "bgb-556g-3"
+      ]
+    },
+    {
+      "id": "ev-018",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-573-1",
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-580a-2",
+        "bgb-1056-3",
+        "bgb-573-1",
+        "bgb-626-2",
+        "bgb-573c-1",
+        "bgb-543-3",
+        "bgb-569-3",
+        "bgb-574-1",
+        "bgb-563-4",
+        "bgb-568-2"
+      ]
+    },
+    {
+      "id": "ev-019",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-543-1",
+        "bgb-569-1"
+      ],
+      "retrieved_ids": [
+        "bgb-543-1",
+        "bgb-569-5",
+        "bgb-573a-1",
+        "bgb-490-1",
+        "bgb-573-1",
+        "bgb-544",
+        "bgb-605",
+        "bgb-627-2",
+        "bgb-569-1",
+        "bgb-569-2"
+      ]
+    },
+    {
+      "id": "ev-020",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-555c-1",
+        "bgb-559-1",
+        "bgb-559b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559e-1",
+        "bgb-559-1",
+        "bgb-559-3a",
+        "bgb-556e-2",
+        "bgb-559b-2",
+        "bgb-559e-3",
+        "bgb-559c-2",
+        "bgb-556g-1a",
+        "bgb-559c-5",
+        "bgb-558-1"
+      ]
+    },
+    {
+      "id": "ev-021",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-573-1",
+        "bgb-574-1"
+      ],
+      "retrieved_ids": [
+        "bgb-574-1",
+        "bgb-574b-1",
+        "bgb-574c-2",
+        "bgb-594d-2",
+        "bgb-573-2",
+        "bgb-544",
+        "bgb-573d-2",
+        "bgb-573-1",
+        "bgb-575a-3",
+        "bgb-574-3"
+      ]
+    },
+    {
+      "id": "ev-022",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-536-1",
+        "bgb-536a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-536a-1",
+        "bgb-536b",
+        "bgb-536d",
+        "bgb-442-1",
+        "bgb-523-2",
+        "bgb-640-3",
+        "bgb-634",
+        "bgb-438-1",
+        "bgb-536a-2",
+        "bgb-444"
+      ]
+    },
+    {
+      "id": "ev-023",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-543-1",
+        "bgb-543-2"
+      ],
+      "retrieved_ids": [
+        "bgb-569-3",
+        "bgb-543-1",
+        "bgb-543-2",
+        "bgb-546a-1",
+        "bgb-569-5",
+        "bgb-563-4",
+        "bgb-556b-2",
+        "bgb-540-1",
+        "bgb-573-1",
+        "bgb-490-1"
+      ]
+    },
+    {
+      "id": "ev-024",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-536-1"
+      ],
+      "retrieved_ids": [
+        "bgb-557b-3",
+        "bgb-557a-2",
+        "bgb-556g-2",
+        "bgb-569-3",
+        "bgb-579-1",
+        "bgb-1128-1",
+        "bgb-546a-1",
+        "bgb-559e-3",
+        "bgb-626-2",
+        "bgb-559e-5"
+      ]
+    },
+    {
+      "id": "ev-025",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-553-1"
+      ],
+      "retrieved_ids": [
+        "bgb-572-1",
+        "bgb-565-1",
+        "bgb-574b-2",
+        "bgb-558-1",
+        "bgb-566e-1",
+        "bgb-2075",
+        "bgb-574-1",
+        "bgb-566e-2",
+        "bgb-194-1",
+        "bgb-1568a-5"
+      ]
+    },
+    {
+      "id": "ev-026",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-543-3",
+        "bgb-550",
+        "bgb-576-1",
+        "bgb-565-1",
+        "bgb-575a-3",
+        "bgb-171-1",
+        "bgb-573c-1",
+        "bgb-1587",
+        "bgb-563-4",
+        "bgb-581-2"
+      ]
+    },
+    {
+      "id": "ev-027",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-556-3"
+      ],
+      "retrieved_ids": [
+        "bgb-1878-3",
+        "bgb-556-3",
+        "bgb-1193-1",
+        "bgb-439-2",
+        "bgb-356b-2",
+        "bgb-635-2",
+        "bgb-1600a-3",
+        "bgb-1145-2",
+        "bgb-416-2",
+        "bgb-271a-3"
+      ]
+    },
+    {
+      "id": "ev-028",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-569-1"
+      ],
+      "retrieved_ids": [
+        "bgb-1666a-1",
+        "bgb-1682",
+        "bgb-1632-4",
+        "bgb-1666-3",
+        "bgb-573a-1",
+        "bgb-271-1",
+        "bgb-569-1",
+        "bgb-1093-2",
+        "bgb-1631b-1",
+        "bgb-327b-2"
+      ]
+    },
+    {
+      "id": "ev-029",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-573-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573-1",
+        "bgb-540-1",
+        "bgb-573a-1",
+        "bgb-559-1",
+        "bgb-573-2",
+        "bgb-561-1",
+        "bgb-574c-2",
+        "bgb-559e-1",
+        "bgb-573b-1",
+        "bgb-575-1"
+      ]
+    },
+    {
+      "id": "ev-030",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-566-1"
+      ],
+      "retrieved_ids": [
+        "bgb-918-2",
+        "bgb-676",
+        "bgb-1183",
+        "bgb-676a-2",
+        "bgb-1141-2",
+        "bgb-1804-1",
+        "bgb-2374",
+        "bgb-312k-3",
+        "bgb-562b-2",
+        "bgb-1096"
+      ]
+    },
+    {
+      "id": "ev-031",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-556a-3",
+        "bgb-556a-1",
+        "bgb-556a-2",
+        "bgb-556-2",
+        "bgb-560-1",
+        "bgb-556-1",
+        "bgb-560-2",
+        "bgb-556c-1",
+        "bgb-560-3",
+        "bgb-556-3"
+      ]
+    },
+    {
+      "id": "ev-032",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556-4"
+      ],
+      "retrieved_ids": [
+        "bgb-556-4",
+        "bgb-1865-4",
+        "bgb-575-3",
+        "bgb-810",
+        "bgb-539-1",
+        "bgb-551-1",
+        "bgb-536a-2",
+        "bgb-554-1",
+        "bgb-1379-1",
+        "bgb-573b-4"
+      ]
+    },
+    {
+      "id": "ev-033",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-560-4"
+      ],
+      "retrieved_ids": [
+        "bgb-560-4",
+        "bgb-556-3",
+        "bgb-556-4",
+        "bgb-556c-3",
+        "bgb-556a-2",
+        "bgb-559-3a",
+        "bgb-560-1",
+        "bgb-558c-3",
+        "bgb-560-2",
+        "bgb-494-4"
+      ]
+    },
+    {
+      "id": "ev-034",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-556-2",
+        "bgb-556-3"
+      ],
+      "retrieved_ids": [
+        "bgb-560-4",
+        "bgb-556-2",
+        "bgb-294",
+        "bgb-2336-2",
+        "bgb-556-1",
+        "bgb-1240-1",
+        "bgb-560-1",
+        "bgb-1785-3",
+        "bgb-556a-1",
+        "bgb-505b-1"
+      ]
+    },
+    {
+      "id": "ev-035",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-557a-1",
+        "bgb-557a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-557a-2",
+        "bgb-557a-1",
+        "bgb-557b-2",
+        "bgb-557-2",
+        "bgb-579-1",
+        "bgb-556e-1",
+        "bgb-557b-3",
+        "bgb-559-3a",
+        "bgb-558-3",
+        "bgb-556g-1a"
+      ]
+    },
+    {
+      "id": "ev-036",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-558-3"
+      ],
+      "retrieved_ids": [
+        "bgb-559-3a",
+        "bgb-558-3",
+        "bgb-559e-3",
+        "bgb-556d-1",
+        "bgb-556e-2",
+        "bgb-551-1",
+        "bgb-559b-2",
+        "bgb-556e-1",
+        "bgb-559e-1",
+        "bgb-558b-2"
+      ]
+    },
+    {
+      "id": "ev-037",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-558b-2"
+      ],
+      "retrieved_ids": [
+        "bgb-559b-2",
+        "bgb-559e-3",
+        "bgb-559-3a",
+        "bgb-559e-1",
+        "bgb-558-1",
+        "bgb-559-1",
+        "bgb-556g-1a",
+        "bgb-558-3",
+        "bgb-575-1",
+        "bgb-556b-2"
+      ]
+    },
+    {
+      "id": "ev-038",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556d-1"
+      ],
+      "retrieved_ids": [
+        "bgb-556d-1",
+        "bgb-558-1",
+        "bgb-556e-2",
+        "bgb-1568a-5",
+        "bgb-558-2",
+        "bgb-556e-1",
+        "bgb-559-3a",
+        "bgb-556d-2",
+        "bgb-558-5",
+        "bgb-556g-1"
+      ]
+    },
+    {
+      "id": "ev-039",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-535-1"
+      ],
+      "retrieved_ids": [
+        "bgb-535-1",
+        "bgb-575-1",
+        "bgb-1093-2",
+        "bgb-555a-1",
+        "bgb-555a-3",
+        "bgb-536-1",
+        "bgb-536c-1",
+        "bgb-1600d-2",
+        "bgb-536c-2",
+        "bgb-557a-2"
+      ]
+    },
+    {
+      "id": "ev-040",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-536c-1",
+        "bgb-536c-2"
+      ],
+      "retrieved_ids": [
+        "bgb-536b",
+        "bgb-536a-1",
+        "bgb-536c-1",
+        "bgb-536a-2",
+        "bgb-536d",
+        "bgb-566e-1",
+        "bgb-556g-2",
+        "bgb-556-3",
+        "bgb-558b-2",
+        "bgb-442-1"
+      ]
+    },
+    {
+      "id": "ev-041",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-536c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-556g-2",
+        "bgb-558a-4",
+        "bgb-536c-1",
+        "bgb-558b-2",
+        "bgb-536a-1",
+        "bgb-585b-2",
+        "bgb-563-4",
+        "bgb-555a-3",
+        "bgb-553-1",
+        "bgb-575-2"
+      ]
+    },
+    {
+      "id": "ev-042",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-555a-1",
+        "bgb-555a-3"
+      ],
+      "retrieved_ids": [
+        "bgb-555a-1",
+        "bgb-537-1",
+        "bgb-555d-1",
+        "bgb-555a-3",
+        "bgb-566-2",
+        "bgb-539-1",
+        "bgb-548-1",
+        "bgb-559-1",
+        "bgb-562c",
+        "bgb-536c-2"
+      ]
+    },
+    {
+      "id": "ev-043",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555d-1"
+      ],
+      "retrieved_ids": [
+        "bgb-555d-1",
+        "bgb-555c-1",
+        "bgb-555c-3",
+        "bgb-555d-2",
+        "bgb-555d-4",
+        "bgb-555a-1",
+        "bgb-559-4",
+        "bgb-555e-1",
+        "bgb-559b-2",
+        "bgb-555a-3"
+      ]
+    },
+    {
+      "id": "ev-044",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555d-3"
+      ],
+      "retrieved_ids": [
+        "bgb-555d-3",
+        "bgb-555d-4",
+        "bgb-555c-1",
+        "bgb-558b-2",
+        "bgb-575-2",
+        "bgb-555e-1",
+        "bgb-556g-1a",
+        "bgb-556-3",
+        "bgb-545",
+        "bgb-560-2"
+      ]
+    },
+    {
+      "id": "ev-045",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-555e-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573-2",
+        "bgb-556e-2",
+        "bgb-555b",
+        "bgb-556g-1a",
+        "bgb-575-1",
+        "bgb-555d-3",
+        "bgb-559e-1",
+        "bgb-573b-1",
+        "bgb-574b-2",
+        "bgb-559-1"
+      ]
+    },
+    {
+      "id": "ev-046",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555b"
+      ],
+      "retrieved_ids": [
+        "bgb-555d-1",
+        "bgb-555c-1",
+        "bgb-559c-1",
+        "bgb-555c-3",
+        "bgb-559-4",
+        "bgb-559b-2",
+        "bgb-559e-3",
+        "bgb-555b",
+        "bgb-2019-1",
+        "bgb-1486-2"
+      ]
+    },
+    {
+      "id": "ev-047",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-553-2"
+      ],
+      "retrieved_ids": [
+        "bgb-553-2",
+        "bgb-540-1",
+        "bgb-558-1",
+        "bgb-559c-4",
+        "bgb-558b-2",
+        "bgb-559c-3",
+        "bgb-573-1",
+        "bgb-561-1",
+        "bgb-553-1",
+        "bgb-556e-2"
+      ]
+    },
+    {
+      "id": "ev-048",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-553-1",
+        "bgb-553-2"
+      ],
+      "retrieved_ids": [
+        "bgb-553-2",
+        "bgb-1568a-5",
+        "bgb-553-1",
+        "bgb-540-1",
+        "bgb-556g-2",
+        "bgb-558-1",
+        "bgb-575-3",
+        "bgb-556g-3",
+        "bgb-556-4",
+        "bgb-546a-1"
+      ]
+    },
+    {
+      "id": "ev-049",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-566a"
+      ],
+      "retrieved_ids": [
+        "bgb-574a-2",
+        "bgb-573-2",
+        "bgb-547-1",
+        "bgb-551-2",
+        "bgb-566-1",
+        "bgb-557-1",
+        "bgb-1124-3",
+        "bgb-577-1",
+        "bgb-566c",
+        "bgb-568-1"
+      ]
+    },
+    {
+      "id": "ev-050",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-545"
+      ],
+      "retrieved_ids": [
+        "bgb-545",
+        "bgb-575-1",
+        "bgb-535-1",
+        "bgb-573a-2",
+        "bgb-571-1",
+        "bgb-569-3",
+        "bgb-561-1",
+        "bgb-573-2",
+        "bgb-563b-2",
+        "bgb-567"
+      ]
+    },
+    {
+      "id": "ev-051",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-547-1"
+      ],
+      "retrieved_ids": [
+        "bgb-546a-1",
+        "bgb-547-1",
+        "bgb-563b-2",
+        "bgb-1123-2",
+        "bgb-543-2",
+        "bgb-556g-2",
+        "bgb-760-2",
+        "bgb-574b-2",
+        "bgb-569-3",
+        "bgb-597"
+      ]
+    },
+    {
+      "id": "ev-052",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-573-2",
+        "bgb-573c-1",
+        "bgb-574-1"
+      ],
+      "retrieved_ids": [
+        "bgb-563-4",
+        "bgb-574c-2",
+        "bgb-540-1",
+        "bgb-574b-2",
+        "bgb-575-3",
+        "bgb-575-1",
+        "bgb-545",
+        "bgb-568-2",
+        "bgb-561-1",
+        "bgb-573-2"
+      ]
+    },
+    {
+      "id": "ev-053",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-536-1",
+        "bgb-536c-1",
+        "bgb-536a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-536a-1",
+        "bgb-536b",
+        "bgb-536d",
+        "bgb-442-1",
+        "bgb-536-1",
+        "bgb-640-3",
+        "bgb-600",
+        "bgb-523-1",
+        "bgb-651o-2",
+        "bgb-536a-2"
+      ]
+    },
+    {
+      "id": "ev-054",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-536a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-536a-2",
+        "bgb-637-1",
+        "bgb-536a-1",
+        "bgb-536d",
+        "bgb-536b",
+        "bgb-634",
+        "bgb-562b-1",
+        "bgb-539-1",
+        "bgb-575-3",
+        "bgb-537-1"
+      ]
+    },
+    {
+      "id": "ev-055",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-543-1",
+        "bgb-543-2",
+        "bgb-569-3"
+      ],
+      "retrieved_ids": [
+        "bgb-543-1",
+        "bgb-573a-1",
+        "bgb-563-4",
+        "bgb-540-1",
+        "bgb-573-1",
+        "bgb-569-5",
+        "bgb-574b-2",
+        "bgb-561-1",
+        "bgb-1202-2",
+        "bgb-572-1"
+      ]
+    },
+    {
+      "id": "ev-056",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-574-1"
+      ],
+      "retrieved_ids": [
+        "bgb-574-1",
+        "bgb-544",
+        "bgb-573c-1",
+        "bgb-1202-2",
+        "bgb-574c-2",
+        "bgb-573-1",
+        "bgb-569-3",
+        "bgb-562b-1",
+        "bgb-577a-1",
+        "bgb-1056-2"
+      ]
+    },
+    {
+      "id": "ev-057",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-575-1"
+      ],
+      "retrieved_ids": [
+        "bgb-550",
+        "bgb-575-1",
+        "bgb-574a-2",
+        "bgb-544",
+        "bgb-578-1",
+        "bgb-575a-1",
+        "bgb-566b-1",
+        "bgb-574c-1",
+        "bgb-566c",
+        "bgb-1124-2"
+      ]
+    },
+    {
+      "id": "ev-058",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-551-4"
+      ],
+      "retrieved_ids": [
+        "bgb-551-4",
+        "bgb-554-2",
+        "bgb-553-3",
+        "bgb-557-4",
+        "bgb-557b-5",
+        "bgb-556a-4",
+        "bgb-560-6",
+        "bgb-557a-5",
+        "bgb-555e-3",
+        "bgb-555c-5"
+      ]
+    },
+    {
+      "id": "ev-059",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-557b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-557b-1",
+        "bgb-557-2",
+        "bgb-557b-2",
+        "bgb-557b-4",
+        "bgb-1486-2",
+        "bgb-557b-3",
+        "bgb-667",
+        "bgb-557b-5",
+        "bgb-1486-1",
+        "bgb-558c-1"
+      ]
+    },
+    {
+      "id": "ev-060",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-536-2"
+      ],
+      "retrieved_ids": [
+        "bgb-536-2",
+        "bgb-573a-2",
+        "bgb-573a-1",
+        "bgb-559c-1",
+        "bgb-573-2",
+        "bgb-577a-1a",
+        "bgb-1666a-1",
+        "bgb-536-4",
+        "bgb-507-2",
+        "bgb-536-1"
+      ]
+    },
+    {
+      "id": "ev-061",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-536-1"
+      ],
+      "retrieved_ids": [
+        "bgb-557b-3",
+        "bgb-543-2",
+        "bgb-557a-2",
+        "bgb-536-1",
+        "bgb-556g-2",
+        "bgb-536a-2",
+        "bgb-557a-1",
+        "bgb-559-2",
+        "bgb-558b-2",
+        "bgb-1878-3"
+      ]
+    },
+    {
+      "id": "ev-062",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-536c-1",
+        "bgb-536-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-1",
+        "bgb-1361b-2",
+        "bgb-1134-2",
+        "bgb-563b-2",
+        "bgb-554-1",
+        "bgb-2075",
+        "bgb-2361",
+        "bgb-987-1",
+        "bgb-543-2",
+        "bgb-556f"
+      ]
+    },
+    {
+      "id": "ev-063",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-555c-1",
+        "bgb-559c-5",
+        "bgb-555d-3",
+        "bgb-555c-2",
+        "bgb-555e-1",
+        "bgb-557b-3",
+        "bgb-555c-3",
+        "bgb-555d-5",
+        "bgb-559-3a",
+        "bgb-559e-1"
+      ]
+    },
+    {
+      "id": "ev-064",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-555d-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559e-1",
+        "bgb-559-1",
+        "bgb-555c-1",
+        "bgb-575-1",
+        "bgb-555c-2",
+        "bgb-573-2",
+        "bgb-555a-3",
+        "bgb-559c-5",
+        "bgb-556-4",
+        "bgb-573a-1"
+      ]
+    },
+    {
+      "id": "ev-065",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-1",
+        "bgb-573c-1",
+        "bgb-622-2",
+        "bgb-577a-2",
+        "bgb-545",
+        "bgb-624",
+        "bgb-576-1",
+        "bgb-1202-1",
+        "bgb-559b-2",
+        "bgb-121-2"
+      ]
+    },
+    {
+      "id": "ev-066",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-535-1"
+      ],
+      "retrieved_ids": [
+        "bgb-479d-2",
+        "bgb-1093-2",
+        "bgb-559e-1",
+        "bgb-831-1",
+        "bgb-555a-3",
+        "bgb-479b-3",
+        "bgb-912-2",
+        "bgb-675t-2",
+        "bgb-559-3",
+        "bgb-104"
+      ]
+    },
+    {
+      "id": "ev-067",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-538"
+      ],
+      "retrieved_ids": [
+        "bgb-1113-1",
+        "bgb-1191-1",
+        "bgb-998",
+        "bgb-675r-2",
+        "bgb-1197-2",
+        "bgb-1878-3",
+        "bgb-559-2",
+        "bgb-379-2",
+        "bgb-923-2",
+        "bgb-433-2"
+      ]
+    },
+    {
+      "id": "ev-068",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-566a"
+      ],
+      "retrieved_ids": [
+        "bgb-1478-1",
+        "bgb-1316-3",
+        "bgb-449-1",
+        "bgb-2371",
+        "bgb-1130",
+        "bgb-2034-1",
+        "bgb-1128-1",
+        "bgb-312k-3",
+        "bgb-1124-3",
+        "bgb-577-1"
+      ]
+    },
+    {
+      "id": "ev-069",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-557b-3",
+        "bgb-556b-1",
+        "bgb-558-1",
+        "bgb-579-1",
+        "bgb-557a-2",
+        "bgb-559b-2",
+        "bgb-551-1",
+        "bgb-574a-2",
+        "bgb-569-3",
+        "bgb-556g-2"
+      ]
+    },
+    {
+      "id": "ev-070",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-568-1"
+      ],
+      "retrieved_ids": [
+        "bgb-312k-2",
+        "bgb-489-3",
+        "bgb-312k-5",
+        "bgb-594f",
+        "bgb-623",
+        "bgb-622-6",
+        "bgb-613a-4",
+        "bgb-1160-2",
+        "bgb-543-3",
+        "bgb-312h"
+      ]
+    },
+    {
+      "id": "ev-071",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-550"
+      ],
+      "retrieved_ids": [
+        "bgb-550",
+        "bgb-578-1",
+        "bgb-544",
+        "bgb-594b",
+        "bgb-585a",
+        "bgb-1585b-3",
+        "bgb-575-1",
+        "bgb-1861-2",
+        "bgb-574a-2",
+        "bgb-481a"
+      ]
+    },
+    {
+      "id": "ev-072",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-563-1"
+      ],
+      "retrieved_ids": [
+        "bgb-1093-2",
+        "bgb-1595a-3",
+        "bgb-1666a-1",
+        "bgb-1969-1",
+        "bgb-573a-2",
+        "bgb-562b-1",
+        "bgb-1568a-3",
+        "bgb-563-3",
+        "bgb-962",
+        "bgb-564"
+      ]
+    },
+    {
+      "id": "ev-073",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-563-2",
+        "bgb-564"
+      ],
+      "retrieved_ids": [
+        "bgb-563-1",
+        "bgb-563-2",
+        "bgb-565-1",
+        "bgb-577-4",
+        "bgb-566-1",
+        "bgb-580",
+        "bgb-1568a-3",
+        "bgb-1319-1",
+        "bgb-566a",
+        "bgb-1371-2"
+      ]
+    },
+    {
+      "id": "ev-074",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-563a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-563a-1",
+        "bgb-563-2",
+        "bgb-563-1",
+        "bgb-594d-1",
+        "bgb-565-1",
+        "bgb-580",
+        "bgb-544",
+        "bgb-576b-1",
+        "bgb-1766a-1",
+        "bgb-1998"
+      ]
+    },
+    {
+      "id": "ev-075",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-561-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573-1",
+        "bgb-559e-1",
+        "bgb-561-1",
+        "bgb-558-1",
+        "bgb-540-1",
+        "bgb-559-1",
+        "bgb-559b-2",
+        "bgb-569-3",
+        "bgb-573a-1",
+        "bgb-1568a-5"
+      ]
+    },
+    {
+      "id": "ev-076",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-546a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-546a-1",
+        "bgb-574c-2",
+        "bgb-572-1",
+        "bgb-1568a-5",
+        "bgb-575-3",
+        "bgb-575-2",
+        "bgb-556g-2",
+        "bgb-574a-1",
+        "bgb-536c-2",
+        "bgb-574-1"
+      ]
+    },
+    {
+      "id": "ev-077",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-577a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-577a-1",
+        "bgb-475c-1",
+        "bgb-577a-2",
+        "bgb-1198",
+        "bgb-562b-2",
+        "bgb-1186",
+        "bgb-1568a-6",
+        "bgb-1203",
+        "bgb-548-2",
+        "bgb-574a-1"
+      ]
+    },
+    {
+      "id": "ev-078",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-1",
+        "bgb-553-1",
+        "bgb-566e-1",
+        "bgb-563-4",
+        "bgb-536c-2",
+        "bgb-543-4",
+        "bgb-314-3",
+        "bgb-562b-1",
+        "bgb-543-2",
+        "bgb-573-2"
+      ]
+    },
+    {
+      "id": "ev-079",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573-1",
+        "bgb-573a-1",
+        "bgb-540-1",
+        "bgb-574c-2",
+        "bgb-573-2",
+        "bgb-1568a-4",
+        "bgb-536c-2",
+        "bgb-562b-1",
+        "bgb-575-1",
+        "bgb-571-1"
+      ]
+    },
+    {
+      "id": "ev-080",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-554-1"
+      ],
+      "retrieved_ids": [
+        "bgb-551-3",
+        "bgb-566e-1",
+        "bgb-556-4",
+        "bgb-537-1",
+        "bgb-555a-3",
+        "bgb-559e-1",
+        "bgb-566b-2",
+        "bgb-556g-3",
+        "bgb-562b-1",
+        "bgb-573-2"
+      ]
+    },
+    {
+      "id": "ev-081",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-537-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559e-1",
+        "bgb-573a-1",
+        "bgb-556g-2",
+        "bgb-559b-2",
+        "bgb-543-2",
+        "bgb-556c-2",
+        "bgb-556g-1a",
+        "bgb-575-1",
+        "bgb-558b-2",
+        "bgb-557a-2"
+      ]
+    },
+    {
+      "id": "ev-082",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-568-2"
+      ],
+      "retrieved_ids": [
+        "bgb-568-2",
+        "bgb-573-1",
+        "bgb-574-1",
+        "bgb-574b-2",
+        "bgb-555e-1",
+        "bgb-574b-1",
+        "bgb-572-1",
+        "bgb-572-2",
+        "bgb-574c-2",
+        "bgb-556g-2"
+      ]
+    },
+    {
+      "id": "ev-083",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-568-1",
+        "bgb-568-2"
+      ],
+      "retrieved_ids": [
+        "bgb-568-2",
+        "bgb-555e-1",
+        "bgb-555c-2",
+        "bgb-568-1",
+        "bgb-594f",
+        "bgb-312k-2",
+        "bgb-556g-2",
+        "bgb-574b-1",
+        "bgb-626-2",
+        "bgb-573-3"
+      ]
+    },
+    {
+      "id": "ev-084",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-561-1",
+        "bgb-558b-2"
+      ],
+      "retrieved_ids": [
+        "bgb-559b-2",
+        "bgb-569-3",
+        "bgb-574c-2",
+        "bgb-573-2",
+        "bgb-573c-1",
+        "bgb-574-1",
+        "bgb-543-2",
+        "bgb-544",
+        "bgb-575-1",
+        "bgb-568-2"
+      ]
+    },
+    {
+      "id": "ev-085",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-564"
+      ],
+      "retrieved_ids": [
+        "bgb-563-2",
+        "bgb-1936",
+        "bgb-1568b-1",
+        "bgb-1836-3",
+        "bgb-1568a-1",
+        "bgb-565-1",
+        "bgb-564",
+        "bgb-1617e-3",
+        "bgb-1361a-4",
+        "bgb-1923-1"
+      ]
+    },
+    {
+      "id": "ev-086",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-577a-1",
+        "bgb-573-2"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-2",
+        "bgb-554-1",
+        "bgb-572-1",
+        "bgb-575-1",
+        "bgb-573a-1",
+        "bgb-613a-3",
+        "bgb-573-2",
+        "bgb-567a",
+        "bgb-566-2",
+        "bgb-574-1"
+      ]
+    },
+    {
+      "id": "ev-087",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-556b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-579-1",
+        "bgb-566b-1",
+        "bgb-559b-2",
+        "bgb-557b-3",
+        "bgb-573b-2",
+        "bgb-575a-3",
+        "bgb-573c-1",
+        "bgb-546a-1",
+        "bgb-573d-2",
+        "bgb-547-1"
+      ]
+    },
+    {
+      "id": "ev-088",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-573a-1",
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-1",
+        "bgb-563-4",
+        "bgb-573-1",
+        "bgb-540-1",
+        "bgb-573-2",
+        "bgb-575-1",
+        "bgb-573a-2",
+        "bgb-594a-1",
+        "bgb-569-3",
+        "bgb-558a-3"
+      ]
+    },
+    {
+      "id": "ev-089",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-562-1"
+      ],
+      "retrieved_ids": [
+        "bgb-562b-1",
+        "bgb-572-1",
+        "bgb-535-1",
+        "bgb-536a-2",
+        "bgb-556-4",
+        "bgb-546-2",
+        "bgb-566a",
+        "bgb-536a-1",
+        "bgb-566-2",
+        "bgb-567a"
+      ]
+    },
+    {
+      "id": "ev-090",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-562-1",
+        "bgb-562b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-562b-1",
+        "bgb-562a",
+        "bgb-562b-2",
+        "bgb-546a-1",
+        "bgb-572-1",
+        "bgb-551-1",
+        "bgb-554-1",
+        "bgb-540-1",
+        "bgb-562-1",
+        "bgb-537-1"
+      ]
+    },
+    {
+      "id": "ev-091",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-536b"
+      ],
+      "retrieved_ids": [
+        "bgb-536-1",
+        "bgb-559c-2",
+        "bgb-556g-1a",
+        "bgb-536b",
+        "bgb-556g-2",
+        "bgb-536d",
+        "bgb-546a-1",
+        "bgb-566d",
+        "bgb-556e-1",
+        "bgb-1568a-5"
+      ]
+    },
+    {
+      "id": "ev-092",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-536d"
+      ],
+      "retrieved_ids": [
+        "bgb-550",
+        "bgb-544",
+        "bgb-559-4",
+        "bgb-1510",
+        "bgb-577a-1a",
+        "bgb-1169",
+        "bgb-536-4",
+        "bgb-578-1",
+        "bgb-536-2",
+        "bgb-715-3"
+      ]
+    },
+    {
+      "id": "ev-093",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-541"
+      ],
+      "retrieved_ids": [
+        "bgb-541",
+        "bgb-552-1",
+        "bgb-540-1",
+        "bgb-571-1",
+        "bgb-567",
+        "bgb-573-2",
+        "bgb-562b-1",
+        "bgb-574b-2",
+        "bgb-566d",
+        "bgb-556g-2"
+      ]
+    },
+    {
+      "id": "ev-094",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-542-2"
+      ],
+      "retrieved_ids": [
+        "bgb-550",
+        "bgb-542-2",
+        "bgb-544",
+        "bgb-594",
+        "bgb-543-3",
+        "bgb-574a-2",
+        "bgb-565-1",
+        "bgb-575-1",
+        "bgb-578-1",
+        "bgb-574c-2"
+      ]
+    },
+    {
+      "id": "ev-095",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-558a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-561-1",
+        "bgb-558-1",
+        "bgb-558b-2",
+        "bgb-559c-3",
+        "bgb-558a-3",
+        "bgb-573-1",
+        "bgb-559b-2",
+        "bgb-555d-3",
+        "bgb-559c-4",
+        "bgb-557-3"
+      ]
+    },
+    {
+      "id": "ev-096",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556f"
+      ],
+      "retrieved_ids": [
+        "bgb-559e-3",
+        "bgb-2081-3",
+        "bgb-556d-2",
+        "bgb-492-4",
+        "bgb-556e-1",
+        "bgb-422-1",
+        "bgb-559-3a",
+        "bgb-2279-2",
+        "bgb-549-2",
+        "bgb-1624-2"
+      ]
+    },
+    {
+      "id": "ev-097",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-556g-1"
+      ],
+      "retrieved_ids": [
+        "bgb-546a-1",
+        "bgb-556g-1",
+        "bgb-556b-2",
+        "bgb-558d-3",
+        "bgb-557b-3",
+        "bgb-556e-1",
+        "bgb-557a-1",
+        "bgb-327n-4",
+        "bgb-558-1",
+        "bgb-556g-1a"
+      ]
+    },
+    {
+      "id": "ev-098",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-559c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559c-5",
+        "bgb-559c-2",
+        "bgb-559c-4",
+        "bgb-79-2",
+        "bgb-559c-3",
+        "bgb-559c-1",
+        "bgb-204-2",
+        "bgb-555c-3",
+        "bgb-546a-1",
+        "bgb-555b"
+      ]
+    },
+    {
+      "id": "ev-099",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-574a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-574a-1",
+        "bgb-574b-2",
+        "bgb-574b-1",
+        "bgb-573a-1",
+        "bgb-1139",
+        "bgb-613a-6",
+        "bgb-573a-2",
+        "bgb-675j-2",
+        "bgb-577a-2",
+        "bgb-595-2"
+      ]
+    },
+    {
+      "id": "ev-100",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-580"
+      ],
+      "retrieved_ids": [
+        "bgb-580",
+        "bgb-1056-3",
+        "bgb-574b-2",
+        "bgb-543-3",
+        "bgb-543-4",
+        "bgb-574c-2",
+        "bgb-574-1",
+        "bgb-543-2",
+        "bgb-540-1",
+        "bgb-573-1"
+      ]
+    },
+    {
+      "id": "ev-101",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-539-2",
+        "bgb-552-1"
+      ],
+      "retrieved_ids": [
+        "bgb-1361b-4",
+        "bgb-1427-2",
+        "bgb-562b-1",
+        "bgb-248-1",
+        "bgb-701-2",
+        "bgb-1493-1",
+        "bgb-1511-1",
+        "bgb-1478-2",
+        "bgb-337-2",
+        "bgb-1513-1"
+      ]
+    },
+    {
+      "id": "ev-102",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-549-1"
+      ],
+      "retrieved_ids": [
+        "bgb-549-2",
+        "bgb-2012-2",
+        "bgb-549-1",
+        "bgb-650i-3",
+        "bgb-549-3",
+        "bgb-1070-1",
+        "bgb-576b-1",
+        "bgb-1160-3",
+        "bgb-312-3",
+        "bgb-1376-3"
+      ]
+    },
+    {
+      "id": "ev-103",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-546a-1",
+        "bgb-571-1"
+      ],
+      "retrieved_ids": [
+        "bgb-546a-1",
+        "bgb-597",
+        "bgb-536a-1",
+        "bgb-536c-2",
+        "bgb-575-3",
+        "bgb-584b",
+        "bgb-575-2",
+        "bgb-547-1",
+        "bgb-556-3",
+        "bgb-536a-2"
+      ]
+    },
+    {
+      "id": "ev-104",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-542-1"
+      ],
+      "retrieved_ids": [
+        "bgb-544",
+        "bgb-550",
+        "bgb-578-1",
+        "bgb-1568a-5",
+        "bgb-543-3",
+        "bgb-561-1",
+        "bgb-574a-2",
+        "bgb-556d-1",
+        "bgb-574c-2",
+        "bgb-1827-5"
+      ]
+    },
+    {
+      "id": "ev-105",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-536b",
+        "bgb-536d"
+      ],
+      "retrieved_ids": [
+        "bgb-442-1",
+        "bgb-633-3",
+        "bgb-435",
+        "bgb-494-4",
+        "bgb-938",
+        "bgb-639",
+        "bgb-1128-3",
+        "bgb-444",
+        "bgb-171-1",
+        "bgb-345"
+      ]
+    },
+    {
+      "id": "ev-106",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-580a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-1",
+        "bgb-580a-1",
+        "bgb-580a-2",
+        "bgb-573c-2",
+        "bgb-580a-3",
+        "bgb-573a-2",
+        "bgb-576-1",
+        "bgb-573c-3",
+        "bgb-1833-3",
+        "bgb-549-2"
+      ]
+    },
+    {
+      "id": "ev-107",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-574c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-575-2",
+        "bgb-575-3",
+        "bgb-573b-3",
+        "bgb-595-8",
+        "bgb-2218-2",
+        "bgb-545",
+        "bgb-190",
+        "bgb-574c-2",
+        "bgb-574c-1",
+        "bgb-544"
+      ]
+    },
+    {
+      "id": "ev-108",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-575a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573d-1",
+        "bgb-575a-1",
+        "bgb-584-2",
+        "bgb-580a-4",
+        "bgb-542-2",
+        "bgb-580",
+        "bgb-544",
+        "bgb-555e-1",
+        "bgb-563a-2",
+        "bgb-569-3"
+      ]
+    },
+    {
+      "id": "ev-109",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-555a-3",
+        "bgb-555c-1",
+        "bgb-559c-5",
+        "bgb-556g-2",
+        "bgb-556-4",
+        "bgb-556c-2",
+        "bgb-556-3",
+        "bgb-566e-1",
+        "bgb-566-2",
+        "bgb-551-3"
+      ]
+    },
+    {
+      "id": "ev-110",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555d-2"
+      ],
+      "retrieved_ids": [
+        "bgb-555d-1",
+        "bgb-555b",
+        "bgb-536-1a",
+        "bgb-556f",
+        "bgb-555a-1",
+        "bgb-556e-2",
+        "bgb-555d-2",
+        "bgb-555c-1",
+        "bgb-555d-4",
+        "bgb-1598a-1"
+      ]
+    },
+    {
+      "id": "ev-111",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556-5"
+      ],
+      "retrieved_ids": [
+        "bgb-560-1",
+        "bgb-544",
+        "bgb-556-2",
+        "bgb-271a-3",
+        "bgb-271a-2",
+        "bgb-577a-1",
+        "bgb-556-3",
+        "bgb-39-2",
+        "bgb-556-1",
+        "bgb-560-2"
+      ]
+    },
+    {
+      "id": "ev-112",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-558-2"
+      ],
+      "retrieved_ids": [
+        "bgb-558d-3",
+        "bgb-558-2",
+        "bgb-558e",
+        "bgb-558-5",
+        "bgb-558c-1",
+        "bgb-558-1",
+        "bgb-556d-1",
+        "bgb-1568a-5",
+        "bgb-906-2",
+        "bgb-556e-2"
+      ]
+    },
+    {
+      "id": "ev-113",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-559-4"
+      ],
+      "retrieved_ids": [
+        "bgb-555d-4",
+        "bgb-574-2",
+        "bgb-559-4",
+        "bgb-559-5",
+        "bgb-555d-3",
+        "bgb-555d-2",
+        "bgb-536d",
+        "bgb-444",
+        "bgb-639",
+        "bgb-559-2"
+      ]
+    },
+    {
+      "id": "ev-114",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-560-3"
+      ],
+      "retrieved_ids": [
+        "bgb-560-1",
+        "bgb-556a-2",
+        "bgb-551-1",
+        "bgb-556-2",
+        "bgb-560-3",
+        "bgb-556a-1",
+        "bgb-559c-5",
+        "bgb-560-2",
+        "bgb-556-1",
+        "bgb-559c-1"
+      ]
+    },
+    {
+      "id": "ev-115",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573-3"
+      ],
+      "retrieved_ids": [
+        "bgb-573a-3",
+        "bgb-569-4",
+        "bgb-573-3",
+        "bgb-574-3",
+        "bgb-627-1",
+        "bgb-1597-1",
+        "bgb-1617d-4",
+        "bgb-1168-3",
+        "bgb-648a-6",
+        "bgb-594f"
+      ]
+    },
+    {
+      "id": "ev-116",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-573-4"
+      ],
+      "retrieved_ids": [
+        "bgb-573-1",
+        "bgb-573b-1",
+        "bgb-573-2",
+        "bgb-573-3",
+        "bgb-573a-1",
+        "bgb-540-1",
+        "bgb-553-1",
+        "bgb-563-4",
+        "bgb-562b-1",
+        "bgb-544"
+      ]
+    },
+    {
+      "id": "ev-117",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-576-1"
+      ],
+      "retrieved_ids": [
+        "bgb-622-1",
+        "bgb-622-3",
+        "bgb-621",
+        "bgb-622-5",
+        "bgb-622-2",
+        "bgb-624",
+        "bgb-573c-2",
+        "bgb-576-1",
+        "bgb-489-1",
+        "bgb-573c-1"
+      ]
+    },
+    {
+      "id": "ev-118",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-566e-1"
+      ],
+      "retrieved_ids": [
+        "bgb-566d",
+        "bgb-547-1",
+        "bgb-556g-1a",
+        "bgb-535-2",
+        "bgb-577-1",
+        "bgb-566b-1",
+        "bgb-566c",
+        "bgb-578a-2",
+        "bgb-556g-3",
+        "bgb-553-2"
+      ]
+    },
+    {
+      "id": "ev-119",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-558d-1"
+      ],
+      "retrieved_ids": [
+        "bgb-558d-1",
+        "bgb-558a-3",
+        "bgb-558c-4",
+        "bgb-558c-1",
+        "bgb-558d-2",
+        "bgb-558a-4",
+        "bgb-558d-3",
+        "bgb-558c-3",
+        "bgb-558c-2",
+        "bgb-558a-2"
+      ]
+    },
+    {
+      "id": "ev-120",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-544"
+      ],
+      "retrieved_ids": [
+        "bgb-544",
+        "bgb-594b",
+        "bgb-578-1",
+        "bgb-550",
+        "bgb-1853",
+        "bgb-565-1",
+        "bgb-556g-2",
+        "bgb-481-1",
+        "bgb-573a-1",
+        "bgb-559-3a"
+      ]
+    },
+    {
+      "id": "ev-121",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-555f"
+      ],
+      "retrieved_ids": [
+        "bgb-555f",
+        "bgb-555c-2",
+        "bgb-555c-1",
+        "bgb-559-1",
+        "bgb-574c-2",
+        "bgb-556g-1a",
+        "bgb-559c-4",
+        "bgb-566c",
+        "bgb-555",
+        "bgb-558c-1"
+      ]
+    },
+    {
+      "id": "ev-122",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-560-1",
+        "bgb-560-2",
+        "bgb-559-1",
+        "bgb-556c-1",
+        "bgb-556a-2",
+        "bgb-556-1",
+        "bgb-556-3",
+        "bgb-551-1",
+        "bgb-560-5",
+        "bgb-556a-1"
+      ]
+    },
+    {
+      "id": "ev-123",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-557-2",
+        "bgb-557a-1",
+        "bgb-557b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559c-3",
+        "bgb-558b-1",
+        "bgb-561-1",
+        "bgb-558-1",
+        "bgb-558b-2",
+        "bgb-556e-2",
+        "bgb-559c-4",
+        "bgb-555c-1",
+        "bgb-557-1",
+        "bgb-557-2"
+      ]
+    },
+    {
+      "id": "ev-124",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-565-1"
+      ],
+      "retrieved_ids": [
+        "bgb-565-1",
+        "bgb-556d-2",
+        "bgb-573a-2",
+        "bgb-493-1",
+        "bgb-576-1",
+        "bgb-1812-2",
+        "bgb-576b-1",
+        "bgb-1715-2",
+        "bgb-565-3",
+        "bgb-1715-1"
+      ]
+    },
+    {
+      "id": "ev-125",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-573-1",
+        "bgb-573-3"
+      ],
+      "retrieved_ids": [
+        "bgb-573-1",
+        "bgb-556g-2",
+        "bgb-563-4",
+        "bgb-575-2",
+        "bgb-575-3",
+        "bgb-556g-1a",
+        "bgb-572-1",
+        "bgb-574c-2",
+        "bgb-574b-2",
+        "bgb-573-3"
+      ]
+    },
+    {
+      "id": "ev-126",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-542-2",
+        "bgb-545"
+      ],
+      "retrieved_ids": [
+        "bgb-574a-2",
+        "bgb-312f-3",
+        "bgb-545",
+        "bgb-1486-1",
+        "bgb-575-1",
+        "bgb-1486-2",
+        "bgb-574c-2",
+        "bgb-667",
+        "bgb-550",
+        "bgb-1468"
+      ]
+    },
+    {
+      "id": "ev-127",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-547-1",
+        "bgb-547-2"
+      ],
+      "retrieved_ids": [
+        "bgb-566b-1",
+        "bgb-566c",
+        "bgb-572-1",
+        "bgb-1124-2",
+        "bgb-556b-2",
+        "bgb-546a-1",
+        "bgb-569-5",
+        "bgb-578a-2",
+        "bgb-556g-2",
+        "bgb-552-2"
+      ]
+    },
+    {
+      "id": "ev-128",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-551-3",
+        "bgb-551-4"
+      ],
+      "retrieved_ids": [
+        "bgb-1841-2",
+        "bgb-555a-3",
+        "bgb-675t-1",
+        "bgb-566e-1",
+        "bgb-556g-2",
+        "bgb-537-1",
+        "bgb-556g-1a",
+        "bgb-566b-2",
+        "bgb-559c-3",
+        "bgb-535-1"
+      ]
+    },
+    {
+      "id": "ev-129",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-569-2"
+      ],
+      "retrieved_ids": [
+        "bgb-543-1",
+        "bgb-569-5",
+        "bgb-584-2",
+        "bgb-490-1",
+        "bgb-912-2",
+        "bgb-594a-2",
+        "bgb-580a-4",
+        "bgb-569-2",
+        "bgb-671-1",
+        "bgb-543-3"
+      ]
+    },
+    {
+      "id": "ev-130",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-543-3"
+      ],
+      "retrieved_ids": [
+        "bgb-569-3",
+        "bgb-574-1",
+        "bgb-574b-2",
+        "bgb-573-1",
+        "bgb-543-2",
+        "bgb-543-3",
+        "bgb-626-2",
+        "bgb-574c-2",
+        "bgb-575-2",
+        "bgb-573c-1"
+      ]
+    },
+    {
+      "id": "ev-131",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-569-4"
+      ],
+      "retrieved_ids": [
+        "bgb-569-4",
+        "bgb-543-3",
+        "bgb-627-1",
+        "bgb-626-2",
+        "bgb-314-2",
+        "bgb-725-3",
+        "bgb-569-3",
+        "bgb-627-2",
+        "bgb-725-5",
+        "bgb-569-2a"
+      ]
+    },
+    {
+      "id": "ev-132",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-548-2"
+      ],
+      "retrieved_ids": [
+        "bgb-556g-2",
+        "bgb-1361b-4",
+        "bgb-547-1",
+        "bgb-675j-2",
+        "bgb-1123-2",
+        "bgb-1171-3",
+        "bgb-475c-1",
+        "bgb-548-1",
+        "bgb-595-2",
+        "bgb-548-2"
+      ]
+    },
+    {
+      "id": "ev-133",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-548-1",
+        "bgb-548-2"
+      ],
+      "retrieved_ids": [
+        "bgb-545",
+        "bgb-573c-1",
+        "bgb-575-3",
+        "bgb-556-3",
+        "bgb-556g-2",
+        "bgb-566c",
+        "bgb-547-1",
+        "bgb-580",
+        "bgb-575-1",
+        "bgb-574b-2"
+      ]
+    },
+    {
+      "id": "ev-134",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-540-2"
+      ],
+      "retrieved_ids": [
+        "bgb-1042",
+        "bgb-836-1",
+        "bgb-575-1",
+        "bgb-573-2",
+        "bgb-1969-1",
+        "bgb-1361b-2",
+        "bgb-536c-2",
+        "bgb-1481-2",
+        "bgb-538",
+        "bgb-443-2"
+      ]
+    },
+    {
+      "id": "ev-135",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-553-3"
+      ],
+      "retrieved_ids": [
+        "bgb-552-2",
+        "bgb-560-1",
+        "bgb-557a-5",
+        "bgb-536-4",
+        "bgb-1169",
+        "bgb-554-2",
+        "bgb-262",
+        "bgb-558-6",
+        "bgb-2080-3",
+        "bgb-557b-5"
+      ]
+    },
+    {
+      "id": "ev-136",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-553-1",
+        "bgb-540-2",
+        "bgb-553-3"
+      ],
+      "retrieved_ids": [
+        "bgb-536c-2",
+        "bgb-2094-3",
+        "bgb-541",
+        "bgb-2158-2",
+        "bgb-540-1",
+        "bgb-1688-4",
+        "bgb-556e-1",
+        "bgb-1938",
+        "bgb-572-1",
+        "bgb-2309"
+      ]
+    },
+    {
+      "id": "ev-137",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-535-1",
+        "bgb-535-2"
+      ],
+      "retrieved_ids": [
+        "bgb-535-1",
+        "bgb-535-2",
+        "bgb-566a",
+        "bgb-565-1",
+        "bgb-563b-2",
+        "bgb-556-4",
+        "bgb-546-2",
+        "bgb-567",
+        "bgb-563b-3",
+        "bgb-536c-2"
+      ]
+    },
+    {
+      "id": "ev-138",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-556c-1",
+        "bgb-556-3a",
+        "bgb-559-1",
+        "bgb-601-1",
+        "bgb-559e-1",
+        "bgb-357c-1",
+        "bgb-555a-3",
+        "bgb-535-1",
+        "bgb-559c-2",
+        "bgb-566e-1"
+      ]
+    },
+    {
+      "id": "ev-139",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-556-3a"
+      ],
+      "retrieved_ids": [
+        "bgb-556-3a",
+        "bgb-312a-5",
+        "bgb-675r-2",
+        "bgb-675a",
+        "bgb-1878-3",
+        "bgb-675-3",
+        "bgb-433-2",
+        "bgb-357a-2",
+        "bgb-1511-2",
+        "bgb-1199-1"
+      ]
+    },
+    {
+      "id": "ev-140",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-560-3",
+        "bgb-560-6"
+      ],
+      "retrieved_ids": [
+        "bgb-613a-1",
+        "bgb-560-3",
+        "bgb-87-1",
+        "bgb-556a-2",
+        "bgb-1671-4",
+        "bgb-556-3",
+        "bgb-619",
+        "bgb-556-2",
+        "bgb-494-4",
+        "bgb-556-1"
+      ]
+    },
+    {
+      "id": "ev-141",
+      "type": "direct",
+      "gold_ids": [
+        "bgb-562a"
+      ],
+      "retrieved_ids": [
+        "bgb-562a",
+        "bgb-562b-2",
+        "bgb-562-1",
+        "bgb-592",
+        "bgb-1253-1",
+        "bgb-1252",
+        "bgb-1293",
+        "bgb-562-2",
+        "bgb-1222",
+        "bgb-362-1"
+      ]
+    },
+    {
+      "id": "ev-142",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-566c"
+      ],
+      "retrieved_ids": [
+        "bgb-578a-2",
+        "bgb-563b-2",
+        "bgb-547-1",
+        "bgb-1156",
+        "bgb-1158",
+        "bgb-566c",
+        "bgb-1123-2",
+        "bgb-556g-1a",
+        "bgb-760-2",
+        "bgb-566b-1"
+      ]
+    },
+    {
+      "id": "ev-143",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-551-2"
+      ],
+      "retrieved_ids": [
+        "bgb-493-4",
+        "bgb-1878-3",
+        "bgb-1835-4",
+        "bgb-760-2",
+        "bgb-1612-3",
+        "bgb-675r-2",
+        "bgb-551-1",
+        "bgb-83c-2",
+        "bgb-551-2",
+        "bgb-475-1"
+      ]
+    },
+    {
+      "id": "ev-144",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-551-1",
+        "bgb-551-4"
+      ],
+      "retrieved_ids": [
+        "bgb-650f-2",
+        "bgb-556e-1",
+        "bgb-551-1",
+        "bgb-2092-2",
+        "bgb-675i-1",
+        "bgb-622-6",
+        "bgb-1190-1",
+        "bgb-2346-1",
+        "bgb-650f-1",
+        "bgb-327e-2"
+      ]
+    },
+    {
+      "id": "ev-145",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-551-3"
+      ],
+      "retrieved_ids": [
+        "bgb-562b-1",
+        "bgb-566-2",
+        "bgb-572-1",
+        "bgb-566a",
+        "bgb-547-1",
+        "bgb-573-1",
+        "bgb-574b-2",
+        "bgb-537-2",
+        "bgb-572-2",
+        "bgb-555a-3"
+      ]
+    },
+    {
+      "id": "ev-146",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-536c-1",
+        "bgb-536-1",
+        "bgb-536a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-634",
+        "bgb-637-1",
+        "bgb-649-2",
+        "bgb-83c-2",
+        "bgb-536a-2",
+        "bgb-2318-3",
+        "bgb-2165-2",
+        "bgb-1472-2",
+        "bgb-1042",
+        "bgb-479b-4"
+      ]
+    },
+    {
+      "id": "ev-147",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-546-1",
+        "bgb-546a-1",
+        "bgb-571-1"
+      ],
+      "retrieved_ids": [
+        "bgb-566-2",
+        "bgb-574c-2",
+        "bgb-543-2",
+        "bgb-569-3",
+        "bgb-566a",
+        "bgb-574-1",
+        "bgb-573c-1",
+        "bgb-556g-2",
+        "bgb-573-2",
+        "bgb-574b-2"
+      ]
+    },
+    {
+      "id": "ev-148",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-535-2",
+        "bgb-556b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-557b-3",
+        "bgb-579-1",
+        "bgb-563b-2",
+        "bgb-547-1",
+        "bgb-566b-2",
+        "bgb-556g-2",
+        "bgb-535-2",
+        "bgb-1612-3",
+        "bgb-559-3a",
+        "bgb-566b-1"
+      ]
+    },
+    {
+      "id": "ev-149",
+      "type": "layperson",
+      "gold_ids": [
+        "bgb-543-3",
+        "bgb-569-2"
+      ],
+      "retrieved_ids": [
+        "bgb-569-5",
+        "bgb-543-1",
+        "bgb-573-1",
+        "bgb-573a-1",
+        "bgb-563-4",
+        "bgb-540-1",
+        "bgb-536c-2",
+        "bgb-561-1",
+        "bgb-314-2",
+        "bgb-543-3"
+      ]
+    },
+    {
+      "id": "ev-150",
+      "type": "multi_section",
+      "gold_ids": [
+        "bgb-555d-1",
+        "bgb-555d-2",
+        "bgb-555d-3"
+      ],
+      "retrieved_ids": [
+        "bgb-555d-1",
+        "bgb-556e-2",
+        "bgb-555a-1",
+        "bgb-556e-1",
+        "bgb-555d-2",
+        "bgb-555e-1",
+        "bgb-559-3a",
+        "bgb-555a-3",
+        "bgb-551-3",
+        "bgb-556f"
+      ]
+    }
+  ]
+}

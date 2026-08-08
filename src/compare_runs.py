@@ -123,14 +123,14 @@ def report(name_a: str, name_b: str, res: dict) -> None:
     print(f"  verdict: {verdict(res)}\n")
 
 
-# The comparisons the results table actually claims, all on the 68-question set.
+# The comparisons the results table claims, all on the 150-question set.
 PAIRS = [
-    ("v68-dense-raw", "dense-context-v2", "breadcrumb context"),
-    ("dense-context-v2", "domain-scoped", "domain scoping"),
-    ("dense-context-v2", "v68-rerank", "cross-encoder reranking"),
-    ("v68-dense-raw", "v68-bm25", "BM25 instead of dense"),
-    ("v68-dense-raw", "v68-hybrid", "hybrid RRF"),
-    ("v68-chunk-section", "v68-chunk-absatz", "Absatz instead of whole section"),
+    ("v150-raw", "v150-context", "breadcrumb context"),
+    ("v150-context", "v150-domain", "domain scoping"),
+    ("v150-context", "v150-rerank", "cross-encoder reranking"),
+    ("v150-raw", "v150-bm25", "BM25 instead of dense"),
+    ("v150-raw", "v150-hybrid", "hybrid RRF"),
+    ("v150-chunk-section", "v150-chunk-absatz", "Absatz instead of whole section"),
 ]
 
 

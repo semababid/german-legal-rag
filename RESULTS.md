@@ -1,13 +1,13 @@
 # Results
 
-Retrieval quality on a hand-built Mietrecht evaluation set. hit@k is the fraction
-of questions with a ground-truth section in the top k. MRR is the mean reciprocal
-rank of the first correct hit. Latency is the median over the whole run on an
-Apple M5.
+Retrieval quality on a hand-built Mietrecht evaluation set of 150 questions, each
+pointing at the sections of the BGB that answer it. hit@k is the fraction of
+questions with a ground-truth section in the top k. MRR is the mean reciprocal rank
+of the first correct hit. Latency is the median over the run on an Apple M5.
 
-The eval set grew from 60 to 68 questions partway through, after error analysis
-showed which failure modes were under-represented. Runs are grouped by which set
-they were scored on, because numbers across the two are not comparable.
+Every comparison below is significance tested. On a set this size a five point
+difference in hit@1 is seven or eight questions, which is close enough to what
+chance produces that an untested table would invite conclusions it cannot support.
 
 ## Final configuration
 
@@ -16,25 +16,33 @@ breadcrumb, restricted to §§ 535 to 580a. No second retriever, no reranking.
 
 | | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
 | --- | --- | --- | --- | --- | --- | --- |
-| Final | 0.735 | 0.882 | 0.912 | 0.941 | 0.815 | 28 |
+| Final | 0.627 | 0.827 | 0.860 | 0.920 | 0.733 | 28 |
 
 ```bash
 python src/index_corpus.py --granularity absatz --with-context
-python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label domain-scoped
+python src/eval_retrieval.py --retriever domain --collection absatz_ctx --label v150-domain
 ```
+
+## All configurations
+
+| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
+| --- | --- | --- | --- | --- | --- | --- |
+| BM25 | 0.180 | 0.300 | 0.353 | 0.467 | 0.259 | 4 |
+| Hybrid, reciprocal rank fusion | 0.373 | 0.560 | 0.607 | 0.740 | 0.484 | 32 |
+| Dense, raw Absatz text | 0.480 | 0.680 | 0.740 | 0.800 | 0.592 | 26 |
+| Rerank on top of context | 0.573 | 0.780 | 0.847 | 0.920 | 0.689 | 1984 |
+| Dense + breadcrumb context | 0.593 | 0.793 | 0.827 | 0.907 | 0.703 | 26 |
+| **Dense + context + domain scope** | **0.627** | **0.827** | **0.860** | **0.920** | **0.733** | **28** |
+
+Chunk granularity is compared separately below, because it needs a different
+scoring rule to be fair.
 
 ## How much of this is real
 
-Sixty-eight questions is a small sample. A five point difference in hit@1 is three
-or four questions, which is well inside what chance produces, so every comparison
-the table makes is tested rather than eyeballed.
-
-Two tests, both on paired per-question outcomes. McNemar's exact test on hit@1
-looks only at questions where the two runs disagree. A bootstrap confidence
-interval on the paired MRR difference uses the whole ranking instead of collapsing
-to hit or miss, so it has more power to detect a small consistent shift.
-
-All comparisons below are on the same 68 questions.
+McNemar's exact test on hit@1 looks only at questions where two runs disagree,
+which is the right test for paired binary outcomes. The bootstrap interval on the
+paired MRR difference uses the whole ranking rather than collapsing to hit or miss,
+so it detects smaller consistent shifts.
 
 ```bash
 python src/compare_runs.py --all
@@ -42,88 +50,61 @@ python src/compare_runs.py --all
 
 | Comparison | hit@1 | McNemar p | MRR | 95% CI of MRR diff | Verdict |
 | --- | --- | --- | --- | --- | --- |
-| Add breadcrumb context | 0.588 to 0.691 | 0.167 | 0.670 to 0.780 | [+0.034, +0.188] | real on MRR |
-| Add domain scoping | 0.691 to 0.735 | 0.250 | 0.780 to 0.815 | [+0.007, +0.071] | real on MRR |
-| Absatz instead of section | 0.618 to 0.706 | 0.146 | 0.721 to 0.788 | [+0.012, +0.127] | real on MRR |
-| BM25 instead of dense | 0.588 to 0.294 | 0.0000 | 0.670 to 0.383 | [-0.382, -0.194] | real on both |
-| Hybrid RRF | 0.588 to 0.471 | 0.115 | 0.670 to 0.586 | [-0.171, +0.004] | not distinguishable |
-| Cross-encoder reranking | 0.691 to 0.647 | 0.607 | 0.780 to 0.749 | [-0.099, +0.037] | not distinguishable |
+| Add breadcrumb context | 0.480 to 0.593 | 0.0076 | 0.592 to 0.703 | [+0.060, +0.161] | real on both |
+| BM25 instead of dense | 0.480 to 0.180 | 0.0000 | 0.592 to 0.259 | [-0.397, -0.270] | real on both |
+| Hybrid RRF | 0.480 to 0.373 | 0.0139 | 0.592 to 0.484 | [-0.169, -0.049] | real on both, harmful |
+| Add domain scoping | 0.593 to 0.627 | 0.0625 | 0.703 to 0.733 | [+0.013, +0.053] | real on MRR |
+| Absatz instead of section | 0.613 to 0.660 | 0.248 | 0.716 to 0.755 | [-0.002, +0.082] | not distinguishable |
+| Cross-encoder reranking | 0.593 to 0.573 | 0.743 | 0.703 to 0.689 | [-0.062, +0.036] | not distinguishable |
 
-This changes what can honestly be claimed, in two directions.
+Domain scoping deserves a note. It fixes 5 questions and breaks 0, which is as
+one-sided as an effect can be, but five discordant pairs cannot produce a p below
+0.0625 no matter how they fall. That is the floor of the test at that count, not
+evidence against the change. The MRR interval excludes zero, and the mechanism is
+not in doubt: returning a property-law section for a tenancy question is wrong by
+construction.
 
-Only one result is unambiguous: BM25 is much worse than dense retrieval, and no
-sample-size argument rescues it.
+## What changed when the eval set grew
 
-The two changes that help, breadcrumb context and domain scoping, are real on MRR
-but not established on hit@1 at this sample size. Breadcrumb context moves 13
-questions up and 6 down, which is a clear direction but not enough separation for
-McNemar at n=68. Domain scoping fixes 3 and breaks 0, a strictly one-way effect
-with an obvious mechanism, but three questions is three questions.
+The set was 68 questions before this table was rebuilt at 150. Three verdicts moved,
+in both directions, which is the clearest argument for having done it.
 
-The two that appeared to hurt, hybrid fusion and reranking, are **not**
-statistically distinguishable from doing nothing. Earlier drafts of this file said
-reranking "loses", which overstates a 0.691 to 0.647 difference with p = 0.607.
-What survives for reranking is the latency argument, which needs no statistics: 76
-times slower for no measurable accuracy gain is a poor trade regardless.
+| Comparison | At n=68 | At n=150 |
+| --- | --- | --- |
+| Breadcrumb context | real on MRR only | real on both |
+| Hybrid RRF | not distinguishable | real on both, harmful |
+| Absatz instead of section | real on MRR only | not distinguishable |
 
-The eval set is the binding constraint. Detecting a ten point difference reliably
-needs a few hundred paired questions rather than 68, and growing it is the highest
-value next step for the measurement side of this project.
+The first two firmed up, as more data usually does. The third went the other way:
+the chunking advantage that looked real at 68 questions no longer separates from
+noise at 150, and its MRR interval now touches zero. The earlier result was
+probably part signal and part small-sample luck, and the honest position is that
+Absatz chunks are not shown to beat whole sections on this evidence.
 
-## Experiments, 68-question set
+Absolute scores also fell, from 0.735 to 0.627 at hit@1 for the same configuration.
+Nothing regressed. The larger set reaches 77 distinct sections instead of 35 and
+includes far more layperson phrasing, so it is simply a harder test. Numbers from
+the two sets are not comparable, and only the 150-question ones are quoted here.
 
-Every configuration on the same questions. This is the table to read.
-
-| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
-| --- | --- | --- | --- | --- | --- | --- |
-| BM25 | 0.294 | 0.426 | 0.500 | 0.603 | 0.383 | 4 |
-| Hybrid, reciprocal rank fusion | 0.471 | 0.676 | 0.721 | 0.809 | 0.586 | 32 |
-| Dense, raw Absatz text | 0.588 | 0.721 | 0.794 | 0.838 | 0.670 | 26 |
-| Whole-section chunks | 0.618 | 0.794 | 0.868 | 0.912 | 0.721 | 26 |
-| Rerank on top of context | 0.647 | 0.853 | 0.882 | 0.941 | 0.749 | 1984 |
-| Dense + breadcrumb context | 0.691 | 0.853 | 0.868 | 0.941 | 0.780 | 26 |
-| **Dense + context + domain scope** | **0.735** | **0.882** | **0.912** | **0.941** | **0.815** | **28** |
-
-The two chunk rows are scored at paragraph level, for the reason given under Chunk
-size below.
-
-## Earlier runs, 60-question set
-
-Kept because the per-type breakdowns and the error analysis were done on this set,
-before the eval grew. Not comparable with the table above.
-
-| Run | hit@1 | hit@3 | hit@5 | hit@10 | MRR | p50 ms |
-| --- | --- | --- | --- | --- | --- | --- |
-| Dense baseline (raw Absatz text) | 0.617 | 0.767 | 0.850 | 0.900 | 0.709 | 26 |
-| BM25 | 0.333 | 0.483 | 0.550 | 0.650 | 0.427 | 4 |
-| Hybrid, reciprocal rank fusion | 0.500 | 0.667 | 0.733 | 0.817 | 0.601 | 32 |
-| Rerank on context, raw pair text | 0.683 | 0.867 | 0.933 | 0.950 | 0.787 | 1551 |
-| Rerank on context, matched pair text | 0.700 | 0.900 | 0.917 | 0.983 | 0.798 | 1984 |
-| Dense + breadcrumb context | 0.767 | 0.917 | 0.933 | 0.983 | 0.850 | 26 |
-
-## Breadcrumb context, the change that helped most
+## Breadcrumb context, the change that worked
 
 Same model, same corpus, same queries. The only difference is what goes into the
 embedding: the structural breadcrumb and section title, then the text.
 
 | Type | n | hit@1 | hit@3 | hit@5 | hit@10 | MRR |
 | --- | --- | --- | --- | --- | --- | --- |
-| direct | 32 | 0.844 | 0.969 | 1.000 | 1.000 | 0.912 |
-| multi_section | 16 | 0.875 | 1.000 | 1.000 | 1.000 | 0.938 |
-| layperson | 12 | 0.417 | 0.667 | 0.667 | 0.917 | 0.565 |
+| direct | 76 | 0.658 | 0.868 | 0.895 | 0.934 | 0.765 |
+| multi_section | 40 | 0.675 | 0.875 | 0.900 | 0.950 | 0.783 |
+| layperson | 34 | 0.353 | 0.529 | 0.588 | 0.794 | 0.468 |
 
-Overall hit@1 rises from 0.617 to 0.767 and MRR from 0.709 to 0.850. Per question,
-21 improved, 34 were unchanged, 5 slipped by one rank.
+It moves 27 questions up and 10 down, hit@1 from 0.480 to 0.593, MRR from 0.592 to
+0.703. This is the only change tested here that is significant on both metrics and
+positive.
 
-The gain lands where the baseline was weakest. Multi-section questions double at
-rank 1, from 0.438 to 0.875. That fits the mechanism: a question spanning three
-sections needs each of them to look relevant alone, and an Absatz stripped of its
-heading often does not.
-
-§ 573c Abs. 1 is the clearest case. Its text gives a notice period without
-containing Mietvertrag, Wohnraum, Frist, or Kündigung. Embedded alone it is a
-paragraph about counting days. Embedded under its breadcrumb it is recognisably a
-rule about notice periods in residential tenancies.
+§ 573c Abs. 1 shows why. Its text gives a notice period without containing
+Mietvertrag, Wohnraum, Frist, or Kündigung. Embedded alone it is a paragraph about
+counting days. Embedded under its breadcrumb it is recognisably a rule about notice
+periods in residential tenancies.
 
 The breadcrumb comes from the document's own structure, not from the eval
 questions, so no answer leaks into the index. Part of the gain does come from
@@ -132,30 +113,25 @@ mechanism rather than a confound.
 
 ## Domain scoping
 
-Error analysis showed 6 of 21 wrong top-1 hits coming from outside tenancy law
-entirely, four from Sachenrecht and two from Familienrecht. The corpus is the whole
-BGB, so a vague tenancy question can drift into property or family law.
+Error analysis found wrong top-1 hits landing in Sachenrecht and Familienrecht. The
+corpus is the whole BGB and only 6% of it (295 of 4,921 records) is tenancy law, so
+a vague question can drift out of scope entirely.
 
-Restricting results to §§ 535 to 580a lifts hit@1 from 0.691 to 0.735 and MRR from
-0.780 to 0.815, for about 1 ms of extra latency. It is a filter over candidates the
-retriever already produced, so there is no model involved.
+Restricting results to §§ 535 to 580a costs about 1 ms and fixes 5 questions without
+breaking any. It narrows what the system can answer, which is the intended trade: a
+tenancy assistant that silently returns a property-law section is worse than one
+that stays in scope.
 
-This narrows what the system can answer, which is the intended trade. A tenancy
-assistant that silently returns a property-law section is worse than one that stays
-in scope.
+Only 6% of records being in range also means a naive post-filter starves. Fetching
+50 candidates yields roughly 3 in scope, so the filter escalates its fetch until it
+has enough, rather than returning fewer results than asked for.
 
-## BM25, the one clear loser
+## BM25, the clearest loser
 
-| Type | n | hit@1 | hit@3 | hit@5 | hit@10 | MRR |
-| --- | --- | --- | --- | --- | --- | --- |
-| direct | 32 | 0.438 | 0.688 | 0.719 | 0.750 | 0.552 |
-| multi_section | 16 | 0.375 | 0.438 | 0.562 | 0.750 | 0.460 |
-| layperson | 12 | 0.000 | 0.000 | 0.083 | 0.250 | 0.049 |
-
-BM25 loses on every type, and on layperson questions it fails outright: no correct
-section in the top three for any of the twelve. Those questions are written the way
-a tenant would ask, so they share almost no literal vocabulary with the statute.
-Lexical scoring has nothing to match on.
+BM25 is worse than dense retrieval by every measure and at every rank, fixing 2
+questions and breaking 47. Layperson phrasings are where it collapses, because
+questions written the way a tenant would ask share almost no literal vocabulary
+with the statute that answers them. Lexical scoring has nothing to match on.
 
 This contradicts the expectation I started with, that BM25 would win on German
 compound nouns. It would, if the questions reused the exact compound from the
@@ -164,23 +140,10 @@ than copied from the statute.
 
 ## Hybrid fusion
 
-Before building it, worth checking whether the two retrievers even find different
-things, since fusion can only reorder what one of them already found.
-
-| Outcome across 60 questions | Count | Share |
-| --- | --- | --- |
-| Both find a gold section in the top 10 | 38 | 63% |
-| Dense only | 16 | 27% |
-| BM25 only | 1 | 2% |
-| Neither | 5 | 8% |
-
-The union ceiling for hit@10 is 0.917 against dense's 0.900. On rank quality dense
-is better on 33 questions, BM25 on 3.
-
-The run confirmed the prediction: hybrid scores 0.500 at hit@1 against dense's
-0.617. Reciprocal rank fusion weights its inputs equally, which is right when the
-retrievers are comparable. Here they are not, so giving the weaker one an equal vote
-pulls correct results down the list.
+Reciprocal rank fusion of dense and BM25 is significantly worse than dense alone,
+fixing 11 questions and breaking 27. RRF weights its inputs equally, which is right
+when the retrievers are comparable. Here they are not, so giving the weaker one an
+equal vote pulls correct results down the list.
 
 A weighted fusion discounting BM25 would recover most of the loss, but tuning that
 weight against the same questions used to report the result would be fitting to the
@@ -190,111 +153,73 @@ eval set rather than measuring on it. Left alone deliberately.
 
 The top 25 candidates were rescored with `BAAI/bge-reranker-v2-m3`.
 
-The first run scored each candidate's raw Absatz text. That was wrong, and the error
-is instructive: the candidates were found using context-enriched embeddings, so
-reranking on bare text discards the breadcrumb that made them findable. Feeding the
-reranker the same text the retriever matched on moved hit@1 from 0.683 to 0.700.
+The first attempt scored each candidate's raw Absatz text. That was wrong, and the
+error is instructive: the candidates were found using context-enriched embeddings,
+so reranking on bare text discards the breadcrumb that made them findable. Feeding
+the reranker the same text the retriever matched on recovered part of the gap.
 
-It does not beat no reranking at all. On the 68-question set the difference is
-0.691 against 0.647 with McNemar p = 0.607, so the accuracy difference is not
-established either way; on the 60-question set it improved 7 questions and worsened
-12. What is not in doubt is that it does not help.
+Done correctly it still does not help. At 150 questions it fixes 17 and breaks 20,
+p = 0.743, and the MRR interval spans zero. The accuracy difference is not
+established in either direction.
 
-There is very little left to fix. Dense plus context already places a gold section
-in the top three for 92% of questions. A general-purpose multilingual reranker
-reordering an already good list of short, formulaic statutory paragraphs mostly
-introduces noise, and it has no German legal tuning.
-
-Latency settles it: 1,984 ms against 26 ms, about 76 times slower, to lose seven
-points of hit@1.
+Latency settles it without needing statistics. Reranking 25 candidates costs about
+1,984 ms against 26 ms, roughly 76 times slower, for no measurable gain.
 
 ## Chunk size
 
 The corpus parses into 4,921 Absatz records or 2,486 whole sections. Both runs are
 scored at paragraph level, where a hit means the retriever surfaced the section
 containing a gold Absatz, since a section index can never string-match an
-Absatz-level id. That makes these Absatz numbers slightly higher than elsewhere.
+Absatz-level id.
 
 | Chunk | Records | hit@1 | hit@3 | hit@5 | hit@10 | MRR |
 | --- | --- | --- | --- | --- | --- | --- |
-| Absatz | 4,921 | 0.783 | 0.917 | 0.933 | 0.983 | 0.858 |
-| Whole section | 2,486 | 0.683 | 0.850 | 0.933 | 0.967 | 0.788 |
+| Absatz | 4,921 | 0.660 | 0.840 | 0.867 | 0.933 | 0.755 |
+| Whole section | 2,486 | 0.613 | 0.787 | 0.873 | 0.920 | 0.716 |
 
-Absatz wins by 10 points at hit@1. The gap closes by rank 5, so this is about
-ranking precision rather than reachability. The likely mechanism is dilution: a
-section such as § 543 spans several Absätze covering distinct rules, and averaging
-them into one vector blurs what the section is about.
-
-I predicted Absatz would win on precision and section on recall. The first half held
-and the second did not. Section chunks are no better at hit@10, so there is no
-recall argument for them either.
-
-## Error analysis and how the eval set grew
-
-With the winning config, five of the original 60 questions fell outside the top
-three. They fall into three patterns.
-
-**A salient noun pointing at the wrong area of law.** ev-024 asks whether full rent
-is owed when the heating has been broken for two weeks. The answer is § 536 Abs. 1
-on rent reduction. The top five results were all about heating installations:
-
-```
-1. § 559e Abs. 3  Mieterhöhung nach Einbau einer Heizungsanlage
-2. § 559e Abs. 5  Mieterhöhung nach Einbau einer Heizungsanlage
-3. § 559e Abs. 2  Mieterhöhung nach Einbau einer Heizungsanlage
-4. § 556c Abs. 1  Kosten der Wärmelieferung als Betriebskosten
-5. § 559e Abs. 1  Mieterhöhung nach Einbau einer Heizungsanlage
-```
-
-It matched on Heizung when the question is not about heating at all. The heating is
-incidental to a question about what a tenant owes when something is broken.
-
-**The right cluster, the wrong rule.** ev-045 asks about leaving because of an
-announced modernisation. It returned § 559 Abs. 4, § 555c and § 555d, all correct
-territory, but the special termination right is § 555e. ev-049 returned § 566 where
-the deposit rule is the adjacent § 566a.
-
-**Too little signal.** ev-030, "Das Haus wurde verkauft. Muss ich jetzt ausziehen?",
-is short and generic enough that the retriever left tenancy law altogether.
-
-Eight questions were then written to probe these patterns deliberately, taking the
-set to 68. Five of the eight land outside the top three, so they are doing their
-job. The headline number drops from 0.767 to 0.691 as a result, which is the eval
-set getting harder rather than the system getting worse.
+Absatz looks better and the direction is consistent, but at p = 0.248 with an MRR
+interval touching zero it is not established. The project uses Absatz chunks
+anyway, because they are also what the citation-level answers in later phases need,
+but the retrieval evidence for that choice is weak and should not be presented as
+settled.
 
 ## What still fails
 
-Ten of 68 questions sit outside the top three with the final configuration, and
-seven of those ten are layperson phrasings. That is the honest weak spot: everyday
-German with no legal vocabulary, where the query's most salient word is often
-incidental to the legal question being asked.
+Layperson phrasing, clearly and consistently. At hit@1 the final configuration gets
+0.671 on direct questions, 0.750 on multi-section ones, and 0.382 on layperson
+ones. Everyday German with no legal vocabulary is where this system is worst, and
+nothing tried here fixed it.
 
-None of the techniques tried here address it, because it is a query understanding
-problem rather than an indexing or ranking one. Rewriting the query into statutory
-language before retrieval is the obvious next thing to try, and it is out of scope
-for this phase.
+The failure mode is that the query's most salient noun is often incidental to the
+legal question. Asking whether full rent is owed when the heating has been broken
+for two weeks returns sections about heating installations, because the question
+says Heizung while the answer is about rent reduction for defects. Indexing and
+ranking cannot repair that, since the retriever is matching the wrong concept
+faithfully. Rewriting the query into statutory language before retrieval is the
+obvious next lever and is out of scope for this phase.
 
 ## What actually mattered
 
 | Change | Direction | Holds up? |
 | --- | --- | --- |
 | Use BM25 instead of dense | much worse | yes, p < 0.0001 |
-| Fuse dense and BM25 with RRF | worse | not distinguishable |
-| Add a cross-encoder reranker | worse, and 76x slower | accuracy not distinguishable, latency decisive |
-| Use whole sections instead of Absätze | worse | real on MRR |
-| Index the structural breadcrumb with the text | better | real on MRR |
-| Restrict results to the tenancy sections | better | real on MRR |
+| Fuse dense and BM25 with RRF | worse | yes, p = 0.014 |
+| Add a cross-encoder reranker | no measurable change, 76x slower | not distinguishable |
+| Use whole sections instead of Absätze | slightly worse | not distinguishable |
+| Index the structural breadcrumb with the text | better | yes, p = 0.008 |
+| Restrict results to the tenancy sections | better | on MRR |
 
-Four of six changes made retrieval worse. Both that worked are cheap and structural:
-one changes what is stored, the other filters what is returned. Neither adds a model
-to the request path. The four that failed all bolted machinery onto retrieval that
-was already working, or coarsened the unit it works on.
+One change out of six is significant, positive, and cheap. It costs nothing at
+query time because it changes what is stored rather than what happens per request.
+Two of the others are significantly harmful, and two cannot be distinguished from
+doing nothing at all.
 
-The shipped configuration is therefore the simplest one tested, and also the
-fastest at 27 ms per query.
+The shipped configuration is the simplest one tested and also the fastest.
 
 ## Setup
 
 Model `BAAI/bge-m3`, 1024-dimensional, cosine similarity, on Apple Silicon (MPS).
 Reranking used `BAAI/bge-reranker-v2-m3`. Corpus is 4,921 Absatz records from the
 BGB revision of 22 July 2026. Qdrant runs in local on-disk mode, no server needed.
+Exact package versions are pinned in `requirements.txt`, since an embedding model
+that shifts under a loose range would change these numbers without any code change.
