@@ -28,11 +28,24 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 RESULTS_DIR = REPO_ROOT / "results"
 
 
-def load(name: str) -> dict[str, dict]:
+def load(name: str, level: str = "paragraph") -> dict[str, dict]:
+    """Load one run, projected onto the requested scoring level.
+
+    Runs store both views per question, so switching level does not require
+    re-running the retriever.
+    """
     path = RESULTS_DIR / f"{name}.json"
     if not path.exists():
         raise SystemExit(f"No run at {path}")
-    return {r["id"]: r for r in json.load(path.open(encoding="utf-8"))["results"]}
+    rows = json.load(path.open(encoding="utf-8"))["results"]
+    gold = "gold_paragraphs" if level == "paragraph" else "gold_ids"
+    got = "retrieved_paragraphs" if level == "paragraph" else "retrieved_ids"
+    out = {}
+    for r in rows:
+        # older result files predate the dual view and only carry the strict keys
+        out[r["id"]] = {"gold_ids": r.get(gold, r["gold_ids"]),
+                        "retrieved_ids": r.get(got, r["retrieved_ids"])}
+    return out
 
 
 def hit_at_1(row: dict) -> int:
@@ -67,8 +80,8 @@ def bootstrap_ci(diffs: list[float], reps: int = 20000, seed: int = 0) -> tuple[
     return means[int(0.025 * reps)], means[int(0.975 * reps)]
 
 
-def compare(name_a: str, name_b: str, reps: int = 20000) -> dict:
-    a, b = load(name_a), load(name_b)
+def compare(name_a: str, name_b: str, reps: int = 20000, level: str = "paragraph") -> dict:
+    a, b = load(name_a, level), load(name_b, level)
     shared = sorted(set(a) & set(b))
     if not shared:
         raise SystemExit(f"{name_a} and {name_b} share no questions")
@@ -124,13 +137,16 @@ def report(name_a: str, name_b: str, res: dict) -> None:
 
 
 # The comparisons the results table claims, all on the 150-question set.
+# paragraph_only marks a pair that cannot be scored strictly: a section index
+# returns section ids, which never string-match Absatz-level ground truth, so a
+# strict run of it measures the id format rather than retrieval quality.
 PAIRS = [
-    ("v150-raw", "v150-context", "breadcrumb context"),
-    ("v150-context", "v150-domain", "domain scoping"),
-    ("v150-context", "v150-rerank", "cross-encoder reranking"),
-    ("v150-raw", "v150-bm25", "BM25 instead of dense"),
-    ("v150-raw", "v150-hybrid", "hybrid RRF"),
-    ("v150-chunk-section", "v150-chunk-absatz", "Absatz instead of whole section"),
+    ("v150-raw", "v150-context", "breadcrumb context", False),
+    ("v150-context", "v150-domain", "domain scoping", False),
+    ("v150-context", "v150-rerank", "cross-encoder reranking", False),
+    ("v150-raw", "v150-bm25", "BM25 instead of dense", False),
+    ("v150-raw", "v150-hybrid", "hybrid RRF", False),
+    ("v150-chunk-section", "v150-chunk-absatz", "Absatz instead of whole section", True),
 ]
 
 
@@ -139,18 +155,23 @@ def main() -> int:
     ap.add_argument("run_a", nargs="?")
     ap.add_argument("run_b", nargs="?")
     ap.add_argument("--all", action="store_true", help="run every comparison the results table claims")
+    ap.add_argument("--level", choices=("paragraph", "strict"), default="paragraph")
     ap.add_argument("--reps", type=int, default=20000)
     args = ap.parse_args()
 
     if args.all:
-        for a, b, label in PAIRS:
+        print(f"scoring level: {args.level}\n")
+        for a, b, label, paragraph_only in PAIRS:
             print(f"### {label}")
-            report(a, b, compare(a, b, args.reps))
+            if paragraph_only and args.level != "paragraph":
+                print("  skipped: only meaningful at paragraph level\n")
+                continue
+            report(a, b, compare(a, b, args.reps, args.level))
         return 0
 
     if not (args.run_a and args.run_b):
         ap.error("give two run names, or --all")
-    report(args.run_a, args.run_b, compare(args.run_a, args.run_b, args.reps))
+    report(args.run_a, args.run_b, compare(args.run_a, args.run_b, args.reps, args.level))
     return 0
 
 

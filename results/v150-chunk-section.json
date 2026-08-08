@@ -2,52 +2,143 @@
   "label": "v150-chunk-section",
   "retriever": "dense",
   "collection": "paragraph_ctx",
-  "match_level": "paragraph",
+  "level": "paragraph",
   "metrics": {
-    "overall": {
-      "n": 150,
-      "mrr": 0.7157195767195768,
-      "hit@1": 0.6133333333333333,
-      "hit@3": 0.7866666666666666,
-      "hit@5": 0.8733333333333333,
-      "hit@10": 0.92
-    },
-    "by_type": {
-      "direct": {
-        "n": 76,
-        "mrr": 0.7680190058479534,
-        "hit@1": 0.6710526315789473,
-        "hit@3": 0.8421052631578947,
-        "hit@5": 0.9078947368421053,
-        "hit@10": 0.9473684210526315
+    "paragraph": {
+      "overall": {
+        "n": 150,
+        "mrr": 0.7157195767195768,
+        "hit@1": 0.6133333333333333,
+        "hit@3": 0.7866666666666666,
+        "hit@5": 0.8733333333333333,
+        "hit@10": 0.92
       },
-      "multi_section": {
-        "n": 40,
-        "mrr": 0.7808333333333333,
-        "hit@1": 0.675,
-        "hit@3": 0.85,
-        "hit@5": 0.95,
-        "hit@10": 0.95
+      "by_type": {
+        "direct": {
+          "n": 73,
+          "mrr": 0.7858828006088281,
+          "hit@1": 0.684931506849315,
+          "hit@3": 0.863013698630137,
+          "hit@5": 0.9315068493150684,
+          "hit@10": 0.9726027397260274
+        },
+        "multi_section": {
+          "n": 43,
+          "mrr": 0.7496124031007753,
+          "hit@1": 0.6511627906976745,
+          "hit@3": 0.813953488372093,
+          "hit@5": 0.9069767441860465,
+          "hit@10": 0.9069767441860465
+        },
+        "layperson": {
+          "n": 34,
+          "mrr": 0.5222105508870215,
+          "hit@1": 0.4117647058823529,
+          "hit@3": 0.5882352941176471,
+          "hit@5": 0.7058823529411765,
+          "hit@10": 0.8235294117647058
+        }
       },
-      "layperson": {
-        "n": 34,
-        "mrr": 0.5222105508870215,
-        "hit@1": 0.4117647058823529,
-        "hit@3": 0.5882352941176471,
-        "hit@5": 0.7058823529411765,
-        "hit@10": 0.8235294117647058
+      "by_scope": {
+        "core": {
+          "n": 76,
+          "mrr": 0.7459951963241438,
+          "hit@1": 0.6710526315789473,
+          "hit@3": 0.7894736842105263,
+          "hit@5": 0.8552631578947368,
+          "hit@10": 0.8947368421052632
+        },
+        "peripheral": {
+          "n": 74,
+          "mrr": 0.6846256971256973,
+          "hit@1": 0.5540540540540541,
+          "hit@3": 0.7837837837837838,
+          "hit@5": 0.8918918918918919,
+          "hit@10": 0.9459459459459459
+        }
       }
     },
-    "latency_p50_ms": 23.5
+    "strict": {
+      "overall": {
+        "n": 150,
+        "mrr": 0.07527777777777779,
+        "hit@1": 0.06,
+        "hit@3": 0.08,
+        "hit@5": 0.10666666666666667,
+        "hit@10": 0.12
+      },
+      "by_type": {
+        "direct": {
+          "n": 73,
+          "mrr": 0.11312785388127854,
+          "hit@1": 0.0958904109589041,
+          "hit@3": 0.1232876712328767,
+          "hit@5": 0.136986301369863,
+          "hit@10": 0.1643835616438356
+        },
+        "multi_section": {
+          "n": 43,
+          "mrr": 0.01627906976744186,
+          "hit@1": 0.0,
+          "hit@3": 0.0,
+          "hit@5": 0.06976744186046512,
+          "hit@10": 0.06976744186046512
+        },
+        "layperson": {
+          "n": 34,
+          "mrr": 0.06862745098039215,
+          "hit@1": 0.058823529411764705,
+          "hit@3": 0.08823529411764706,
+          "hit@5": 0.08823529411764706,
+          "hit@10": 0.08823529411764706
+        }
+      },
+      "by_scope": {
+        "core": {
+          "n": 76,
+          "mrr": 0.013157894736842105,
+          "hit@1": 0.013157894736842105,
+          "hit@3": 0.013157894736842105,
+          "hit@5": 0.013157894736842105,
+          "hit@10": 0.013157894736842105
+        },
+        "peripheral": {
+          "n": 74,
+          "mrr": 0.1390765765765766,
+          "hit@1": 0.10810810810810811,
+          "hit@3": 0.14864864864864866,
+          "hit@5": 0.20270270270270271,
+          "hit@10": 0.22972972972972974
+        }
+      }
+    },
+    "latency_p50_ms": 22.7,
+    "primary": "paragraph"
   },
   "results": [
     {
       "id": "ev-001",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 551"
+        "bgb-551-1"
       ],
       "retrieved_ids": [
+        "bgb-551",
+        "bgb-556d",
+        "bgb-557a",
+        "bgb-558",
+        "bgb-559",
+        "bgb-556g",
+        "bgb-556e",
+        "bgb-557",
+        "bgb-557b",
+        "bgb-559e"
+      ],
+      "gold_paragraphs": [
+        "§ 551"
+      ],
+      "retrieved_paragraphs": [
         "§ 551",
         "§ 556d",
         "§ 557a",
@@ -63,10 +154,26 @@
     {
       "id": "ev-002",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 551"
+        "bgb-551-2"
       ],
       "retrieved_ids": [
+        "bgb-1585",
+        "bgb-551",
+        "bgb-1612",
+        "bgb-557a",
+        "bgb-559",
+        "bgb-558",
+        "bgb-556b",
+        "bgb-557",
+        "bgb-556",
+        "bgb-1123"
+      ],
+      "gold_paragraphs": [
+        "§ 551"
+      ],
+      "retrieved_paragraphs": [
         "§ 1585",
         "§ 551",
         "§ 1612",
@@ -82,10 +189,26 @@
     {
       "id": "ev-003",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 551"
+        "bgb-551-3"
       ],
       "retrieved_ids": [
+        "bgb-551",
+        "bgb-556g",
+        "bgb-547",
+        "bgb-560",
+        "bgb-556",
+        "bgb-555a",
+        "bgb-1845",
+        "bgb-1382",
+        "bgb-559d",
+        "bgb-557a"
+      ],
+      "gold_paragraphs": [
+        "§ 551"
+      ],
+      "retrieved_paragraphs": [
         "§ 551",
         "§ 556g",
         "§ 547",
@@ -101,10 +224,26 @@
     {
       "id": "ev-004",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 573c"
+        "bgb-573c-1"
       ],
       "retrieved_ids": [
+        "bgb-573c",
+        "bgb-575",
+        "bgb-573a",
+        "bgb-580a",
+        "bgb-550",
+        "bgb-575a",
+        "bgb-573d",
+        "bgb-544",
+        "bgb-577a",
+        "bgb-545"
+      ],
+      "gold_paragraphs": [
+        "§ 573c"
+      ],
+      "retrieved_paragraphs": [
         "§ 573c",
         "§ 575",
         "§ 573a",
@@ -120,10 +259,26 @@
     {
       "id": "ev-005",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 556"
+        "bgb-556-3"
       ],
       "retrieved_ids": [
+        "bgb-556",
+        "bgb-560",
+        "bgb-556c",
+        "bgb-556a",
+        "bgb-556b",
+        "bgb-556g",
+        "bgb-555c",
+        "bgb-559",
+        "bgb-575",
+        "bgb-559c"
+      ],
+      "gold_paragraphs": [
+        "§ 556"
+      ],
+      "retrieved_paragraphs": [
         "§ 556",
         "§ 560",
         "§ 556c",
@@ -139,10 +294,26 @@
     {
       "id": "ev-006",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 548"
+        "bgb-548-1"
       ],
       "retrieved_ids": [
+        "bgb-548",
+        "bgb-591b",
+        "bgb-1057",
+        "bgb-606",
+        "bgb-571",
+        "bgb-1226",
+        "bgb-577a",
+        "bgb-575",
+        "bgb-556g",
+        "bgb-547"
+      ],
+      "gold_paragraphs": [
+        "§ 548"
+      ],
+      "retrieved_paragraphs": [
         "§ 548",
         "§ 591b",
         "§ 1057",
@@ -158,10 +329,26 @@
     {
       "id": "ev-007",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 538"
+        "bgb-538"
       ],
       "retrieved_ids": [
+        "bgb-538",
+        "bgb-539",
+        "bgb-602",
+        "bgb-994",
+        "bgb-567",
+        "bgb-601",
+        "bgb-540",
+        "bgb-555a",
+        "bgb-535",
+        "bgb-537"
+      ],
+      "gold_paragraphs": [
+        "§ 538"
+      ],
+      "retrieved_paragraphs": [
         "§ 538",
         "§ 539",
         "§ 602",
@@ -177,10 +364,26 @@
     {
       "id": "ev-008",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 573"
+        "bgb-573-2"
       ],
       "retrieved_ids": [
+        "bgb-573",
+        "bgb-575",
+        "bgb-574",
+        "bgb-573b",
+        "bgb-542",
+        "bgb-576",
+        "bgb-543",
+        "bgb-574b",
+        "bgb-553",
+        "bgb-1056"
+      ],
+      "gold_paragraphs": [
+        "§ 573"
+      ],
+      "retrieved_paragraphs": [
         "§ 573",
         "§ 575",
         "§ 574",
@@ -196,10 +399,26 @@
     {
       "id": "ev-009",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 543"
+        "bgb-543-1"
       ],
       "retrieved_ids": [
+        "bgb-543",
+        "bgb-594e",
+        "bgb-569",
+        "bgb-626",
+        "bgb-627",
+        "bgb-573d",
+        "bgb-314",
+        "bgb-490",
+        "bgb-575a",
+        "bgb-731"
+      ],
+      "gold_paragraphs": [
+        "§ 543"
+      ],
+      "retrieved_paragraphs": [
         "§ 543",
         "§ 594e",
         "§ 569",
@@ -215,10 +434,26 @@
     {
       "id": "ev-010",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 566"
+        "bgb-566-1"
       ],
       "retrieved_ids": [
+        "bgb-566",
+        "bgb-565",
+        "bgb-566c",
+        "bgb-566a",
+        "bgb-577",
+        "bgb-567b",
+        "bgb-564",
+        "bgb-563a",
+        "bgb-540",
+        "bgb-566e"
+      ],
+      "gold_paragraphs": [
+        "§ 566"
+      ],
+      "retrieved_paragraphs": [
         "§ 566",
         "§ 565",
         "§ 566c",
@@ -234,10 +469,26 @@
     {
       "id": "ev-011",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 559"
+        "bgb-559-1"
       ],
       "retrieved_ids": [
+        "bgb-559",
+        "bgb-559e",
+        "bgb-559c",
+        "bgb-555c",
+        "bgb-556e",
+        "bgb-555d",
+        "bgb-558",
+        "bgb-556g",
+        "bgb-557",
+        "bgb-559b"
+      ],
+      "gold_paragraphs": [
+        "§ 559"
+      ],
+      "retrieved_paragraphs": [
         "§ 559",
         "§ 559e",
         "§ 559c",
@@ -253,10 +504,26 @@
     {
       "id": "ev-012",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555c"
+        "bgb-555c-1"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-555d",
+        "bgb-555b",
+        "bgb-559c",
+        "bgb-559",
+        "bgb-555e",
+        "bgb-327f",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-555a"
+      ],
+      "gold_paragraphs": [
+        "§ 555c"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 555d",
         "§ 555b",
@@ -272,10 +539,26 @@
     {
       "id": "ev-013",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 546"
+        "bgb-546-1"
       ],
       "retrieved_ids": [
+        "bgb-546",
+        "bgb-535",
+        "bgb-540",
+        "bgb-547",
+        "bgb-571",
+        "bgb-566a",
+        "bgb-542",
+        "bgb-1056",
+        "bgb-565",
+        "bgb-563b"
+      ],
+      "gold_paragraphs": [
+        "§ 546"
+      ],
+      "retrieved_paragraphs": [
         "§ 546",
         "§ 535",
         "§ 540",
@@ -291,10 +574,26 @@
     {
       "id": "ev-014",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 540"
+        "bgb-540-1"
       ],
       "retrieved_ids": [
+        "bgb-540",
+        "bgb-553",
+        "bgb-541",
+        "bgb-556g",
+        "bgb-573b",
+        "bgb-572",
+        "bgb-566e",
+        "bgb-536c",
+        "bgb-537",
+        "bgb-566b"
+      ],
+      "gold_paragraphs": [
+        "§ 540"
+      ],
+      "retrieved_paragraphs": [
         "§ 540",
         "§ 553",
         "§ 541",
@@ -310,10 +609,26 @@
     {
       "id": "ev-015",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 558"
+        "bgb-558-1"
       ],
       "retrieved_ids": [
+        "bgb-558",
+        "bgb-556d",
+        "bgb-557",
+        "bgb-556e",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-561",
+        "bgb-558b",
+        "bgb-556g",
+        "bgb-557b"
+      ],
+      "gold_paragraphs": [
+        "§ 558"
+      ],
+      "retrieved_paragraphs": [
         "§ 558",
         "§ 556d",
         "§ 557",
@@ -329,11 +644,28 @@
     {
       "id": "ev-016",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-551-1",
+        "bgb-551-2"
+      ],
+      "retrieved_ids": [
+        "bgb-1190",
+        "bgb-551",
+        "bgb-702",
+        "bgb-650f",
+        "bgb-650m",
+        "bgb-232",
+        "bgb-236",
+        "bgb-650e",
+        "bgb-468",
+        "bgb-675k"
+      ],
+      "gold_paragraphs": [
         "§ 551",
         "§ 551"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 1190",
         "§ 551",
         "§ 702",
@@ -349,11 +681,28 @@
     {
       "id": "ev-017",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-540-1",
+        "bgb-553-1"
+      ],
+      "retrieved_ids": [
+        "bgb-553",
+        "bgb-540",
+        "bgb-556g",
+        "bgb-566e",
+        "bgb-541",
+        "bgb-573b",
+        "bgb-566b",
+        "bgb-572",
+        "bgb-573a",
+        "bgb-577a"
+      ],
+      "gold_paragraphs": [
         "§ 540",
         "§ 553"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 553",
         "§ 540",
         "§ 556g",
@@ -369,11 +718,28 @@
     {
       "id": "ev-018",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-573-1",
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-576",
+        "bgb-573c",
+        "bgb-580a",
+        "bgb-543",
+        "bgb-569",
+        "bgb-573",
+        "bgb-573d",
+        "bgb-575a",
+        "bgb-573a",
+        "bgb-568"
+      ],
+      "gold_paragraphs": [
         "§ 573",
         "§ 573c"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 576",
         "§ 573c",
         "§ 580a",
@@ -389,11 +755,28 @@
     {
       "id": "ev-019",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-543-1",
+        "bgb-569-1"
+      ],
+      "retrieved_ids": [
+        "bgb-569",
+        "bgb-543",
+        "bgb-594e",
+        "bgb-573c",
+        "bgb-573a",
+        "bgb-576",
+        "bgb-577a",
+        "bgb-573b",
+        "bgb-573d",
+        "bgb-573"
+      ],
+      "gold_paragraphs": [
         "§ 543",
         "§ 569"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 569",
         "§ 543",
         "§ 594e",
@@ -409,12 +792,30 @@
     {
       "id": "ev-020",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-555c-1",
+        "bgb-559-1",
+        "bgb-559b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-559",
+        "bgb-555c",
+        "bgb-559e",
+        "bgb-559c",
+        "bgb-555d",
+        "bgb-556e",
+        "bgb-555b",
+        "bgb-555f",
+        "bgb-559b",
+        "bgb-556g"
+      ],
+      "gold_paragraphs": [
         "§ 555c",
         "§ 559",
         "§ 559b"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 559",
         "§ 555c",
         "§ 559e",
@@ -430,11 +831,28 @@
     {
       "id": "ev-021",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-573-1",
+        "bgb-574-1"
+      ],
+      "retrieved_ids": [
+        "bgb-574",
+        "bgb-573a",
+        "bgb-574b",
+        "bgb-573b",
+        "bgb-574c",
+        "bgb-573",
+        "bgb-573c",
+        "bgb-577a",
+        "bgb-576",
+        "bgb-1056"
+      ],
+      "gold_paragraphs": [
         "§ 573",
         "§ 574"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 574",
         "§ 573a",
         "§ 574b",
@@ -450,11 +868,28 @@
     {
       "id": "ev-022",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-536-1",
+        "bgb-536a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-536a",
+        "bgb-536b",
+        "bgb-536c",
+        "bgb-536d",
+        "bgb-571",
+        "bgb-536",
+        "bgb-437",
+        "bgb-523",
+        "bgb-634",
+        "bgb-651n"
+      ],
+      "gold_paragraphs": [
         "§ 536",
         "§ 536a"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 536a",
         "§ 536b",
         "§ 536c",
@@ -470,11 +905,28 @@
     {
       "id": "ev-023",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-543-1",
+        "bgb-543-2"
+      ],
+      "retrieved_ids": [
+        "bgb-575",
+        "bgb-543",
+        "bgb-571",
+        "bgb-546a",
+        "bgb-556b",
+        "bgb-576",
+        "bgb-574",
+        "bgb-572",
+        "bgb-574b",
+        "bgb-536c"
+      ],
+      "gold_paragraphs": [
         "§ 543",
         "§ 543"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 575",
         "§ 543",
         "§ 571",
@@ -490,10 +942,26 @@
     {
       "id": "ev-024",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 536"
+        "bgb-536-1"
       ],
       "retrieved_ids": [
+        "bgb-559e",
+        "bgb-556c",
+        "bgb-559",
+        "bgb-571",
+        "bgb-536c",
+        "bgb-547",
+        "bgb-555a",
+        "bgb-555b",
+        "bgb-574",
+        "bgb-556g"
+      ],
+      "gold_paragraphs": [
+        "§ 536"
+      ],
+      "retrieved_paragraphs": [
         "§ 559e",
         "§ 556c",
         "§ 559",
@@ -509,10 +977,26 @@
     {
       "id": "ev-025",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 553"
+        "bgb-553-1"
       ],
       "retrieved_ids": [
+        "bgb-566e",
+        "bgb-574",
+        "bgb-575",
+        "bgb-553",
+        "bgb-563",
+        "bgb-574b",
+        "bgb-566d",
+        "bgb-556g",
+        "bgb-1568a",
+        "bgb-574a"
+      ],
+      "gold_paragraphs": [
+        "§ 553"
+      ],
+      "retrieved_paragraphs": [
         "§ 566e",
         "§ 574",
         "§ 575",
@@ -528,10 +1012,26 @@
     {
       "id": "ev-026",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 573c"
+        "bgb-573c-1"
       ],
       "retrieved_ids": [
+        "bgb-576",
+        "bgb-573d",
+        "bgb-575a",
+        "bgb-580a",
+        "bgb-573c",
+        "bgb-542",
+        "bgb-550",
+        "bgb-543",
+        "bgb-575",
+        "bgb-555e"
+      ],
+      "gold_paragraphs": [
+        "§ 573c"
+      ],
+      "retrieved_paragraphs": [
         "§ 576",
         "§ 573d",
         "§ 575a",
@@ -547,10 +1047,26 @@
     {
       "id": "ev-027",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 556"
+        "bgb-556-3"
       ],
       "retrieved_ids": [
+        "bgb-650c",
+        "bgb-556",
+        "bgb-271a",
+        "bgb-675y",
+        "bgb-367",
+        "bgb-614",
+        "bgb-675q",
+        "bgb-357",
+        "bgb-1158",
+        "bgb-699"
+      ],
+      "gold_paragraphs": [
+        "§ 556"
+      ],
+      "retrieved_paragraphs": [
         "§ 650c",
         "§ 556",
         "§ 271a",
@@ -566,10 +1082,26 @@
     {
       "id": "ev-028",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 569"
+        "bgb-569-1"
       ],
       "retrieved_ids": [
+        "bgb-1666a",
+        "bgb-1632",
+        "bgb-1682",
+        "bgb-1631b",
+        "bgb-562b",
+        "bgb-543",
+        "bgb-569",
+        "bgb-573b",
+        "bgb-576",
+        "bgb-1833"
+      ],
+      "gold_paragraphs": [
+        "§ 569"
+      ],
+      "retrieved_paragraphs": [
         "§ 1666a",
         "§ 1632",
         "§ 1682",
@@ -585,10 +1117,26 @@
     {
       "id": "ev-029",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 573"
+        "bgb-573-1"
       ],
       "retrieved_ids": [
+        "bgb-573",
+        "bgb-574",
+        "bgb-561",
+        "bgb-556g",
+        "bgb-573a",
+        "bgb-573b",
+        "bgb-559",
+        "bgb-575",
+        "bgb-557a",
+        "bgb-557"
+      ],
+      "gold_paragraphs": [
+        "§ 573"
+      ],
+      "retrieved_paragraphs": [
         "§ 573",
         "§ 574",
         "§ 561",
@@ -604,10 +1152,26 @@
     {
       "id": "ev-030",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 566"
+        "bgb-566-1"
       ],
       "retrieved_ids": [
+        "bgb-1121",
+        "bgb-1183",
+        "bgb-562b",
+        "bgb-1361a",
+        "bgb-2374",
+        "bgb-918",
+        "bgb-753",
+        "bgb-566",
+        "bgb-1141",
+        "bgb-566a"
+      ],
+      "gold_paragraphs": [
+        "§ 566"
+      ],
+      "retrieved_paragraphs": [
         "§ 1121",
         "§ 1183",
         "§ 562b",
@@ -623,10 +1187,26 @@
     {
       "id": "ev-031",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 556a"
+        "bgb-556a-1"
       ],
       "retrieved_ids": [
+        "bgb-556a",
+        "bgb-556",
+        "bgb-560",
+        "bgb-559c",
+        "bgb-556c",
+        "bgb-559",
+        "bgb-557a",
+        "bgb-557b",
+        "bgb-559e",
+        "bgb-559a"
+      ],
+      "gold_paragraphs": [
+        "§ 556a"
+      ],
+      "retrieved_paragraphs": [
         "§ 556a",
         "§ 556",
         "§ 560",
@@ -642,10 +1222,26 @@
     {
       "id": "ev-032",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 556"
+        "bgb-556-4"
       ],
       "retrieved_ids": [
+        "bgb-556",
+        "bgb-560",
+        "bgb-556a",
+        "bgb-556c",
+        "bgb-556g",
+        "bgb-559",
+        "bgb-539",
+        "bgb-559c",
+        "bgb-810",
+        "bgb-558"
+      ],
+      "gold_paragraphs": [
+        "§ 556"
+      ],
+      "retrieved_paragraphs": [
         "§ 556",
         "§ 560",
         "§ 556a",
@@ -661,10 +1257,26 @@
     {
       "id": "ev-033",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 560"
+        "bgb-560-4"
       ],
       "retrieved_ids": [
+        "bgb-560",
+        "bgb-556a",
+        "bgb-650c",
+        "bgb-556",
+        "bgb-556c",
+        "bgb-559",
+        "bgb-313",
+        "bgb-675g",
+        "bgb-309",
+        "bgb-650b"
+      ],
+      "gold_paragraphs": [
+        "§ 560"
+      ],
+      "retrieved_paragraphs": [
         "§ 560",
         "§ 556a",
         "§ 650c",
@@ -680,11 +1292,28 @@
     {
       "id": "ev-034",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-556-2",
+        "bgb-556-3"
+      ],
+      "retrieved_ids": [
+        "bgb-556",
+        "bgb-560",
+        "bgb-556a",
+        "bgb-650c",
+        "bgb-556c",
+        "bgb-650m",
+        "bgb-716",
+        "bgb-650f",
+        "bgb-309",
+        "bgb-1808"
+      ],
+      "gold_paragraphs": [
         "§ 556",
         "§ 556"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 556",
         "§ 560",
         "§ 556a",
@@ -700,11 +1329,28 @@
     {
       "id": "ev-035",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-557a-1",
+        "bgb-557a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-557a",
+        "bgb-557",
+        "bgb-557b",
+        "bgb-574a",
+        "bgb-545",
+        "bgb-544",
+        "bgb-575",
+        "bgb-481",
+        "bgb-550",
+        "bgb-579"
+      ],
+      "gold_paragraphs": [
         "§ 557a",
         "§ 557a"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 557a",
         "§ 557",
         "§ 557b",
@@ -720,10 +1366,26 @@
     {
       "id": "ev-036",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 558"
+        "bgb-558-3"
       ],
       "retrieved_ids": [
+        "bgb-558",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-556d",
+        "bgb-558b",
+        "bgb-557a",
+        "bgb-559b",
+        "bgb-557b",
+        "bgb-557",
+        "bgb-556e"
+      ],
+      "gold_paragraphs": [
+        "§ 558"
+      ],
+      "retrieved_paragraphs": [
         "§ 558",
         "§ 559e",
         "§ 559",
@@ -739,10 +1401,26 @@
     {
       "id": "ev-037",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 558b"
+        "bgb-558b-2"
       ],
       "retrieved_ids": [
+        "bgb-558b",
+        "bgb-559b",
+        "bgb-558",
+        "bgb-575",
+        "bgb-561",
+        "bgb-559",
+        "bgb-545",
+        "bgb-556g",
+        "bgb-559e",
+        "bgb-556b"
+      ],
+      "gold_paragraphs": [
+        "§ 558b"
+      ],
+      "retrieved_paragraphs": [
         "§ 558b",
         "§ 559b",
         "§ 558",
@@ -758,10 +1436,26 @@
     {
       "id": "ev-038",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 556d"
+        "bgb-556d-1"
       ],
       "retrieved_ids": [
+        "bgb-556d",
+        "bgb-558",
+        "bgb-556e",
+        "bgb-557b",
+        "bgb-559",
+        "bgb-556g",
+        "bgb-556f",
+        "bgb-549",
+        "bgb-557",
+        "bgb-557a"
+      ],
+      "gold_paragraphs": [
+        "§ 556d"
+      ],
+      "retrieved_paragraphs": [
         "§ 556d",
         "§ 558",
         "§ 556e",
@@ -777,10 +1471,26 @@
     {
       "id": "ev-039",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 535"
+        "bgb-535-1"
       ],
       "retrieved_ids": [
+        "bgb-535",
+        "bgb-536c",
+        "bgb-555a",
+        "bgb-563b",
+        "bgb-1833",
+        "bgb-546",
+        "bgb-559",
+        "bgb-566",
+        "bgb-1969",
+        "bgb-540"
+      ],
+      "gold_paragraphs": [
+        "§ 535"
+      ],
+      "retrieved_paragraphs": [
         "§ 535",
         "§ 536c",
         "§ 555a",
@@ -796,11 +1506,28 @@
     {
       "id": "ev-040",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-536c-1",
+        "bgb-536c-2"
+      ],
+      "retrieved_ids": [
+        "bgb-536c",
+        "bgb-536b",
+        "bgb-536a",
+        "bgb-556g",
+        "bgb-536d",
+        "bgb-536",
+        "bgb-571",
+        "bgb-546a",
+        "bgb-559d",
+        "bgb-651o"
+      ],
+      "gold_paragraphs": [
         "§ 536c",
         "§ 536c"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 536c",
         "§ 536b",
         "§ 536a",
@@ -816,10 +1543,26 @@
     {
       "id": "ev-041",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 536c"
+        "bgb-536c-1"
       ],
       "retrieved_ids": [
+        "bgb-536c",
+        "bgb-575",
+        "bgb-556g",
+        "bgb-559d",
+        "bgb-546a",
+        "bgb-545",
+        "bgb-555c",
+        "bgb-566e",
+        "bgb-548",
+        "bgb-540"
+      ],
+      "gold_paragraphs": [
+        "§ 536c"
+      ],
+      "retrieved_paragraphs": [
         "§ 536c",
         "§ 575",
         "§ 556g",
@@ -835,11 +1578,28 @@
     {
       "id": "ev-042",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-555a-1",
+        "bgb-555a-3"
+      ],
+      "retrieved_ids": [
+        "bgb-539",
+        "bgb-555a",
+        "bgb-536a",
+        "bgb-559",
+        "bgb-536c",
+        "bgb-566",
+        "bgb-556",
+        "bgb-556g",
+        "bgb-551",
+        "bgb-538"
+      ],
+      "gold_paragraphs": [
         "§ 555a",
         "§ 555a"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 539",
         "§ 555a",
         "§ 536a",
@@ -855,10 +1615,26 @@
     {
       "id": "ev-043",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555d"
+        "bgb-555d-1"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-555d",
+        "bgb-559",
+        "bgb-555b",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-559c",
+        "bgb-555f",
+        "bgb-555e",
+        "bgb-555a"
+      ],
+      "gold_paragraphs": [
+        "§ 555d"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 555d",
         "§ 559",
@@ -874,10 +1650,26 @@
     {
       "id": "ev-044",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555d"
+        "bgb-555d-3"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-555d",
+        "bgb-559",
+        "bgb-555e",
+        "bgb-559e",
+        "bgb-559c",
+        "bgb-556e",
+        "bgb-556g",
+        "bgb-559b",
+        "bgb-555b"
+      ],
+      "gold_paragraphs": [
+        "§ 555d"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 555d",
         "§ 559",
@@ -893,10 +1685,26 @@
     {
       "id": "ev-045",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555e"
+        "bgb-555e-1"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-555d",
+        "bgb-559",
+        "bgb-555e",
+        "bgb-556g",
+        "bgb-574",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-573b",
+        "bgb-573"
+      ],
+      "gold_paragraphs": [
+        "§ 555e"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 555d",
         "§ 559",
@@ -912,10 +1720,26 @@
     {
       "id": "ev-046",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555b"
+        "bgb-555b"
       ],
       "retrieved_ids": [
+        "bgb-555b",
+        "bgb-555c",
+        "bgb-555d",
+        "bgb-559",
+        "bgb-559c",
+        "bgb-559a",
+        "bgb-559e",
+        "bgb-555f",
+        "bgb-555e",
+        "bgb-556e"
+      ],
+      "gold_paragraphs": [
+        "§ 555b"
+      ],
+      "retrieved_paragraphs": [
         "§ 555b",
         "§ 555c",
         "§ 555d",
@@ -931,10 +1755,26 @@
     {
       "id": "ev-047",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 553"
+        "bgb-553-2"
       ],
       "retrieved_ids": [
+        "bgb-557",
+        "bgb-553",
+        "bgb-558",
+        "bgb-556g",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-558b",
+        "bgb-558a",
+        "bgb-561",
+        "bgb-557b"
+      ],
+      "gold_paragraphs": [
+        "§ 553"
+      ],
+      "retrieved_paragraphs": [
         "§ 557",
         "§ 553",
         "§ 558",
@@ -950,11 +1790,28 @@
     {
       "id": "ev-048",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-553-1",
+        "bgb-553-2"
+      ],
+      "retrieved_ids": [
+        "bgb-553",
+        "bgb-556g",
+        "bgb-557",
+        "bgb-540",
+        "bgb-558",
+        "bgb-541",
+        "bgb-575",
+        "bgb-539",
+        "bgb-566b",
+        "bgb-558b"
+      ],
+      "gold_paragraphs": [
         "§ 553",
         "§ 553"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 553",
         "§ 556g",
         "§ 557",
@@ -970,10 +1827,26 @@
     {
       "id": "ev-049",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 566a"
+        "bgb-566a"
       ],
       "retrieved_ids": [
+        "bgb-566",
+        "bgb-577",
+        "bgb-566b",
+        "bgb-566c",
+        "bgb-566a",
+        "bgb-1124",
+        "bgb-556g",
+        "bgb-1123",
+        "bgb-562b",
+        "bgb-557a"
+      ],
+      "gold_paragraphs": [
+        "§ 566a"
+      ],
+      "retrieved_paragraphs": [
         "§ 566",
         "§ 577",
         "§ 566b",
@@ -989,10 +1862,26 @@
     {
       "id": "ev-050",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 545"
+        "bgb-545"
       ],
       "retrieved_ids": [
+        "bgb-575",
+        "bgb-574a",
+        "bgb-545",
+        "bgb-574c",
+        "bgb-550",
+        "bgb-573a",
+        "bgb-571",
+        "bgb-576b",
+        "bgb-564",
+        "bgb-577a"
+      ],
+      "gold_paragraphs": [
+        "§ 545"
+      ],
+      "retrieved_paragraphs": [
         "§ 575",
         "§ 574a",
         "§ 545",
@@ -1008,10 +1897,26 @@
     {
       "id": "ev-051",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 547"
+        "bgb-547-1"
       ],
       "retrieved_ids": [
+        "bgb-547",
+        "bgb-546a",
+        "bgb-571",
+        "bgb-556b",
+        "bgb-566b",
+        "bgb-548",
+        "bgb-597",
+        "bgb-566a",
+        "bgb-584b",
+        "bgb-562b"
+      ],
+      "gold_paragraphs": [
+        "§ 547"
+      ],
+      "retrieved_paragraphs": [
         "§ 547",
         "§ 546a",
         "§ 571",
@@ -1027,12 +1932,30 @@
     {
       "id": "ev-052",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-573-2",
+        "bgb-573c-1",
+        "bgb-574-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573",
+        "bgb-576",
+        "bgb-562b",
+        "bgb-573a",
+        "bgb-574",
+        "bgb-575",
+        "bgb-1056",
+        "bgb-569",
+        "bgb-573b",
+        "bgb-574b"
+      ],
+      "gold_paragraphs": [
         "§ 573",
         "§ 573c",
         "§ 574"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 573",
         "§ 576",
         "§ 562b",
@@ -1048,12 +1971,30 @@
     {
       "id": "ev-053",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-536-1",
+        "bgb-536c-1",
+        "bgb-536a-1"
+      ],
+      "retrieved_ids": [
+        "bgb-536a",
+        "bgb-536c",
+        "bgb-536b",
+        "bgb-571",
+        "bgb-634",
+        "bgb-437",
+        "bgb-523",
+        "bgb-536",
+        "bgb-536d",
+        "bgb-439"
+      ],
+      "gold_paragraphs": [
         "§ 536",
         "§ 536c",
         "§ 536a"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 536a",
         "§ 536c",
         "§ 536b",
@@ -1069,10 +2010,26 @@
     {
       "id": "ev-054",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 536a"
+        "bgb-536a-2"
       ],
       "retrieved_ids": [
+        "bgb-536a",
+        "bgb-536c",
+        "bgb-637",
+        "bgb-539",
+        "bgb-536d",
+        "bgb-536b",
+        "bgb-439",
+        "bgb-536",
+        "bgb-571",
+        "bgb-546a"
+      ],
+      "gold_paragraphs": [
+        "§ 536a"
+      ],
+      "retrieved_paragraphs": [
         "§ 536a",
         "§ 536c",
         "§ 637",
@@ -1088,12 +2045,30 @@
     {
       "id": "ev-055",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-543-1",
+        "bgb-543-2",
+        "bgb-569-3"
+      ],
+      "retrieved_ids": [
+        "bgb-573c",
+        "bgb-576",
+        "bgb-575",
+        "bgb-543",
+        "bgb-573b",
+        "bgb-569",
+        "bgb-575a",
+        "bgb-573d",
+        "bgb-556b",
+        "bgb-573a"
+      ],
+      "gold_paragraphs": [
         "§ 543",
         "§ 543",
         "§ 569"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 573c",
         "§ 576",
         "§ 575",
@@ -1109,10 +2084,26 @@
     {
       "id": "ev-056",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 574"
+        "bgb-574-1"
       ],
       "retrieved_ids": [
+        "bgb-574",
+        "bgb-573",
+        "bgb-573a",
+        "bgb-544",
+        "bgb-577a",
+        "bgb-574b",
+        "bgb-1056",
+        "bgb-573b",
+        "bgb-562b",
+        "bgb-1833"
+      ],
+      "gold_paragraphs": [
+        "§ 574"
+      ],
+      "retrieved_paragraphs": [
         "§ 574",
         "§ 573",
         "§ 573a",
@@ -1128,10 +2119,26 @@
     {
       "id": "ev-057",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 575"
+        "bgb-575-1"
       ],
       "retrieved_ids": [
+        "bgb-575",
+        "bgb-550",
+        "bgb-575a",
+        "bgb-574c",
+        "bgb-544",
+        "bgb-577a",
+        "bgb-573c",
+        "bgb-574a",
+        "bgb-573b",
+        "bgb-580a"
+      ],
+      "gold_paragraphs": [
+        "§ 575"
+      ],
+      "retrieved_paragraphs": [
         "§ 575",
         "§ 550",
         "§ 575a",
@@ -1146,11 +2153,29 @@
     },
     {
       "id": "ev-058",
-      "type": "direct",
+      "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
-        "§ 551"
+        "bgb-551-1",
+        "bgb-551-4"
       ],
       "retrieved_ids": [
+        "bgb-556g",
+        "bgb-675e",
+        "bgb-487",
+        "bgb-554",
+        "bgb-479g",
+        "bgb-572",
+        "bgb-651y",
+        "bgb-476",
+        "bgb-557",
+        "bgb-552"
+      ],
+      "gold_paragraphs": [
+        "§ 551",
+        "§ 551"
+      ],
+      "retrieved_paragraphs": [
         "§ 556g",
         "§ 675e",
         "§ 487",
@@ -1166,10 +2191,26 @@
     {
       "id": "ev-059",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 557b"
+        "bgb-557b-1"
       ],
       "retrieved_ids": [
+        "bgb-557b",
+        "bgb-558e",
+        "bgb-558c",
+        "bgb-557",
+        "bgb-558",
+        "bgb-575",
+        "bgb-558d",
+        "bgb-557a",
+        "bgb-548a",
+        "bgb-556e"
+      ],
+      "gold_paragraphs": [
+        "§ 557b"
+      ],
+      "retrieved_paragraphs": [
         "§ 557b",
         "§ 558e",
         "§ 558c",
@@ -1185,10 +2226,26 @@
     {
       "id": "ev-060",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 536"
+        "bgb-536-2"
       ],
       "retrieved_ids": [
+        "bgb-536",
+        "bgb-577a",
+        "bgb-554",
+        "bgb-573a",
+        "bgb-566a",
+        "bgb-571",
+        "bgb-576b",
+        "bgb-551",
+        "bgb-537",
+        "bgb-1123"
+      ],
+      "gold_paragraphs": [
+        "§ 536"
+      ],
+      "retrieved_paragraphs": [
         "§ 536",
         "§ 577a",
         "§ 554",
@@ -1204,10 +2261,26 @@
     {
       "id": "ev-061",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 536"
+        "bgb-536-1"
       ],
       "retrieved_ids": [
+        "bgb-536a",
+        "bgb-559",
+        "bgb-536c",
+        "bgb-556g",
+        "bgb-558b",
+        "bgb-559e",
+        "bgb-556b",
+        "bgb-555a",
+        "bgb-574a",
+        "bgb-559b"
+      ],
+      "gold_paragraphs": [
+        "§ 536"
+      ],
+      "retrieved_paragraphs": [
         "§ 536a",
         "§ 559",
         "§ 536c",
@@ -1223,11 +2296,28 @@
     {
       "id": "ev-062",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-536c-1",
+        "bgb-536-1"
+      ],
+      "retrieved_ids": [
+        "bgb-906",
+        "bgb-554",
+        "bgb-2361",
+        "bgb-575",
+        "bgb-543",
+        "bgb-569",
+        "bgb-908",
+        "bgb-1004",
+        "bgb-1134",
+        "bgb-558a"
+      ],
+      "gold_paragraphs": [
         "§ 536c",
         "§ 536"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 906",
         "§ 554",
         "§ 2361",
@@ -1243,10 +2333,26 @@
     {
       "id": "ev-063",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555c"
+        "bgb-555c-1"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-559",
+        "bgb-559e",
+        "bgb-559c",
+        "bgb-555d",
+        "bgb-556e",
+        "bgb-559b",
+        "bgb-555b",
+        "bgb-559a",
+        "bgb-555f"
+      ],
+      "gold_paragraphs": [
+        "§ 555c"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 559",
         "§ 559e",
@@ -1262,10 +2368,26 @@
     {
       "id": "ev-064",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555d"
+        "bgb-555d-1"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-559",
+        "bgb-555d",
+        "bgb-559e",
+        "bgb-559c",
+        "bgb-555b",
+        "bgb-554",
+        "bgb-556e",
+        "bgb-555e",
+        "bgb-575"
+      ],
+      "gold_paragraphs": [
+        "§ 555d"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 559",
         "§ 555d",
@@ -1281,10 +2403,26 @@
     {
       "id": "ev-065",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 573c"
+        "bgb-573c-1"
       ],
       "retrieved_ids": [
+        "bgb-573a",
+        "bgb-577a",
+        "bgb-573c",
+        "bgb-544",
+        "bgb-550",
+        "bgb-576",
+        "bgb-580a",
+        "bgb-545",
+        "bgb-624",
+        "bgb-575a"
+      ],
+      "gold_paragraphs": [
+        "§ 573c"
+      ],
+      "retrieved_paragraphs": [
         "§ 573a",
         "§ 577a",
         "§ 573c",
@@ -1300,10 +2438,26 @@
     {
       "id": "ev-066",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 535"
+        "bgb-535-1"
       ],
       "retrieved_ids": [
+        "bgb-559",
+        "bgb-479b",
+        "bgb-559e",
+        "bgb-556",
+        "bgb-479d",
+        "bgb-556c",
+        "bgb-566",
+        "bgb-912",
+        "bgb-563b",
+        "bgb-994"
+      ],
+      "gold_paragraphs": [
+        "§ 535"
+      ],
+      "retrieved_paragraphs": [
         "§ 559",
         "§ 479b",
         "§ 559e",
@@ -1319,10 +2473,26 @@
     {
       "id": "ev-067",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 538"
+        "bgb-538"
       ],
       "retrieved_ids": [
+        "bgb-998",
+        "bgb-923",
+        "bgb-436",
+        "bgb-1118",
+        "bgb-1197",
+        "bgb-917",
+        "bgb-1150",
+        "bgb-1191",
+        "bgb-1201",
+        "bgb-591"
+      ],
+      "gold_paragraphs": [
+        "§ 538"
+      ],
+      "retrieved_paragraphs": [
         "§ 998",
         "§ 923",
         "§ 436",
@@ -1338,10 +2508,26 @@
     {
       "id": "ev-068",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 566a"
+        "bgb-566a"
       ],
       "retrieved_ids": [
+        "bgb-1478",
+        "bgb-1130",
+        "bgb-449",
+        "bgb-443",
+        "bgb-1128",
+        "bgb-468",
+        "bgb-757",
+        "bgb-915",
+        "bgb-386",
+        "bgb-566a"
+      ],
+      "gold_paragraphs": [
+        "§ 566a"
+      ],
+      "retrieved_paragraphs": [
         "§ 1478",
         "§ 1130",
         "§ 449",
@@ -1357,10 +2543,26 @@
     {
       "id": "ev-069",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 556b"
+        "bgb-556b-1"
       ],
       "retrieved_ids": [
+        "bgb-556b",
+        "bgb-579",
+        "bgb-558b",
+        "bgb-557a",
+        "bgb-559b",
+        "bgb-575",
+        "bgb-550",
+        "bgb-551",
+        "bgb-557b",
+        "bgb-1123"
+      ],
+      "gold_paragraphs": [
+        "§ 556b"
+      ],
+      "retrieved_paragraphs": [
         "§ 556b",
         "§ 579",
         "§ 558b",
@@ -1376,10 +2578,26 @@
     {
       "id": "ev-070",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 568"
+        "bgb-568-1"
       ],
       "retrieved_ids": [
+        "bgb-623",
+        "bgb-312k",
+        "bgb-621",
+        "bgb-1077",
+        "bgb-594f",
+        "bgb-622",
+        "bgb-671",
+        "bgb-580a",
+        "bgb-1283",
+        "bgb-627"
+      ],
+      "gold_paragraphs": [
+        "§ 568"
+      ],
+      "retrieved_paragraphs": [
         "§ 623",
         "§ 312k",
         "§ 621",
@@ -1395,10 +2613,26 @@
     {
       "id": "ev-071",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 550"
+        "bgb-550"
       ],
       "retrieved_ids": [
+        "bgb-550",
+        "bgb-544",
+        "bgb-578",
+        "bgb-575",
+        "bgb-574a",
+        "bgb-542",
+        "bgb-557a",
+        "bgb-574c",
+        "bgb-594b",
+        "bgb-545"
+      ],
+      "gold_paragraphs": [
+        "§ 550"
+      ],
+      "retrieved_paragraphs": [
         "§ 550",
         "§ 544",
         "§ 578",
@@ -1414,10 +2648,26 @@
     {
       "id": "ev-072",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 563"
+        "bgb-563-1"
       ],
       "retrieved_ids": [
+        "bgb-563",
+        "bgb-1361b",
+        "bgb-563a",
+        "bgb-564",
+        "bgb-1969",
+        "bgb-594d",
+        "bgb-1568a",
+        "bgb-563b",
+        "bgb-580",
+        "bgb-1093"
+      ],
+      "gold_paragraphs": [
+        "§ 563"
+      ],
+      "retrieved_paragraphs": [
         "§ 563",
         "§ 1361b",
         "§ 563a",
@@ -1433,11 +2683,28 @@
     {
       "id": "ev-073",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-563-2",
+        "bgb-564"
+      ],
+      "retrieved_ids": [
+        "bgb-563",
+        "bgb-563b",
+        "bgb-563a",
+        "bgb-564",
+        "bgb-566",
+        "bgb-1568a",
+        "bgb-557b",
+        "bgb-580",
+        "bgb-566c",
+        "bgb-565"
+      ],
+      "gold_paragraphs": [
         "§ 563",
         "§ 564"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 563",
         "§ 563b",
         "§ 563a",
@@ -1453,10 +2720,26 @@
     {
       "id": "ev-074",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 563a"
+        "bgb-563a-1"
       ],
       "retrieved_ids": [
+        "bgb-563a",
+        "bgb-563",
+        "bgb-564",
+        "bgb-580",
+        "bgb-563b",
+        "bgb-594d",
+        "bgb-566",
+        "bgb-565",
+        "bgb-1483",
+        "bgb-730"
+      ],
+      "gold_paragraphs": [
+        "§ 563a"
+      ],
+      "retrieved_paragraphs": [
         "§ 563a",
         "§ 563",
         "§ 564",
@@ -1472,10 +2755,26 @@
     {
       "id": "ev-075",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 561"
+        "bgb-561-1"
       ],
       "retrieved_ids": [
+        "bgb-561",
+        "bgb-573",
+        "bgb-574",
+        "bgb-557",
+        "bgb-558b",
+        "bgb-556g",
+        "bgb-558",
+        "bgb-557a",
+        "bgb-559",
+        "bgb-559b"
+      ],
+      "gold_paragraphs": [
+        "§ 561"
+      ],
+      "retrieved_paragraphs": [
         "§ 561",
         "§ 573",
         "§ 574",
@@ -1491,10 +2790,26 @@
     {
       "id": "ev-076",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 546a"
+        "bgb-546a-1"
       ],
       "retrieved_ids": [
+        "bgb-575",
+        "bgb-546a",
+        "bgb-571",
+        "bgb-574c",
+        "bgb-547",
+        "bgb-574a",
+        "bgb-574",
+        "bgb-562b",
+        "bgb-572",
+        "bgb-556g"
+      ],
+      "gold_paragraphs": [
+        "§ 546a"
+      ],
+      "retrieved_paragraphs": [
         "§ 575",
         "§ 546a",
         "§ 571",
@@ -1510,10 +2825,26 @@
     {
       "id": "ev-077",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 577a"
+        "bgb-577a-1"
       ],
       "retrieved_ids": [
+        "bgb-577a",
+        "bgb-566b",
+        "bgb-555e",
+        "bgb-562b",
+        "bgb-566c",
+        "bgb-1056",
+        "bgb-573a",
+        "bgb-544",
+        "bgb-561",
+        "bgb-1123"
+      ],
+      "gold_paragraphs": [
+        "§ 577a"
+      ],
+      "retrieved_paragraphs": [
         "§ 577a",
         "§ 566b",
         "§ 555e",
@@ -1529,10 +2860,26 @@
     {
       "id": "ev-078",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 573a"
+        "bgb-573a-1"
       ],
       "retrieved_ids": [
+        "bgb-573a",
+        "bgb-569",
+        "bgb-573",
+        "bgb-574",
+        "bgb-543",
+        "bgb-576",
+        "bgb-573b",
+        "bgb-573c",
+        "bgb-577a",
+        "bgb-553"
+      ],
+      "gold_paragraphs": [
+        "§ 573a"
+      ],
+      "retrieved_paragraphs": [
         "§ 573a",
         "§ 569",
         "§ 573",
@@ -1548,10 +2895,26 @@
     {
       "id": "ev-079",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 573b"
+        "bgb-573b-1"
       ],
       "retrieved_ids": [
+        "bgb-573a",
+        "bgb-573b",
+        "bgb-573",
+        "bgb-562b",
+        "bgb-1056",
+        "bgb-576",
+        "bgb-574",
+        "bgb-562a",
+        "bgb-1202",
+        "bgb-540"
+      ],
+      "gold_paragraphs": [
+        "§ 573b"
+      ],
+      "retrieved_paragraphs": [
         "§ 573a",
         "§ 573b",
         "§ 573",
@@ -1567,10 +2930,26 @@
     {
       "id": "ev-080",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 554"
+        "bgb-554-1"
       ],
       "retrieved_ids": [
+        "bgb-554",
+        "bgb-553",
+        "bgb-540",
+        "bgb-537",
+        "bgb-566e",
+        "bgb-551",
+        "bgb-535",
+        "bgb-1093",
+        "bgb-555d",
+        "bgb-556g"
+      ],
+      "gold_paragraphs": [
+        "§ 554"
+      ],
+      "retrieved_paragraphs": [
         "§ 554",
         "§ 553",
         "§ 540",
@@ -1586,10 +2965,26 @@
     {
       "id": "ev-081",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 537"
+        "bgb-537-1"
       ],
       "retrieved_ids": [
+        "bgb-617",
+        "bgb-571",
+        "bgb-537",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-574",
+        "bgb-540",
+        "bgb-536",
+        "bgb-551",
+        "bgb-1361b"
+      ],
+      "gold_paragraphs": [
+        "§ 537"
+      ],
+      "retrieved_paragraphs": [
         "§ 617",
         "§ 571",
         "§ 537",
@@ -1605,10 +3000,26 @@
     {
       "id": "ev-082",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 568"
+        "bgb-568-2"
       ],
       "retrieved_ids": [
+        "bgb-574b",
+        "bgb-574",
+        "bgb-568",
+        "bgb-572",
+        "bgb-573",
+        "bgb-573a",
+        "bgb-576a",
+        "bgb-556g",
+        "bgb-555e",
+        "bgb-573b"
+      ],
+      "gold_paragraphs": [
+        "§ 568"
+      ],
+      "retrieved_paragraphs": [
         "§ 574b",
         "§ 574",
         "§ 568",
@@ -1624,11 +3035,28 @@
     {
       "id": "ev-083",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-568-1",
+        "bgb-568-2"
+      ],
+      "retrieved_ids": [
+        "bgb-568",
+        "bgb-574b",
+        "bgb-594f",
+        "bgb-573",
+        "bgb-1056",
+        "bgb-573a",
+        "bgb-576",
+        "bgb-550",
+        "bgb-573c",
+        "bgb-573b"
+      ],
+      "gold_paragraphs": [
         "§ 568",
         "§ 568"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 568",
         "§ 574b",
         "§ 594f",
@@ -1644,11 +3072,28 @@
     {
       "id": "ev-084",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-561-1",
+        "bgb-558b-2"
+      ],
+      "retrieved_ids": [
+        "bgb-561",
+        "bgb-573c",
+        "bgb-573",
+        "bgb-545",
+        "bgb-575",
+        "bgb-558b",
+        "bgb-575a",
+        "bgb-557a",
+        "bgb-574b",
+        "bgb-576"
+      ],
+      "gold_paragraphs": [
         "§ 561",
         "§ 558b"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 561",
         "§ 573c",
         "§ 573",
@@ -1664,10 +3109,26 @@
     {
       "id": "ev-085",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 564"
+        "bgb-564"
       ],
       "retrieved_ids": [
+        "bgb-564",
+        "bgb-563",
+        "bgb-563b",
+        "bgb-1361a",
+        "bgb-1568a",
+        "bgb-566",
+        "bgb-1933",
+        "bgb-540",
+        "bgb-563a",
+        "bgb-1455"
+      ],
+      "gold_paragraphs": [
+        "§ 564"
+      ],
+      "retrieved_paragraphs": [
         "§ 564",
         "§ 563",
         "§ 563b",
@@ -1683,11 +3144,28 @@
     {
       "id": "ev-086",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-577a-1",
+        "bgb-573-2"
+      ],
+      "retrieved_ids": [
+        "bgb-577a",
+        "bgb-566",
+        "bgb-554",
+        "bgb-572",
+        "bgb-566b",
+        "bgb-566a",
+        "bgb-573a",
+        "bgb-565",
+        "bgb-555e",
+        "bgb-574"
+      ],
+      "gold_paragraphs": [
         "§ 577a",
         "§ 573"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 577a",
         "§ 566",
         "§ 554",
@@ -1703,10 +3181,26 @@
     {
       "id": "ev-087",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 556b"
+        "bgb-556b-1"
       ],
       "retrieved_ids": [
+        "bgb-556b",
+        "bgb-575",
+        "bgb-546a",
+        "bgb-558b",
+        "bgb-571",
+        "bgb-566b",
+        "bgb-547",
+        "bgb-548",
+        "bgb-579",
+        "bgb-587"
+      ],
+      "gold_paragraphs": [
+        "§ 556b"
+      ],
+      "retrieved_paragraphs": [
         "§ 556b",
         "§ 575",
         "§ 546a",
@@ -1722,11 +3216,28 @@
     {
       "id": "ev-088",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-573a-1",
+        "bgb-573c-1"
+      ],
+      "retrieved_ids": [
+        "bgb-573a",
+        "bgb-576",
+        "bgb-573c",
+        "bgb-575",
+        "bgb-573b",
+        "bgb-573",
+        "bgb-575a",
+        "bgb-573d",
+        "bgb-577a",
+        "bgb-543"
+      ],
+      "gold_paragraphs": [
         "§ 573a",
         "§ 573c"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 573a",
         "§ 576",
         "§ 573c",
@@ -1742,10 +3253,26 @@
     {
       "id": "ev-089",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 562"
+        "bgb-562-1"
       ],
       "retrieved_ids": [
+        "bgb-571",
+        "bgb-540",
+        "bgb-562b",
+        "bgb-546",
+        "bgb-546a",
+        "bgb-535",
+        "bgb-553",
+        "bgb-566",
+        "bgb-537",
+        "bgb-536c"
+      ],
+      "gold_paragraphs": [
+        "§ 562"
+      ],
+      "retrieved_paragraphs": [
         "§ 571",
         "§ 540",
         "§ 562b",
@@ -1761,11 +3288,28 @@
     {
       "id": "ev-090",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-562-1",
+        "bgb-562b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-562b",
+        "bgb-540",
+        "bgb-537",
+        "bgb-1093",
+        "bgb-1833",
+        "bgb-591a",
+        "bgb-552",
+        "bgb-562a",
+        "bgb-573b",
+        "bgb-574"
+      ],
+      "gold_paragraphs": [
         "§ 562",
         "§ 562b"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 562b",
         "§ 540",
         "§ 537",
@@ -1781,10 +3325,26 @@
     {
       "id": "ev-091",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 536b"
+        "bgb-536b"
       ],
       "retrieved_ids": [
+        "bgb-536",
+        "bgb-536a",
+        "bgb-536b",
+        "bgb-536c",
+        "bgb-536d",
+        "bgb-556g",
+        "bgb-556b",
+        "bgb-559",
+        "bgb-573b",
+        "bgb-554"
+      ],
+      "gold_paragraphs": [
+        "§ 536b"
+      ],
+      "retrieved_paragraphs": [
         "§ 536",
         "§ 536a",
         "§ 536b",
@@ -1800,10 +3360,26 @@
     {
       "id": "ev-092",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 536d"
+        "bgb-536d"
       ],
       "retrieved_ids": [
+        "bgb-557a",
+        "bgb-536",
+        "bgb-554",
+        "bgb-577a",
+        "bgb-573",
+        "bgb-574",
+        "bgb-561",
+        "bgb-574a",
+        "bgb-556g",
+        "bgb-573a"
+      ],
+      "gold_paragraphs": [
+        "§ 536d"
+      ],
+      "retrieved_paragraphs": [
         "§ 557a",
         "§ 536",
         "§ 554",
@@ -1819,10 +3395,26 @@
     {
       "id": "ev-093",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 541"
+        "bgb-541"
       ],
       "retrieved_ids": [
+        "bgb-541",
+        "bgb-540",
+        "bgb-590a",
+        "bgb-556g",
+        "bgb-536c",
+        "bgb-567",
+        "bgb-538",
+        "bgb-553",
+        "bgb-571",
+        "bgb-574"
+      ],
+      "gold_paragraphs": [
+        "§ 541"
+      ],
+      "retrieved_paragraphs": [
         "§ 541",
         "§ 540",
         "§ 590a",
@@ -1838,10 +3430,26 @@
     {
       "id": "ev-094",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 542"
+        "bgb-542-2"
       ],
       "retrieved_ids": [
+        "bgb-575",
+        "bgb-542",
+        "bgb-545",
+        "bgb-574c",
+        "bgb-574a",
+        "bgb-544",
+        "bgb-564",
+        "bgb-550",
+        "bgb-575a",
+        "bgb-563a"
+      ],
+      "gold_paragraphs": [
+        "§ 542"
+      ],
+      "retrieved_paragraphs": [
         "§ 575",
         "§ 542",
         "§ 545",
@@ -1857,10 +3465,26 @@
     {
       "id": "ev-095",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 558a"
+        "bgb-558a-2"
       ],
       "retrieved_ids": [
+        "bgb-558a",
+        "bgb-558",
+        "bgb-557",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-558b",
+        "bgb-559b",
+        "bgb-556g",
+        "bgb-560",
+        "bgb-561"
+      ],
+      "gold_paragraphs": [
+        "§ 558a"
+      ],
+      "retrieved_paragraphs": [
         "§ 558a",
         "§ 558",
         "§ 557",
@@ -1876,10 +3500,26 @@
     {
       "id": "ev-096",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 556f"
+        "bgb-556f"
       ],
       "retrieved_ids": [
+        "bgb-556d",
+        "bgb-557b",
+        "bgb-559",
+        "bgb-549",
+        "bgb-556g",
+        "bgb-556e",
+        "bgb-559e",
+        "bgb-556f",
+        "bgb-558",
+        "bgb-555d"
+      ],
+      "gold_paragraphs": [
+        "§ 556f"
+      ],
+      "retrieved_paragraphs": [
         "§ 556d",
         "§ 557b",
         "§ 559",
@@ -1895,10 +3535,26 @@
     {
       "id": "ev-097",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 556g"
+        "bgb-556g-1"
       ],
       "retrieved_ids": [
+        "bgb-547",
+        "bgb-546a",
+        "bgb-571",
+        "bgb-551",
+        "bgb-556g",
+        "bgb-556d",
+        "bgb-558",
+        "bgb-559",
+        "bgb-556b",
+        "bgb-558b"
+      ],
+      "gold_paragraphs": [
+        "§ 556g"
+      ],
+      "retrieved_paragraphs": [
         "§ 547",
         "§ 546a",
         "§ 571",
@@ -1914,10 +3570,26 @@
     {
       "id": "ev-098",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 559c"
+        "bgb-559c-1"
       ],
       "retrieved_ids": [
+        "bgb-559c",
+        "bgb-555b",
+        "bgb-555c",
+        "bgb-555d",
+        "bgb-559a",
+        "bgb-559",
+        "bgb-555f",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-555e"
+      ],
+      "gold_paragraphs": [
+        "§ 559c"
+      ],
+      "retrieved_paragraphs": [
         "§ 559c",
         "§ 555b",
         "§ 555c",
@@ -1933,10 +3605,26 @@
     {
       "id": "ev-099",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 574a"
+        "bgb-574a-1"
       ],
       "retrieved_ids": [
+        "bgb-574b",
+        "bgb-574a",
+        "bgb-577a",
+        "bgb-550",
+        "bgb-574",
+        "bgb-573a",
+        "bgb-573c",
+        "bgb-576",
+        "bgb-575",
+        "bgb-544"
+      ],
+      "gold_paragraphs": [
+        "§ 574a"
+      ],
+      "retrieved_paragraphs": [
         "§ 574b",
         "§ 574a",
         "§ 577a",
@@ -1952,10 +3640,26 @@
     {
       "id": "ev-100",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 580"
+        "bgb-580"
       ],
       "retrieved_ids": [
+        "bgb-580",
+        "bgb-564",
+        "bgb-573d",
+        "bgb-575a",
+        "bgb-543",
+        "bgb-569",
+        "bgb-573c",
+        "bgb-594d",
+        "bgb-563a",
+        "bgb-576"
+      ],
+      "gold_paragraphs": [
+        "§ 580"
+      ],
+      "retrieved_paragraphs": [
         "§ 580",
         "§ 564",
         "§ 573d",
@@ -1971,11 +3675,28 @@
     {
       "id": "ev-101",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-539-2",
+        "bgb-552-1"
+      ],
+      "retrieved_ids": [
+        "bgb-562b",
+        "bgb-1511",
+        "bgb-1478",
+        "bgb-701",
+        "bgb-1361b",
+        "bgb-1007",
+        "bgb-1513",
+        "bgb-559",
+        "bgb-997",
+        "bgb-1093"
+      ],
+      "gold_paragraphs": [
         "§ 539",
         "§ 552"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 562b",
         "§ 1511",
         "§ 1478",
@@ -1991,10 +3712,26 @@
     {
       "id": "ev-102",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 549"
+        "bgb-549-1"
       ],
       "retrieved_ids": [
+        "bgb-549",
+        "bgb-576b",
+        "bgb-556d",
+        "bgb-578",
+        "bgb-557b",
+        "bgb-556g",
+        "bgb-576",
+        "bgb-553",
+        "bgb-1833",
+        "bgb-575"
+      ],
+      "gold_paragraphs": [
+        "§ 549"
+      ],
+      "retrieved_paragraphs": [
         "§ 549",
         "§ 576b",
         "§ 556d",
@@ -2010,11 +3747,28 @@
     {
       "id": "ev-103",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-546a-1",
+        "bgb-571-1"
+      ],
+      "retrieved_ids": [
+        "bgb-546a",
+        "bgb-571",
+        "bgb-597",
+        "bgb-536a",
+        "bgb-575",
+        "bgb-547",
+        "bgb-548",
+        "bgb-584b",
+        "bgb-556b",
+        "bgb-536c"
+      ],
+      "gold_paragraphs": [
         "§ 546a",
         "§ 571"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 546a",
         "§ 571",
         "§ 597",
@@ -2030,10 +3784,26 @@
     {
       "id": "ev-104",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 542"
+        "bgb-542-1"
       ],
       "retrieved_ids": [
+        "bgb-574a",
+        "bgb-544",
+        "bgb-550",
+        "bgb-574c",
+        "bgb-564",
+        "bgb-545",
+        "bgb-563a",
+        "bgb-575",
+        "bgb-542",
+        "bgb-574"
+      ],
+      "gold_paragraphs": [
+        "§ 542"
+      ],
+      "retrieved_paragraphs": [
         "§ 574a",
         "§ 544",
         "§ 550",
@@ -2049,11 +3819,28 @@
     {
       "id": "ev-105",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-536b",
+        "bgb-536d"
+      ],
+      "retrieved_ids": [
+        "bgb-442",
+        "bgb-639",
+        "bgb-444",
+        "bgb-435",
+        "bgb-536b",
+        "bgb-443",
+        "bgb-633",
+        "bgb-476",
+        "bgb-640",
+        "bgb-434"
+      ],
+      "gold_paragraphs": [
         "§ 536b",
         "§ 536d"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 442",
         "§ 639",
         "§ 444",
@@ -2069,10 +3856,26 @@
     {
       "id": "ev-106",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 580a"
+        "bgb-580a-1"
       ],
       "retrieved_ids": [
+        "bgb-576",
+        "bgb-573c",
+        "bgb-580a",
+        "bgb-573a",
+        "bgb-577a",
+        "bgb-573d",
+        "bgb-573b",
+        "bgb-575a",
+        "bgb-550",
+        "bgb-569"
+      ],
+      "gold_paragraphs": [
+        "§ 580a"
+      ],
+      "retrieved_paragraphs": [
         "§ 576",
         "§ 573c",
         "§ 580a",
@@ -2088,10 +3891,26 @@
     {
       "id": "ev-107",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 574c"
+        "bgb-574c-1"
       ],
       "retrieved_ids": [
+        "bgb-575",
+        "bgb-545",
+        "bgb-574a",
+        "bgb-574c",
+        "bgb-595",
+        "bgb-544",
+        "bgb-550",
+        "bgb-594",
+        "bgb-625",
+        "bgb-563a"
+      ],
+      "gold_paragraphs": [
+        "§ 574c"
+      ],
+      "retrieved_paragraphs": [
         "§ 575",
         "§ 545",
         "§ 574a",
@@ -2107,10 +3926,26 @@
     {
       "id": "ev-108",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 575a"
+        "bgb-575a-1"
       ],
       "retrieved_ids": [
+        "bgb-575a",
+        "bgb-543",
+        "bgb-573d",
+        "bgb-569",
+        "bgb-564",
+        "bgb-574c",
+        "bgb-580",
+        "bgb-542",
+        "bgb-580a",
+        "bgb-594e"
+      ],
+      "gold_paragraphs": [
+        "§ 575a"
+      ],
+      "retrieved_paragraphs": [
         "§ 575a",
         "§ 543",
         "§ 573d",
@@ -2126,10 +3961,26 @@
     {
       "id": "ev-109",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555a"
+        "bgb-555a-2"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-559d",
+        "bgb-556g",
+        "bgb-555a",
+        "bgb-536c",
+        "bgb-556",
+        "bgb-575",
+        "bgb-566b",
+        "bgb-546a",
+        "bgb-559"
+      ],
+      "gold_paragraphs": [
+        "§ 555a"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 559d",
         "§ 556g",
@@ -2145,10 +3996,26 @@
     {
       "id": "ev-110",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555d"
+        "bgb-555d-2"
       ],
       "retrieved_ids": [
+        "bgb-555d",
+        "bgb-555c",
+        "bgb-555b",
+        "bgb-559",
+        "bgb-555e",
+        "bgb-556e",
+        "bgb-327f",
+        "bgb-559a",
+        "bgb-559e",
+        "bgb-559c"
+      ],
+      "gold_paragraphs": [
+        "§ 555d"
+      ],
+      "retrieved_paragraphs": [
         "§ 555d",
         "§ 555c",
         "§ 555b",
@@ -2164,10 +4031,26 @@
     {
       "id": "ev-111",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 556"
+        "bgb-556-5"
       ],
       "retrieved_ids": [
+        "bgb-556",
+        "bgb-560",
+        "bgb-556a",
+        "bgb-575",
+        "bgb-556c",
+        "bgb-556b",
+        "bgb-566c",
+        "bgb-557a",
+        "bgb-550",
+        "bgb-271a"
+      ],
+      "gold_paragraphs": [
+        "§ 556"
+      ],
+      "retrieved_paragraphs": [
         "§ 556",
         "§ 560",
         "§ 556a",
@@ -2183,10 +4066,26 @@
     {
       "id": "ev-112",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 558"
+        "bgb-558-2"
       ],
       "retrieved_ids": [
+        "bgb-558",
+        "bgb-558e",
+        "bgb-556d",
+        "bgb-556e",
+        "bgb-557b",
+        "bgb-558c",
+        "bgb-558d",
+        "bgb-559a",
+        "bgb-557a",
+        "bgb-556a"
+      ],
+      "gold_paragraphs": [
+        "§ 558"
+      ],
+      "retrieved_paragraphs": [
         "§ 558",
         "§ 558e",
         "§ 556d",
@@ -2202,10 +4101,26 @@
     {
       "id": "ev-113",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 559"
+        "bgb-559-4"
       ],
       "retrieved_ids": [
+        "bgb-559",
+        "bgb-555d",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-559c",
+        "bgb-555c",
+        "bgb-559a",
+        "bgb-555b",
+        "bgb-558",
+        "bgb-557"
+      ],
+      "gold_paragraphs": [
+        "§ 559"
+      ],
+      "retrieved_paragraphs": [
         "§ 559",
         "§ 555d",
         "§ 559e",
@@ -2221,10 +4136,26 @@
     {
       "id": "ev-114",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 560"
+        "bgb-560-3"
       ],
       "retrieved_ids": [
+        "bgb-560",
+        "bgb-556a",
+        "bgb-651m",
+        "bgb-559c",
+        "bgb-651l",
+        "bgb-651f",
+        "bgb-556",
+        "bgb-551",
+        "bgb-556c",
+        "bgb-536"
+      ],
+      "gold_paragraphs": [
+        "§ 560"
+      ],
+      "retrieved_paragraphs": [
         "§ 560",
         "§ 556a",
         "§ 651m",
@@ -2240,10 +4171,26 @@
     {
       "id": "ev-115",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 573"
+        "bgb-573-3"
       ],
       "retrieved_ids": [
+        "bgb-594f",
+        "bgb-623",
+        "bgb-650h",
+        "bgb-314",
+        "bgb-312k",
+        "bgb-621",
+        "bgb-622",
+        "bgb-731",
+        "bgb-626",
+        "bgb-648a"
+      ],
+      "gold_paragraphs": [
+        "§ 573"
+      ],
+      "retrieved_paragraphs": [
         "§ 594f",
         "§ 623",
         "§ 650h",
@@ -2258,11 +4205,29 @@
     },
     {
       "id": "ev-116",
-      "type": "direct",
+      "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
-        "§ 573"
+        "bgb-573-1",
+        "bgb-573-4"
       ],
       "retrieved_ids": [
+        "bgb-573",
+        "bgb-543",
+        "bgb-574",
+        "bgb-572",
+        "bgb-573b",
+        "bgb-573a",
+        "bgb-540",
+        "bgb-542",
+        "bgb-569",
+        "bgb-561"
+      ],
+      "gold_paragraphs": [
+        "§ 573",
+        "§ 573"
+      ],
+      "retrieved_paragraphs": [
         "§ 573",
         "§ 543",
         "§ 574",
@@ -2278,10 +4243,26 @@
     {
       "id": "ev-117",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 576"
+        "bgb-576-1"
       ],
       "retrieved_ids": [
+        "bgb-576",
+        "bgb-622",
+        "bgb-573c",
+        "bgb-577a",
+        "bgb-580a",
+        "bgb-621",
+        "bgb-573a",
+        "bgb-573d",
+        "bgb-575a",
+        "bgb-624"
+      ],
+      "gold_paragraphs": [
+        "§ 576"
+      ],
+      "retrieved_paragraphs": [
         "§ 576",
         "§ 622",
         "§ 573c",
@@ -2297,10 +4278,26 @@
     {
       "id": "ev-118",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 566e"
+        "bgb-566e-1"
       ],
       "retrieved_ids": [
+        "bgb-566",
+        "bgb-566e",
+        "bgb-566c",
+        "bgb-567b",
+        "bgb-565",
+        "bgb-547",
+        "bgb-546",
+        "bgb-566d",
+        "bgb-566b",
+        "bgb-566a"
+      ],
+      "gold_paragraphs": [
+        "§ 566e"
+      ],
+      "retrieved_paragraphs": [
         "§ 566",
         "§ 566e",
         "§ 566c",
@@ -2316,10 +4313,26 @@
     {
       "id": "ev-119",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 558d"
+        "bgb-558d-1"
       ],
       "retrieved_ids": [
+        "bgb-558d",
+        "bgb-558c",
+        "bgb-558a",
+        "bgb-558e",
+        "bgb-505c",
+        "bgb-505e",
+        "bgb-566c",
+        "bgb-580a",
+        "bgb-557b",
+        "bgb-556g"
+      ],
+      "gold_paragraphs": [
+        "§ 558d"
+      ],
+      "retrieved_paragraphs": [
         "§ 558d",
         "§ 558c",
         "§ 558a",
@@ -2335,10 +4348,26 @@
     {
       "id": "ev-120",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 544"
+        "bgb-544"
       ],
       "retrieved_ids": [
+        "bgb-544",
+        "bgb-594b",
+        "bgb-575",
+        "bgb-550",
+        "bgb-557a",
+        "bgb-578",
+        "bgb-556g",
+        "bgb-574a",
+        "bgb-545",
+        "bgb-540"
+      ],
+      "gold_paragraphs": [
+        "§ 544"
+      ],
+      "retrieved_paragraphs": [
         "§ 544",
         "§ 594b",
         "§ 575",
@@ -2354,10 +4383,26 @@
     {
       "id": "ev-121",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 555f"
+        "bgb-555f"
       ],
       "retrieved_ids": [
+        "bgb-555c",
+        "bgb-555f",
+        "bgb-559",
+        "bgb-556e",
+        "bgb-555d",
+        "bgb-555b",
+        "bgb-559e",
+        "bgb-559c",
+        "bgb-557",
+        "bgb-555e"
+      ],
+      "gold_paragraphs": [
+        "§ 555f"
+      ],
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 555f",
         "§ 559",
@@ -2373,10 +4418,26 @@
     {
       "id": "ev-122",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 556a"
+        "bgb-556a-2"
       ],
       "retrieved_ids": [
+        "bgb-556c",
+        "bgb-560",
+        "bgb-556",
+        "bgb-556a",
+        "bgb-590",
+        "bgb-554",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-553",
+        "bgb-539"
+      ],
+      "gold_paragraphs": [
+        "§ 556a"
+      ],
+      "retrieved_paragraphs": [
         "§ 556c",
         "§ 560",
         "§ 556",
@@ -2392,12 +4453,30 @@
     {
       "id": "ev-123",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-557-2",
+        "bgb-557a-1",
+        "bgb-557b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-557",
+        "bgb-558",
+        "bgb-559",
+        "bgb-557b",
+        "bgb-559b",
+        "bgb-557a",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-556d",
+        "bgb-555f"
+      ],
+      "gold_paragraphs": [
         "§ 557",
         "§ 557a",
         "§ 557b"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 557",
         "§ 558",
         "§ 559",
@@ -2413,10 +4492,26 @@
     {
       "id": "ev-124",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 565"
+        "bgb-565-1"
       ],
       "retrieved_ids": [
+        "bgb-565",
+        "bgb-576",
+        "bgb-576b",
+        "bgb-569",
+        "bgb-574c",
+        "bgb-577a",
+        "bgb-575a",
+        "bgb-556d",
+        "bgb-573b",
+        "bgb-1361b"
+      ],
+      "gold_paragraphs": [
+        "§ 565"
+      ],
+      "retrieved_paragraphs": [
         "§ 565",
         "§ 576",
         "§ 576b",
@@ -2432,11 +4527,28 @@
     {
       "id": "ev-125",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-573-1",
+        "bgb-573-3"
+      ],
+      "retrieved_ids": [
+        "bgb-573",
+        "bgb-574",
+        "bgb-543",
+        "bgb-573b",
+        "bgb-569",
+        "bgb-573a",
+        "bgb-568",
+        "bgb-573c",
+        "bgb-1056",
+        "bgb-574b"
+      ],
+      "gold_paragraphs": [
         "§ 573",
         "§ 573"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 573",
         "§ 574",
         "§ 543",
@@ -2452,11 +4564,28 @@
     {
       "id": "ev-126",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-542-2",
+        "bgb-545"
+      ],
+      "retrieved_ids": [
+        "bgb-563a",
+        "bgb-574a",
+        "bgb-575",
+        "bgb-545",
+        "bgb-574c",
+        "bgb-576b",
+        "bgb-550",
+        "bgb-564",
+        "bgb-577a",
+        "bgb-547"
+      ],
+      "gold_paragraphs": [
         "§ 542",
         "§ 545"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 563a",
         "§ 574a",
         "§ 575",
@@ -2472,11 +4601,28 @@
     {
       "id": "ev-127",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-547-1",
+        "bgb-547-2"
+      ],
+      "retrieved_ids": [
+        "bgb-547",
+        "bgb-566b",
+        "bgb-1124",
+        "bgb-566c",
+        "bgb-546a",
+        "bgb-572",
+        "bgb-571",
+        "bgb-556g",
+        "bgb-574c",
+        "bgb-574a"
+      ],
+      "gold_paragraphs": [
         "§ 547",
         "§ 547"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 547",
         "§ 566b",
         "§ 1124",
@@ -2492,11 +4638,28 @@
     {
       "id": "ev-128",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-551-3",
+        "bgb-551-4"
+      ],
+      "retrieved_ids": [
+        "bgb-551",
+        "bgb-556g",
+        "bgb-1845",
+        "bgb-1841",
+        "bgb-1846",
+        "bgb-566b",
+        "bgb-1839",
+        "bgb-563b",
+        "bgb-555a",
+        "bgb-560"
+      ],
+      "gold_paragraphs": [
         "§ 551",
         "§ 551"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 551",
         "§ 556g",
         "§ 1845",
@@ -2512,10 +4675,26 @@
     {
       "id": "ev-129",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 569"
+        "bgb-569-2"
       ],
       "retrieved_ids": [
+        "bgb-543",
+        "bgb-594e",
+        "bgb-569",
+        "bgb-573b",
+        "bgb-580a",
+        "bgb-573c",
+        "bgb-575",
+        "bgb-490",
+        "bgb-573",
+        "bgb-576"
+      ],
+      "gold_paragraphs": [
+        "§ 569"
+      ],
+      "retrieved_paragraphs": [
         "§ 543",
         "§ 594e",
         "§ 569",
@@ -2531,10 +4710,26 @@
     {
       "id": "ev-130",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 543"
+        "bgb-543-3"
       ],
       "retrieved_ids": [
+        "bgb-543",
+        "bgb-569",
+        "bgb-574",
+        "bgb-574b",
+        "bgb-576",
+        "bgb-536c",
+        "bgb-575",
+        "bgb-573a",
+        "bgb-573c",
+        "bgb-577a"
+      ],
+      "gold_paragraphs": [
+        "§ 543"
+      ],
+      "retrieved_paragraphs": [
         "§ 543",
         "§ 569",
         "§ 574",
@@ -2550,10 +4745,26 @@
     {
       "id": "ev-131",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 569"
+        "bgb-569-4"
       ],
       "retrieved_ids": [
+        "bgb-626",
+        "bgb-543",
+        "bgb-594e",
+        "bgb-569",
+        "bgb-314",
+        "bgb-627",
+        "bgb-648a",
+        "bgb-621",
+        "bgb-623",
+        "bgb-731"
+      ],
+      "gold_paragraphs": [
+        "§ 569"
+      ],
+      "retrieved_paragraphs": [
         "§ 626",
         "§ 543",
         "§ 594e",
@@ -2569,10 +4780,26 @@
     {
       "id": "ev-132",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 548"
+        "bgb-548-2"
       ],
       "retrieved_ids": [
+        "bgb-548",
+        "bgb-547",
+        "bgb-571",
+        "bgb-562b",
+        "bgb-556b",
+        "bgb-575",
+        "bgb-584b",
+        "bgb-577a",
+        "bgb-696",
+        "bgb-1123"
+      ],
+      "gold_paragraphs": [
+        "§ 548"
+      ],
+      "retrieved_paragraphs": [
         "§ 548",
         "§ 547",
         "§ 571",
@@ -2588,11 +4815,28 @@
     {
       "id": "ev-133",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-548-1",
+        "bgb-548-2"
+      ],
+      "retrieved_ids": [
+        "bgb-548",
+        "bgb-575",
+        "bgb-545",
+        "bgb-562b",
+        "bgb-576",
+        "bgb-556b",
+        "bgb-573c",
+        "bgb-547",
+        "bgb-1056",
+        "bgb-571"
+      ],
+      "gold_paragraphs": [
         "§ 548",
         "§ 548"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 548",
         "§ 575",
         "§ 545",
@@ -2608,10 +4852,26 @@
     {
       "id": "ev-134",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 540"
+        "bgb-540-2"
       ],
       "retrieved_ids": [
+        "bgb-536c",
+        "bgb-538",
+        "bgb-541",
+        "bgb-571",
+        "bgb-559d",
+        "bgb-838",
+        "bgb-540",
+        "bgb-566",
+        "bgb-555a",
+        "bgb-546a"
+      ],
+      "gold_paragraphs": [
+        "§ 540"
+      ],
+      "retrieved_paragraphs": [
         "§ 536c",
         "§ 538",
         "§ 541",
@@ -2626,11 +4886,29 @@
     },
     {
       "id": "ev-135",
-      "type": "direct",
+      "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
-        "§ 553"
+        "bgb-553-1",
+        "bgb-553-3"
       ],
       "retrieved_ids": [
+        "bgb-552",
+        "bgb-557a",
+        "bgb-576b",
+        "bgb-556g",
+        "bgb-538",
+        "bgb-537",
+        "bgb-573",
+        "bgb-566c",
+        "bgb-570",
+        "bgb-562c"
+      ],
+      "gold_paragraphs": [
+        "§ 553",
+        "§ 553"
+      ],
+      "retrieved_paragraphs": [
         "§ 552",
         "§ 557a",
         "§ 576b",
@@ -2646,12 +4924,30 @@
     {
       "id": "ev-136",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-553-1",
+        "bgb-540-2",
+        "bgb-553-3"
+      ],
+      "retrieved_ids": [
+        "bgb-540",
+        "bgb-541",
+        "bgb-557a",
+        "bgb-556g",
+        "bgb-536c",
+        "bgb-572",
+        "bgb-566",
+        "bgb-553",
+        "bgb-537",
+        "bgb-557"
+      ],
+      "gold_paragraphs": [
         "§ 553",
         "§ 540",
         "§ 553"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 540",
         "§ 541",
         "§ 557a",
@@ -2667,11 +4963,28 @@
     {
       "id": "ev-137",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-535-1",
+        "bgb-535-2"
+      ],
+      "retrieved_ids": [
+        "bgb-535",
+        "bgb-546",
+        "bgb-556g",
+        "bgb-536c",
+        "bgb-563b",
+        "bgb-540",
+        "bgb-566a",
+        "bgb-551",
+        "bgb-566",
+        "bgb-581"
+      ],
+      "gold_paragraphs": [
         "§ 535",
         "§ 535"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 535",
         "§ 546",
         "§ 556g",
@@ -2687,10 +5000,26 @@
     {
       "id": "ev-138",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 556c"
+        "bgb-556c-1"
       ],
       "retrieved_ids": [
+        "bgb-556c",
+        "bgb-559e",
+        "bgb-559",
+        "bgb-556",
+        "bgb-601",
+        "bgb-567b",
+        "bgb-566",
+        "bgb-566e",
+        "bgb-559c",
+        "bgb-560"
+      ],
+      "gold_paragraphs": [
+        "§ 556c"
+      ],
+      "retrieved_paragraphs": [
         "§ 556c",
         "§ 559e",
         "§ 559",
@@ -2706,10 +5035,26 @@
     {
       "id": "ev-139",
       "type": "direct",
+      "scope": "core",
       "gold_ids": [
-        "§ 556"
+        "bgb-556-3a"
       ],
       "retrieved_ids": [
+        "bgb-556",
+        "bgb-675a",
+        "bgb-312a",
+        "bgb-556c",
+        "bgb-675t",
+        "bgb-675q",
+        "bgb-675",
+        "bgb-675d",
+        "bgb-288",
+        "bgb-479d"
+      ],
+      "gold_paragraphs": [
+        "§ 556"
+      ],
+      "retrieved_paragraphs": [
         "§ 556",
         "§ 675a",
         "§ 312a",
@@ -2725,11 +5070,28 @@
     {
       "id": "ev-140",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-560-3",
+        "bgb-560-6"
+      ],
+      "retrieved_ids": [
+        "bgb-556a",
+        "bgb-560",
+        "bgb-556",
+        "bgb-638",
+        "bgb-309",
+        "bgb-675e",
+        "bgb-327n",
+        "bgb-556c",
+        "bgb-507",
+        "bgb-504"
+      ],
+      "gold_paragraphs": [
         "§ 560",
         "§ 560"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 556a",
         "§ 560",
         "§ 556",
@@ -2745,10 +5107,26 @@
     {
       "id": "ev-141",
       "type": "direct",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 562a"
+        "bgb-562a"
       ],
       "retrieved_ids": [
+        "bgb-562a",
+        "bgb-562b",
+        "bgb-562",
+        "bgb-562d",
+        "bgb-548",
+        "bgb-1253",
+        "bgb-704",
+        "bgb-1056",
+        "bgb-1256",
+        "bgb-1002"
+      ],
+      "gold_paragraphs": [
+        "§ 562a"
+      ],
+      "retrieved_paragraphs": [
         "§ 562a",
         "§ 562b",
         "§ 562",
@@ -2764,10 +5142,26 @@
     {
       "id": "ev-142",
       "type": "layperson",
+      "scope": "peripheral",
       "gold_ids": [
-        "§ 566c"
+        "bgb-566c"
       ],
       "retrieved_ids": [
+        "bgb-566c",
+        "bgb-566",
+        "bgb-566b",
+        "bgb-1124",
+        "bgb-547",
+        "bgb-577",
+        "bgb-567a",
+        "bgb-566e",
+        "bgb-578a",
+        "bgb-567b"
+      ],
+      "gold_paragraphs": [
+        "§ 566c"
+      ],
+      "retrieved_paragraphs": [
         "§ 566c",
         "§ 566",
         "§ 566b",
@@ -2783,10 +5177,26 @@
     {
       "id": "ev-143",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 551"
+        "bgb-551-2"
       ],
       "retrieved_ids": [
+        "bgb-551",
+        "bgb-486a",
+        "bgb-760",
+        "bgb-504",
+        "bgb-1585",
+        "bgb-1193",
+        "bgb-1118",
+        "bgb-1199",
+        "bgb-1178",
+        "bgb-1194"
+      ],
+      "gold_paragraphs": [
+        "§ 551"
+      ],
+      "retrieved_paragraphs": [
         "§ 551",
         "§ 486a",
         "§ 760",
@@ -2802,11 +5212,28 @@
     {
       "id": "ev-144",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-551-1",
+        "bgb-551-4"
+      ],
+      "retrieved_ids": [
+        "bgb-551",
+        "bgb-650f",
+        "bgb-1190",
+        "bgb-650m",
+        "bgb-675i",
+        "bgb-650e",
+        "bgb-557a",
+        "bgb-468",
+        "bgb-236",
+        "bgb-492b"
+      ],
+      "gold_paragraphs": [
         "§ 551",
         "§ 551"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 551",
         "§ 650f",
         "§ 1190",
@@ -2822,10 +5249,26 @@
     {
       "id": "ev-145",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
-        "§ 551"
+        "bgb-551-3"
       ],
       "retrieved_ids": [
+        "bgb-562b",
+        "bgb-562a",
+        "bgb-566",
+        "bgb-547",
+        "bgb-566b",
+        "bgb-1193",
+        "bgb-1123",
+        "bgb-573",
+        "bgb-551",
+        "bgb-574"
+      ],
+      "gold_paragraphs": [
+        "§ 551"
+      ],
+      "retrieved_paragraphs": [
         "§ 562b",
         "§ 562a",
         "§ 566",
@@ -2841,12 +5284,30 @@
     {
       "id": "ev-146",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-536c-1",
+        "bgb-536-1",
+        "bgb-536a-2"
+      ],
+      "retrieved_ids": [
+        "bgb-1218",
+        "bgb-1776",
+        "bgb-1042",
+        "bgb-1196",
+        "bgb-536a",
+        "bgb-634",
+        "bgb-2166",
+        "bgb-896",
+        "bgb-2165",
+        "bgb-536c"
+      ],
+      "gold_paragraphs": [
         "§ 536c",
         "§ 536",
         "§ 536a"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 1218",
         "§ 1776",
         "§ 1042",
@@ -2862,12 +5323,30 @@
     {
       "id": "ev-147",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-546-1",
+        "bgb-546a-1",
+        "bgb-571-1"
+      ],
+      "retrieved_ids": [
+        "bgb-571",
+        "bgb-566",
+        "bgb-1056",
+        "bgb-556g",
+        "bgb-575",
+        "bgb-564",
+        "bgb-547",
+        "bgb-577a",
+        "bgb-565",
+        "bgb-540"
+      ],
+      "gold_paragraphs": [
         "§ 546",
         "§ 546a",
         "§ 571"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 571",
         "§ 566",
         "§ 1056",
@@ -2883,11 +5362,28 @@
     {
       "id": "ev-148",
       "type": "multi_section",
+      "scope": "core",
       "gold_ids": [
+        "bgb-535-2",
+        "bgb-556b-1"
+      ],
+      "retrieved_ids": [
+        "bgb-579",
+        "bgb-556b",
+        "bgb-558b",
+        "bgb-535",
+        "bgb-559b",
+        "bgb-1123",
+        "bgb-563b",
+        "bgb-546",
+        "bgb-558",
+        "bgb-547"
+      ],
+      "gold_paragraphs": [
         "§ 535",
         "§ 556b"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 579",
         "§ 556b",
         "§ 558b",
@@ -2903,11 +5399,28 @@
     {
       "id": "ev-149",
       "type": "layperson",
+      "scope": "core",
       "gold_ids": [
+        "bgb-543-3",
+        "bgb-569-2"
+      ],
+      "retrieved_ids": [
+        "bgb-543",
+        "bgb-569",
+        "bgb-575",
+        "bgb-574",
+        "bgb-573c",
+        "bgb-574b",
+        "bgb-576",
+        "bgb-573",
+        "bgb-594e",
+        "bgb-573b"
+      ],
+      "gold_paragraphs": [
         "§ 543",
         "§ 569"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 543",
         "§ 569",
         "§ 575",
@@ -2923,12 +5436,30 @@
     {
       "id": "ev-150",
       "type": "multi_section",
+      "scope": "peripheral",
       "gold_ids": [
+        "bgb-555d-1",
+        "bgb-555d-2",
+        "bgb-555d-3"
+      ],
+      "retrieved_ids": [
+        "bgb-555c",
+        "bgb-559",
+        "bgb-555d",
+        "bgb-555b",
+        "bgb-559e",
+        "bgb-556e",
+        "bgb-555e",
+        "bgb-555f",
+        "bgb-559c",
+        "bgb-555a"
+      ],
+      "gold_paragraphs": [
         "§ 555d",
         "§ 555d",
         "§ 555d"
       ],
-      "retrieved_ids": [
+      "retrieved_paragraphs": [
         "§ 555c",
         "§ 559",
         "§ 555d",

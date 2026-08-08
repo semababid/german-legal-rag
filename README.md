@@ -10,9 +10,9 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | --- | --- |
 | Corpus and parser | Done |
 | Evaluation set | 150 questions, 77 sections covered |
-| Retrieval | hit@1 0.63, MRR 0.73 on the final config, see [RESULTS.md](RESULTS.md) |
-| Measurement | Every comparison significance tested at n=150 |
-| Experiments | Six run, one significant improvement. Phase complete |
+| Retrieval | hit@1 0.70, MRR 0.79 on the final config, see [RESULTS.md](RESULTS.md) |
+| Measurement | n=150, two scoring levels, core and peripheral split, all comparisons significance tested |
+| Experiments | Six run, two significant improvements. Phase complete |
 | Generation and serving | Not started |
 
 ## The corpus

@@ -19,6 +19,16 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_KS = (1, 3, 5, 10)
 
+# The sections a tenant actually asks about. Real query traffic would concentrate
+# here, while the eval set deliberately also covers peripheral provisions for
+# breadth, so the two are reported separately rather than averaged into one number
+# that describes neither population.
+CORE_SECTIONS = {
+    "§ 535", "§ 536", "§ 536a", "§ 536c", "§ 538", "§ 543", "§ 546", "§ 548",
+    "§ 551", "§ 553", "§ 554", "§ 556", "§ 556b", "§ 558", "§ 559", "§ 566",
+    "§ 569", "§ 573", "§ 573c", "§ 574",
+}
+
 
 def load_jsonl(path: Path) -> list[dict]:
     with path.open(encoding="utf-8") as fh:
@@ -31,6 +41,19 @@ def first_hit_rank(retrieved_ids: list[str], gold_ids: set[str]) -> int | None:
         if rid in gold_ids:
             return rank
     return None
+
+
+def add_scope_breakdown(block: dict, results: list[dict], ks=DEFAULT_KS) -> dict:
+    """Split the questions into core and peripheral tenancy topics.
+
+    Averaging the two hides that they behave differently, and a deployed assistant
+    would see mostly core traffic.
+    """
+    for scope in ("core", "peripheral"):
+        subset = [r for r in results if r.get("scope") == scope]
+        if subset:
+            block.setdefault("by_scope", {})[scope] = compute_metrics(subset, ks)["overall"]
+    return block
 
 
 def compute_metrics(results: list[dict], ks=DEFAULT_KS) -> dict:
@@ -75,16 +98,35 @@ def compute_metrics(results: list[dict], ks=DEFAULT_KS) -> dict:
     return {"overall": overall, "by_type": per_type}
 
 
+def _row(entry: dict, ks) -> str:
+    return "  ".join(f"{entry[f'hit@{k}']:.3f}" for k in ks)
+
+
 def print_report(metrics: dict, label: str, ks=DEFAULT_KS) -> None:
-    o = metrics["overall"]
+    """Print both scoring levels side by side.
+
+    Paragraph level is listed first because it is what predicts answer quality:
+    the generator is handed the whole section, so retrieving a sibling Absatz of
+    the right section is a near miss rather than a failure. Absatz level is the
+    strict reading and stays visible so neither number can be quoted alone.
+    """
     head = "  ".join(f"hit@{k}" for k in ks)
-    print(f"\n{label}   ({o['n']} questions)")
-    print(f"  {'':14}{head}  MRR")
-    row = "  ".join(f"{o[f'hit@{k}']:.3f}" for k in ks)
-    print(f"  {'overall':14}{row}  {o['mrr']:.3f}")
-    for name, t in sorted(metrics["by_type"].items()):
-        row = "  ".join(f"{t[f'hit@{k}']:.3f}" for k in ks)
-        print(f"  {name:14}{row}  {t['mrr']:.3f}   (n={t['n']})")
+
+    for level in ("paragraph", "strict"):
+        block = metrics.get(level)
+        if not block:
+            continue
+        o = block["overall"]
+        title = "paragraph level (section counts)" if level == "paragraph" else "strict (exact Absatz)"
+        print(f"\n{label}  {title}   ({o['n']} questions)")
+        print(f"  {'':14}{head}  MRR")
+        print(f"  {'overall':14}{_row(o, ks)}  {o['mrr']:.3f}")
+        for name, t in sorted(block["by_type"].items()):
+            print(f"  {name:14}{_row(t, ks)}  {t['mrr']:.3f}   (n={t['n']})")
+        for name in ("core", "peripheral"):
+            t = block.get("by_scope", {}).get(name)
+            if t:
+                print(f"  {name:14}{_row(t, ks)}  {t['mrr']:.3f}   (n={t['n']})")
 
 
 def run(kind: str, collection: str, model: str | None, eval_path: Path,
@@ -99,16 +141,15 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
         base=base, candidates=candidates,
     )
 
-    # Ground truth is Absatz-level ("bgb-573c-1"), but a section-granularity index
-    # returns whole sections ("bgb-573c"), so the two are not directly comparable.
-    # Matching at paragraph level puts both on the same footing: a hit means the
-    # retriever surfaced the section containing a gold Absatz. Both configurations
-    # must be scored this way for the comparison to mean anything.
-    gold_paragraph = {}
-    if match_level == "paragraph":
-        from retrievers import load_records
+    from retrievers import load_records
 
-        gold_paragraph = {r["id"]: r["paragraph"] for r in load_records("absatz")}
+    # Ground truth is Absatz-level ("bgb-573c-1"). Scoring at paragraph level maps
+    # both sides onto the containing section, so a sibling Absatz of the right
+    # section counts. That is the reading that matches what the generator receives
+    # downstream, and it is also the only way an Absatz index and a section index
+    # can be compared at all. Both levels are computed from one pass.
+    records = load_records("absatz")
+    gold_paragraph = {r["id"]: r["paragraph"] for r in records}
 
     max_k = max(ks)
     results = []
@@ -118,27 +159,41 @@ def run(kind: str, collection: str, model: str | None, eval_path: Path,
         hits = retriever.search(q["question"], k=max_k)
         latencies.append(time.perf_counter() - t0)
 
-        if match_level == "paragraph":
-            gold = [gold_paragraph.get(g, g) for g in q["ground_truth"]]
-            retrieved = [h["payload"]["paragraph"] for h in hits]
-        else:
-            gold = q["ground_truth"]
-            retrieved = [h["record_id"] for h in hits]
+        paragraphs = [gold_paragraph.get(g, g) for g in q["ground_truth"]]
+        scope = "core" if any(p in CORE_SECTIONS for p in paragraphs) else "peripheral"
 
         results.append(
             {
                 "id": q["id"],
                 "type": q["type"],
-                "gold_ids": gold,
-                "retrieved_ids": retrieved,
+                "scope": scope,
+                "gold_ids": q["ground_truth"],
+                "retrieved_ids": [h["record_id"] for h in hits],
+                "gold_paragraphs": paragraphs,
+                "retrieved_paragraphs": [h["payload"]["paragraph"] for h in hits],
             }
         )
 
     if hasattr(retriever, "close"):
         retriever.close()
 
-    metrics = compute_metrics(results, ks)
-    metrics["latency_p50_ms"] = round(sorted(latencies)[len(latencies) // 2] * 1000, 1)
+    def view(gold_key: str, retrieved_key: str) -> list[dict]:
+        return [
+            {"type": r["type"], "scope": r["scope"],
+             "gold_ids": r[gold_key], "retrieved_ids": r[retrieved_key]}
+            for r in results
+        ]
+
+    strict = view("gold_ids", "retrieved_ids")
+    para = view("gold_paragraphs", "retrieved_paragraphs")
+
+    metrics = {
+        "paragraph": add_scope_breakdown(compute_metrics(para, ks), para, ks),
+        "strict": add_scope_breakdown(compute_metrics(strict, ks), strict, ks),
+        "latency_p50_ms": round(sorted(latencies)[len(latencies) // 2] * 1000, 1),
+    }
+    # match_level selects which view compare_runs.py reads back from the file.
+    metrics["primary"] = match_level if match_level in ("paragraph", "strict") else "paragraph"
     return metrics, results
 
 
@@ -150,8 +205,8 @@ def main() -> int:
     ap.add_argument("--with-context", action="store_true", help="score against breadcrumb + text (bm25 and rerank)")
     ap.add_argument("--base", choices=("dense", "bm25", "hybrid"), default="dense", help="rerank only: retriever supplying candidates")
     ap.add_argument("--candidates", type=int, default=25, help="rerank only: how many candidates to rescore")
-    ap.add_argument("--match-level", choices=("record", "paragraph"), default="record",
-                    help="paragraph puts Absatz and section indexes on comparable footing")
+    ap.add_argument("--level", choices=("paragraph", "strict"), default="paragraph",
+                    help="which level compare_runs treats as primary; both are always computed")
     ap.add_argument("--model", default=None)
     ap.add_argument("--label", default=None, help="name for this run in the report and results file")
     ap.add_argument("--eval", type=Path, default=REPO_ROOT / "data" / "eval" / "mietrecht.jsonl")
@@ -161,7 +216,7 @@ def main() -> int:
     metrics, results = run(
         args.retriever, args.collection, args.model, args.eval,
         with_context=args.with_context, granularity=args.granularity,
-        base=args.base, candidates=args.candidates, match_level=args.match_level,
+        base=args.base, candidates=args.candidates, match_level=args.level,
     )
     print_report(metrics, label)
 
@@ -170,7 +225,7 @@ def main() -> int:
     slug = label.replace("/", "_").replace(" ", "_")
     out_path = out_dir / f"{slug}.json"
     with out_path.open("w", encoding="utf-8") as fh:
-        json.dump({"label": label, "retriever": args.retriever, "collection": args.collection, "match_level": args.match_level, "metrics": metrics, "results": results}, fh, ensure_ascii=False, indent=2)
+        json.dump({"label": label, "retriever": args.retriever, "collection": args.collection, "level": args.level, "metrics": metrics, "results": results}, fh, ensure_ascii=False, indent=2)
     print(f"\nwrote {out_path.relative_to(REPO_ROOT)}")
     return 0
 
