@@ -1,0 +1,138 @@
+"""Generate an answer for every question in the eval set.
+
+This produces the file the next two steps read: the hand-graded calibration
+sample in 4.2 is drawn from it, and the judge in 4.3 scores it. Running it is
+the only expensive step in phase 4, so the output is written per question as it
+goes and a rerun skips whatever is already there.
+
+    python src/generate_answers.py --backend ollama --label local-qwen
+    python src/generate_answers.py --backend anthropic --label api-haiku --limit 20
+
+The summary at the end is deliberately not a quality score. Refusal rate and
+ungrounded-citation rate are countable without a judge; whether an answer is
+correct is not, and pretending otherwise here would put a number in front of the
+calibration step that is supposed to produce it.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+from generator import build_backend, generate
+from retrievers import build_retriever
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+ANSWERS_DIR = REPO_ROOT / "results" / "answers"
+
+
+def load_jsonl(path: Path) -> list[dict]:
+    with path.open(encoding="utf-8") as fh:
+        return [json.loads(line) for line in fh if line.strip()]
+
+
+def load_existing(path: Path) -> dict[str, dict]:
+    if not path.exists():
+        return {}
+    return {row["id"]: row for row in json.load(path.open(encoding="utf-8"))["answers"]}
+
+
+def summarise(rows: list[dict]) -> dict:
+    n = len(rows)
+    if not n:
+        return {}
+    refused = sum(1 for r in rows if r["refused"])
+    answered = [r for r in rows if not r["refused"]]
+    ungrounded = sum(1 for r in answered if r["citations"]["unsupported"])
+    uncited = sum(1 for r in answered if not r["citations"]["exact"] and not r["citations"]["section_only"])
+    latencies = sorted(r["latency_ms"] for r in rows)
+
+    return {
+        "n": n,
+        "refused": refused,
+        "refusal_rate": round(refused / n, 3),
+        "ungrounded_citations": ungrounded,
+        "answers_citing_nothing": uncited,
+        "latency_p50_ms": latencies[len(latencies) // 2],
+        "latency_p95_ms": latencies[int(0.95 * (n - 1))],
+        "total_cost_usd": round(sum(r["cost_usd"] for r in rows), 4),
+        "cost_per_1k_queries_usd": round(sum(r["cost_usd"] for r in rows) / n * 1000, 2),
+    }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--backend", choices=("ollama", "anthropic"), default="ollama")
+    ap.add_argument("--model", default=None)
+    ap.add_argument("--label", default=None, help="name for the output file")
+    ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="domain")
+    ap.add_argument("--collection", default="absatz_ctx")
+    ap.add_argument("-k", type=int, default=6, help="how many sections to put in each prompt")
+    ap.add_argument("--limit", type=int, default=None, help="stop after this many questions")
+    ap.add_argument("--redo", action="store_true", help="regenerate answers already in the output file")
+    ap.add_argument("--eval", type=Path, default=REPO_ROOT / "data" / "eval" / "mietrecht.jsonl")
+    args = ap.parse_args()
+
+    questions = load_jsonl(args.eval)
+    if args.limit:
+        questions = questions[: args.limit]
+
+    backend = build_backend(args.backend, args.model)
+    label = args.label or f"{args.backend}-{backend.model.replace(':', '-')}"
+
+    ANSWERS_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = ANSWERS_DIR / f"{label}.json"
+    done = {} if args.redo else load_existing(out_path)
+    if done:
+        print(f"{len(done)} answers already in {out_path.name}, generating the rest")
+
+    retriever = build_retriever(args.retriever, collection=args.collection)
+    rows: list[dict] = []
+
+    try:
+        for i, q in enumerate(questions, 1):
+            if q["id"] in done:
+                rows.append(done[q["id"]])
+                continue
+
+            hits = retriever.search(q["question"], k=args.k)
+            answer = generate(q["question"], hits, backend)
+
+            row = {"id": q["id"], "type": q["type"], "topic": q["topic"],
+                   "ground_truth": q["ground_truth"], **answer.as_dict()}
+            rows.append(row)
+
+            flag = "refused" if answer.refused else (
+                "UNGROUNDED" if answer.citations.unsupported else "ok")
+            print(f"{i:3}/{len(questions)}  {q['id']}  {answer.latency_ms:6.0f} ms  {flag}")
+
+            # Written every question rather than at the end. A run over 150
+            # questions against a local 14B model takes long enough that losing
+            # it to an interrupted terminal would be a real cost.
+            with out_path.open("w", encoding="utf-8") as fh:
+                json.dump({"label": label, "backend": args.backend, "model": backend.model,
+                           "k": args.k, "retriever": args.retriever,
+                           "answers": rows}, fh, ensure_ascii=False, indent=2)
+    finally:
+        if hasattr(retriever, "close"):
+            retriever.close()
+
+    stats = summarise(rows)
+    with out_path.open("w", encoding="utf-8") as fh:
+        json.dump({"label": label, "backend": args.backend, "model": backend.model,
+                   "k": args.k, "retriever": args.retriever,
+                   "summary": stats, "answers": rows}, fh, ensure_ascii=False, indent=2)
+
+    print(f"\n{label}  {stats['n']} answers")
+    print(f"  refused                {stats['refused']} ({stats['refusal_rate']:.1%})")
+    print(f"  ungrounded citations   {stats['ungrounded_citations']}")
+    print(f"  citing nothing         {stats['answers_citing_nothing']}")
+    print(f"  latency p50 / p95      {stats['latency_p50_ms']:.0f} / {stats['latency_p95_ms']:.0f} ms")
+    print(f"  cost per 1k queries    ${stats['cost_per_1k_queries_usd']:.2f}")
+    print(f"\nwrote {out_path.relative_to(REPO_ROOT)}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

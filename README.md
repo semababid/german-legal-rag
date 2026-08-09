@@ -13,7 +13,8 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Retrieval | hit@1 0.70, MRR 0.79 on the final config, see [RESULTS.md](RESULTS.md) |
 | Measurement | n=150, two scoring levels, core and peripheral split, all comparisons significance tested |
 | Experiments | Six run, two significant improvements. Phase complete |
-| Generation and serving | Not started |
+| Generation | Written and unit tested. No answers scored yet, since neither model backend is installed on this machine |
+| Serving | Not started |
 
 ## The corpus
 
@@ -68,6 +69,38 @@ To reproduce the raw-text baseline instead, index without `--with-context` and s
 `--collection absatz_raw`. Every row in [RESULTS.md](RESULTS.md) lists the flags that
 produced it.
 
+## Answering
+
+Retrieval hands its sections to a model, which answers in German and cites the
+provisions it used. Two backends, chosen with a flag, because whether a system
+like this can run on your own hardware is a real question in Germany and not
+only a budget one.
+
+```bash
+# local: free, no key, nothing leaves the machine
+brew install ollama && ollama serve
+ollama pull qwen2.5:14b
+python src/answer.py "Wie hoch darf die Kaution sein?"
+
+# or through the API
+export ANTHROPIC_API_KEY=...
+python src/answer.py --backend anthropic "Wann darf ich die Miete mindern?"
+
+# the whole eval set, saved for grading in the next step
+python src/generate_answers.py --backend ollama --label local-qwen
+```
+
+Every answer is checked against the sections it was shown. Each § it cites comes
+back as one of three things: the exact Absatz that was retrieved, a different
+Absatz of a section that was retrieved, or a section that was never in front of
+the model at all. The third case is the one worth catching, and catching it
+needs no judge and no key.
+
+The model is also told to refuse. Eight questions in the eval set are answered
+by no retrieval configuration tested, so they double as refusal cases: declining
+those is the correct behaviour, and a fixed token rather than a hedged sentence
+makes it countable.
+
 ## Layout
 
 ```
@@ -79,7 +112,10 @@ src/index_corpus.py       embed records into Qdrant
 src/retrieve.py           dense retrieval + query CLI
 src/eval_retrieval.py     hit-rate@k and MRR against the eval set
 src/compare_runs.py       significance testing between two runs
-tests/                    unit tests for the metric and retrieval logic
+src/generator.py          prompt, model backends, citation checking
+src/answer.py             ask one question, get a cited answer
+src/generate_answers.py   answer the whole eval set and save it
+tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions
 RESULTS.md                retrieval scores
 ROADMAP.md                phases and metrics

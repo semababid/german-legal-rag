@@ -12,7 +12,7 @@ Assumed pace is six weeks part time, with no fixed deadline baked in. If you are
 | 1 | Evaluation set | 120 to 150 German Q/A pairs with ground-truth § references, as JSONL | Every reference resolves to a real record ID and `validate_eval.py` confirms it | Done: 150 written |
 | 2 | Baseline retrieval | Dense-only pipeline, deliberately untuned | hit-rate@1/3/5 and MRR recorded against the eval set | Done: hit@1 0.62, hit@5 0.85, MRR 0.71 |
 | 3 | Retrieval experiments | Six configurations, one results table | Table filled in and you can explain each result | Done: two significant wins. Final hit@1 0.700, MRR 0.790 at n=150 |
-| 4 | Generation and judging | Cited German answers, calibrated LLM judge, local vs API comparison | Faithfulness and relevance scored, cost and p95 latency reported for both models | 1 wk |
+| 4 | Generation and judging | Cited German answers, calibrated LLM judge, local vs API comparison | Faithfulness and relevance scored, cost and p95 latency reported for both models | 4.1 written, blocked on installing a model |
 | 5 | Serving | FastAPI, Docker Compose, thin frontend, structured logging, deployed | Public URL resolves and every request is logged with query, retrieved IDs, scores, tokens, latency | 1 wk |
 | 6 | Write-up | README in English, German screenshots and queries | Results table leads the README and limitations are stated plainly | 3 d |
 
@@ -41,6 +41,26 @@ Source the questions from situations you can state concretely: deposit returns, 
 | Compound splitting in query expansion | Whether decompounding recovers lexical matches | Helps BM25, little effect on dense |
 
 The breadcrumb ablation is the one to run first. BGB § 573c Abs. 1 states a notice period without containing the words Mietvertrag, Wohnraum, or Frist. A query like "Kündigungsfrist Wohnung" has almost nothing to match in the raw Absatz text, so the size of the gain from prefixing structural context is a real finding rather than a tuning detail.
+
+## Phase 4: generation and judging
+
+| Step | What it produces | State |
+| --- | --- | --- |
+| 4.1 Cited answers | German answers constrained to the retrieved sections, with every citation checked against them | Written, 20 unit tests, not yet run against a model |
+| 4.2 Calibration set | 30 answers graded by hand, before any judge sees them | Needs 4.1 output |
+| 4.3 LLM judge | Faithfulness and relevance, agreement against the hand grades reported | Needs 4.2 |
+| 4.4 Local vs API | Same answers from both backends, quality and cost and p95 latency side by side | Needs a local model installed |
+
+Citation checking is deliberately separate from the judge. It answers a narrower
+question, whether the answer cites a § that was actually retrieved, and it
+answers it deterministically, for free, and before the judge exists. A judge is
+needed for whether a claim is supported by the section it points at; it is not
+needed to catch an invented section number, and that is the failure that matters
+most in a legal setting.
+
+Refusal is a fixed token rather than a polite sentence, so a partial refusal
+cannot be scored as an answer. The eight questions no retrieval configuration
+answers in the top ten are the test cases: declining those is correct.
 
 ## Metrics
 
@@ -136,3 +156,4 @@ Describe this one as retrieval quality work and that one as agentic control flow
 | --- | --- | --- |
 | Topic balance in the eval set | During phase 1 | Betriebskosten and Mieterhöhung have two questions each against eight for Kündigung. Worth evening out before the set is treated as final. |
 | Whether phase 3 needs all seven experiments | Start of phase 3 | If the first three produce a clear story, the rest become optional rather than obligatory |
+| Which backend to install first | Blocking 4.1 | Neither is on the machine yet. Ollama with Qwen 2.5 14B costs nothing and 4.4 needs it regardless, so it is the one to install first. The API side is a key and a few euros on top. |

@@ -10,5 +10,10 @@ qdrant-client==1.19.0
 rank-bm25==0.2.2
 numpy==2.5.1
 
+# Generation, only for the API side of the phase 4 comparison. The local
+# backend talks to Ollama over HTTP with the standard library, so retrieval and
+# local generation both run without this installed.
+anthropic==0.121.0
+
 # Tests only
 pytest==9.1.1
