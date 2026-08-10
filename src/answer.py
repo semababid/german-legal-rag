@@ -20,6 +20,7 @@ def main() -> int:
     ap.add_argument("question")
     ap.add_argument("--backend", choices=("ollama", "anthropic"), default="ollama")
     ap.add_argument("--model", default=None, help="backend default if unset")
+    ap.add_argument("--think", action="store_true", help="ollama only: let the model reason first, slower but better German")
     ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="domain")
     ap.add_argument("--collection", default="absatz_ctx", help="dense only")
     ap.add_argument("-k", type=int, default=6, help="how many sections to put in the prompt")
@@ -37,7 +38,7 @@ def main() -> int:
             print(f"{rank:2}. {p['citation']}  {p.get('title') or ''}")
         print()
 
-    answer = generate(args.question, hits, build_backend(args.backend, args.model))
+    answer = generate(args.question, hits, build_backend(args.backend, args.model, think=args.think))
 
     print(answer.text)
     print()

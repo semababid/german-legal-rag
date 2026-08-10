@@ -65,6 +65,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--backend", choices=("ollama", "anthropic"), default="ollama")
     ap.add_argument("--model", default=None)
+    ap.add_argument("--think", action="store_true", help="ollama only: let the model reason first, slower but better German")
     ap.add_argument("--label", default=None, help="name for the output file")
     ap.add_argument("--retriever", choices=("dense", "bm25", "hybrid", "rerank", "domain"), default="domain")
     ap.add_argument("--collection", default="absatz_ctx")
@@ -78,8 +79,10 @@ def main() -> int:
     if args.limit:
         questions = questions[: args.limit]
 
-    backend = build_backend(args.backend, args.model)
-    label = args.label or f"{args.backend}-{backend.model.replace(':', '-')}"
+    backend = build_backend(args.backend, args.model, think=args.think)
+    label = args.label or (
+        f"{args.backend}-{backend.model.replace(':', '-')}" + ("-think" if args.think else "")
+    )
 
     ANSWERS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = ANSWERS_DIR / f"{label}.json"

@@ -51,6 +51,21 @@ ausschließlich mit {REFUSAL_TOKEN} und sonst nichts. Rate nicht.
 5. Du gibst Auskunft über den Gesetzeswortlaut, keine Rechtsberatung."""
 
 
+THINK_TAG_RE = re.compile(r"<think(?:ing)?>.*?</think(?:ing)?>", re.DOTALL | re.IGNORECASE)
+
+
+def strip_think_tags(text: str) -> str:
+    """Drop inline reasoning from an answer before anything reads it.
+
+    Ollama returns reasoning in a separate field, so this is a guard rather than
+    the main path. It matters because the citation check parses § references out
+    of the answer text: a model that reasons inline about § 573 would have that
+    counted as a citation it never made, quietly turning the one honest
+    faithfulness signal into noise.
+    """
+    return THINK_TAG_RE.sub("", text).strip()
+
+
 def build_context(hits: list[dict]) -> str:
     """Format retrieved records as numbered, citable blocks.
 
@@ -270,11 +285,18 @@ class OllamaBackend:
 
     name = "ollama"
 
-    def __init__(self, model: str = "qwen2.5:14b", host: str = "http://localhost:11434",
-                 timeout: int = 180):
+    def __init__(self, model: str = "qwen3.5:9b", host: str = "http://localhost:11434",
+                 timeout: int = 180, think: bool = False):
         self.model = model
         self.host = host.rstrip("/")
         self.timeout = timeout
+        # Qwen 3.5 reasons before answering unless told not to, and it is not
+        # cheap: a one-sentence answer cost 1,444 output tokens with reasoning
+        # against 43 without. Off by default so a 150-question run finishes in
+        # minutes, and because the API side of the comparison is measured
+        # without extended thinking too. Reasoning does help the German, so it
+        # is a flag rather than a decision: --think measures the other side.
+        self.think = think
 
     def complete(self, system: str, user: str) -> tuple[str, int, int]:
         payload = {
@@ -284,6 +306,7 @@ class OllamaBackend:
                 {"role": "user", "content": user},
             ],
             "stream": False,
+            "think": self.think,
             # Greedy decoding. Two runs of the eval set should differ because the
             # pipeline changed, not because the sampler rolled differently.
             "options": {"temperature": 0.0},
@@ -303,8 +326,11 @@ class OllamaBackend:
                 f"  ollama serve\n  ollama pull {self.model}"
             ) from exc
 
+        # Reasoning arrives in its own field, so it never reaches the citation
+        # check. Reading `content` blind would still be wrong on a model that
+        # inlines it, so any leftover think tags are stripped as well.
         return (
-            body["message"]["content"].strip(),
+            strip_think_tags(body["message"]["content"]),
             body.get("prompt_eval_count", 0),
             body.get("eval_count", 0),
         )
@@ -344,10 +370,12 @@ class AnthropicBackend:
         return text, response.usage.input_tokens, response.usage.output_tokens
 
 
-def build_backend(kind: str, model: str | None = None, **kwargs):
+def build_backend(kind: str, model: str | None = None, think: bool = False, **kwargs):
     if kind == "ollama":
-        return OllamaBackend(model or "qwen2.5:14b", **kwargs)
+        return OllamaBackend(model or "qwen3.5:9b", think=think, **kwargs)
     if kind == "anthropic":
+        # think has no counterpart here: the comparison runs Haiku without
+        # extended thinking, so the two sides stay measured on the same footing.
         return AnthropicBackend(model or "claude-haiku-4-5", **kwargs)
     raise ValueError(f"unknown backend {kind!r}")
 

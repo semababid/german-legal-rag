@@ -13,7 +13,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Retrieval | hit@1 0.70, MRR 0.79 on the final config, see [RESULTS.md](RESULTS.md) |
 | Measurement | n=150, two scoring levels, core and peripheral split, all comparisons significance tested |
 | Experiments | Six run, two significant improvements. Phase complete |
-| Generation | Written and unit tested. No answers scored yet, since neither model backend is installed on this machine |
+| Generation | Working end to end on the local model. Answers are cited and grounding-checked; not yet scored for quality |
 | Serving | Not started |
 
 ## The corpus
@@ -79,7 +79,7 @@ only a budget one.
 ```bash
 # local: free, no key, nothing leaves the machine
 brew install ollama && ollama serve
-ollama pull qwen2.5:14b
+ollama pull qwen3.5:9b
 python src/answer.py "Wie hoch darf die Kaution sein?"
 
 # or through the API
@@ -100,6 +100,12 @@ The model is also told to refuse. Eight questions in the eval set are answered
 by no retrieval configuration tested, so they double as refusal cases: declining
 those is the correct behaviour, and a fixed token rather than a hedged sentence
 makes it countable.
+
+Qwen 3.5 reasons before answering unless told not to, and it is expensive: a
+one-sentence answer cost 1,444 output tokens with reasoning against 43 without.
+It is off by default so a run over 150 questions finishes in minutes, and
+because the API side of the comparison is measured without extended thinking
+too. `--think` turns it back on and measures the other side.
 
 ## Layout
 

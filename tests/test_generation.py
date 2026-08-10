@@ -27,6 +27,7 @@ from generator import (  # noqa: E402
     is_refusal,
     parse_citations,
     strip_law_prefix,
+    strip_think_tags,
     verify_citations,
 )
 
@@ -149,6 +150,20 @@ def test_citation_check_serialises_back_to_readable_references():
     assert d["grounded"] is False
 
 
+def test_think_tags_are_stripped_before_citations_are_read():
+    """Inline reasoning must not be mined for citations.
+
+    Ollama returns reasoning in its own field, so this is a guard against a
+    backend that inlines it instead. Without the strip, a model reasoning aloud
+    about § 536 would have that counted as a citation it never made.
+    """
+    reply = "<think>Vielleicht § 536 Abs. 1?</think>Höchstens drei Monatsmieten [§ 551 Abs. 1]."
+    assert strip_think_tags(reply) == "Höchstens drei Monatsmieten [§ 551 Abs. 1]."
+    assert parse_citations(strip_think_tags(reply)) == [("551", "1")]
+    # an answer with no reasoning is returned unchanged apart from trimming
+    assert strip_think_tags("  Ein Satz.  ") == "Ein Satz."
+
+
 def test_refusal_survives_a_courtesy_sentence():
     assert is_refusal(REFUSAL_TOKEN)
     assert is_refusal(f"Leider {REFUSAL_TOKEN}")
@@ -161,7 +176,7 @@ def test_cost_is_computed_from_published_rates():
     assert cost_usd("claude-haiku-4-5", 0, 1_000_000) == pytest.approx(5.00)
     assert cost_usd("claude-haiku-4-5", 1000, 200) == pytest.approx(0.002)
     # a model running on your own hardware has no per-token price
-    assert cost_usd("qwen2.5:14b", 5000, 900) == 0.0
+    assert cost_usd("qwen3.5:9b", 5000, 900) == 0.0
 
 
 def test_generate_wires_prompt_verification_and_accounting_together():
