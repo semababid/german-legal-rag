@@ -22,9 +22,9 @@ from generator import (  # noqa: E402
     Answer,
     build_context,
     build_prompt,
+    classify_response,
     cost_usd,
     generate,
-    is_refusal,
     parse_citations,
     strip_law_prefix,
     strip_think_tags,
@@ -164,10 +164,50 @@ def test_think_tags_are_stripped_before_citations_are_read():
     assert strip_think_tags("  Ein Satz.  ") == "Ein Satz."
 
 
-def test_refusal_survives_a_courtesy_sentence():
-    assert is_refusal(REFUSAL_TOKEN)
-    assert is_refusal(f"Leider {REFUSAL_TOKEN}")
-    assert not is_refusal("Die Kaution beträgt höchstens drei Monatsmieten.")
+def test_a_bare_token_is_a_refusal_even_with_a_courtesy_sentence():
+    empty = verify_citations("", CONTEXT)
+    assert classify_response(REFUSAL_TOKEN, empty) == "refusal"
+    assert classify_response(f"Leider {REFUSAL_TOKEN}", empty) == "refusal"
+
+
+def test_an_answer_that_cites_and_then_hedges_is_not_a_refusal():
+    """Regression from the first 150-question run.
+
+    ev-139 answered the question with two grounded citations and closed by
+    noting the text did not settle one detail, using the token. Counting that
+    as a refusal credits the system for declining when it actually answered.
+    """
+    reply = (
+        "Bei einer aufwendigen Maßnahme müssen Sie nur zahlen, wenn drei Angebote "
+        "eingeholt wurden [§ 551 Abs. 1]. Eine abschließende Beantwortung ist "
+        f"{REFUSAL_TOKEN}."
+    )
+    check = verify_citations(reply, CONTEXT)
+    assert check.total == 1
+    assert classify_response(reply, check) == "hedged"
+
+
+def test_a_plain_answer_is_neither():
+    reply = "Die Kaution beträgt höchstens drei Monatsmieten [§ 551 Abs. 1]."
+    assert classify_response(reply, verify_citations(reply, CONTEXT)) == "answer"
+
+
+def test_a_reference_to_another_statute_is_not_a_bgb_citation():
+    """Also from the first run.
+
+    The BGB cross-references the Telekommunikationsgesetz, and the model
+    reproduces that when quoting § 555b. Reading it as a BGB section marked two
+    faithful answers as ungrounded.
+    """
+    reply = (
+        "Dazu zählt der Anschluss an ein Glasfasernetz gemäß § 3 Nummer 33 des "
+        "Telekommunikationsgesetzes [§ 551 Abs. 1]."
+    )
+    assert parse_citations(reply) == [("551", "1")]
+    assert verify_citations(reply, CONTEXT).grounded
+
+    # the same shape without the qualifier is still a BGB citation
+    assert parse_citations("gemäß § 3 Nummer 33 gilt") == [("3", None)]
 
 
 def test_cost_is_computed_from_published_rates():

@@ -227,6 +227,43 @@ doing nothing.
 
 The shipped configuration is among the simplest tested and also the fastest.
 
+## Generation, first run
+
+150 answers from Qwen 3.5 9B, run locally, six retrieved sections per prompt and
+reasoning switched off. Only the countable things are here. Whether an answer is
+correct is what the hand-graded set and the judge are for, and putting a quality
+number here before those exist would be inventing one.
+
+| | |
+| --- | --- |
+| Answers | 150 |
+| Cited a § that was never retrieved | 17 |
+| Cited nothing at all | 1 |
+| Used the refusal token | 12 |
+| Latency p50 / p95 | 7.9 s / 11.0 s |
+| Cost | none, runs on the machine |
+
+17 of 150 citing a section the retriever never returned is the number that
+matters, because it is the failure a legal assistant cannot have. Those
+citations come from the model's own memory of the BGB rather than from the text
+in front of it, and they are plausible enough to pass a skim: § 558 and § 560
+turn up in answers about subletting, which is the right neighbourhood and the
+wrong provision.
+
+Two of the original 19 turned out to be my own bug. The BGB cross-references
+other statutes, so an answer quoting § 555b faithfully reproduces its reference
+to § 3 Nr. 33 of the Telekommunikationsgesetz, and the checker read that as a
+BGB section that was never retrieved. A citation qualified by another law's name
+is now skipped.
+
+The refusal count needs reading carefully. Not one of the 12 is a clean refusal.
+Every one cites something alongside the token, and they split into two
+behaviours that look the same to any rule: answering and then caveating a
+detail, and declining while citing the sections examined to explain why they do
+not answer. The prompt asks for the bare token and nothing else; the model
+prefers to argue its case. Those 12 go into the hand-graded set rather than
+being counted either way here.
+
 ## Setup
 
 Model `BAAI/bge-m3`, 1024-dimensional, cosine similarity, on Apple Silicon (MPS).

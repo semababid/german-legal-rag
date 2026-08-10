@@ -38,12 +38,42 @@ def load_existing(path: Path) -> dict[str, dict]:
     return {row["id"]: row for row in json.load(path.open(encoding="utf-8"))["answers"]}
 
 
+def rescore(path: Path) -> list[dict]:
+    """Recheck saved answers against the sections they were shown.
+
+    Generation is the expensive step and the answers are deterministic, so a fix
+    to the citation checker should not cost another run of the model. The
+    retrieved record ids are stored with each answer, which is enough to rebuild
+    what the model saw and score it again.
+    """
+    from generator import classify_response, verify_citations
+    from retrievers import load_records
+
+    payloads = {r["id"]: r for r in load_records("absatz")}
+    data = json.load(path.open(encoding="utf-8"))
+
+    for row in data["answers"]:
+        hits = [{"payload": payloads[rid]} for rid in row["retrieved"] if rid in payloads]
+        check = verify_citations(row["answer"], hits)
+        row["citations"] = check.as_dict()
+        row["outcome"] = classify_response(row["answer"], check)
+        row["refused"] = row["outcome"] == "refusal"
+
+    data["summary"] = summarise(data["answers"])
+    with path.open("w", encoding="utf-8") as fh:
+        json.dump(data, fh, ensure_ascii=False, indent=2)
+    return data["answers"]
+
+
 def summarise(rows: list[dict]) -> dict:
     n = len(rows)
     if not n:
         return {}
-    refused = sum(1 for r in rows if r["refused"])
-    answered = [r for r in rows if not r["refused"]]
+    # An answer that cites and then hedges is not a refusal, so it stays in the
+    # pool whose citations get checked.
+    refused = sum(1 for r in rows if r.get("outcome", "answer") == "refusal")
+    hedged = sum(1 for r in rows if r.get("outcome") == "hedged")
+    answered = [r for r in rows if r.get("outcome", "answer") != "refusal"]
     ungrounded = sum(1 for r in answered if r["citations"]["unsupported"])
     uncited = sum(1 for r in answered if not r["citations"]["exact"] and not r["citations"]["section_only"])
     latencies = sorted(r["latency_ms"] for r in rows)
@@ -51,6 +81,7 @@ def summarise(rows: list[dict]) -> dict:
     return {
         "n": n,
         "refused": refused,
+        "hedged": hedged,
         "refusal_rate": round(refused / n, 3),
         "ungrounded_citations": ungrounded,
         "answers_citing_nothing": uncited,
@@ -72,12 +103,24 @@ def main() -> int:
     ap.add_argument("-k", type=int, default=6, help="how many sections to put in each prompt")
     ap.add_argument("--limit", type=int, default=None, help="stop after this many questions")
     ap.add_argument("--redo", action="store_true", help="regenerate answers already in the output file")
+    ap.add_argument("--rescore", action="store_true", help="recheck saved answers without calling the model again")
     ap.add_argument("--eval", type=Path, default=REPO_ROOT / "data" / "eval" / "mietrecht.jsonl")
     args = ap.parse_args()
 
     questions = load_jsonl(args.eval)
     if args.limit:
         questions = questions[: args.limit]
+
+    if args.rescore:
+        if not args.label:
+            raise SystemExit("--rescore needs --label naming the run to recheck")
+        path = ANSWERS_DIR / f"{args.label}.json"
+        if not path.exists():
+            raise SystemExit(f"No run at {path}")
+        rows = rescore(path)
+        stats = summarise(rows)
+        print(f"rescored {args.label}: {json.dumps(stats, indent=2)}")
+        return 0
 
     backend = build_backend(args.backend, args.model, think=args.think)
     label = args.label or (
@@ -106,9 +149,12 @@ def main() -> int:
                    "ground_truth": q["ground_truth"], **answer.as_dict()}
             rows.append(row)
 
-            flag = "refused" if answer.refused else (
+            flag = answer.outcome if answer.outcome != "answer" else (
                 "UNGROUNDED" if answer.citations.unsupported else "ok")
-            print(f"{i:3}/{len(questions)}  {q['id']}  {answer.latency_ms:6.0f} ms  {flag}")
+            # flushed, because a run this long is usually watched through a
+            # redirected log rather than a terminal, and Python buffers those
+            print(f"{i:3}/{len(questions)}  {q['id']}  {answer.latency_ms:6.0f} ms  {flag}",
+                  flush=True)
 
             # Written every question rather than at the end. A run over 150
             # questions against a local 14B model takes long enough that losing
@@ -129,6 +175,7 @@ def main() -> int:
 
     print(f"\n{label}  {stats['n']} answers")
     print(f"  refused                {stats['refused']} ({stats['refusal_rate']:.1%})")
+    print(f"  answered then hedged   {stats['hedged']}")
     print(f"  ungrounded citations   {stats['ungrounded_citations']}")
     print(f"  citing nothing         {stats['answers_citing_nothing']}")
     print(f"  latency p50 / p95      {stats['latency_p50_ms']:.0f} / {stats['latency_p95_ms']:.0f} ms")

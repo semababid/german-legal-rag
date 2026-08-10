@@ -105,6 +105,17 @@ ITEM_RE = re.compile(r"\s*(\d+[a-zA-Z]?)(?:\s*Abs(?:atz|\.)\s*(\d+))?", re.UNICO
 # answer, and inventing intermediate citations to check would be worse.
 SEPARATOR_RE = re.compile(r"\s*(?:,|;|\bund\b|\bbis\b)\s*", re.UNICODE)
 
+# The BGB cross-references other statutes, and the model reproduces those
+# references when it quotes the text. § 555b Abs. 1 Nr. 4a points at § 3 Nr. 33
+# of the Telekommunikationsgesetz, which is a correct quotation and not a BGB
+# citation at all. Counting it as one marks a faithful answer as ungrounded,
+# which is the worst direction for this check to be wrong in.
+FOREIGN_LAW_RE = re.compile(
+    r"\s*(?:Nummer|Nr\.?)?\s*\d*\s*des\s+\w*(?:gesetzes|verordnung|buches)"
+    r"|\s*(?:TKG|GEG|EnWG|ZPO|HGB|BetrKV|WoFlV|EnEV)\b",
+    re.IGNORECASE | re.UNICODE,
+)
+
 LAW_PREFIX_RE = re.compile(r"^\s*BGB\s+", re.IGNORECASE)
 
 
@@ -137,6 +148,11 @@ def parse_citations(text: str) -> list[tuple[str, str | None]]:
             if not item:
                 break
             pair = (item.group(1).lower(), item.group(2) or None)
+            # A reference qualified by another statute's name is that statute's
+            # section, not one of ours, so it is skipped rather than checked.
+            if FOREIGN_LAW_RE.match(text, item.end()):
+                cursor = item.end()
+                break
             if pair not in seen:
                 seen.append(pair)
             cursor = item.end()
@@ -216,14 +232,31 @@ def verify_citations(answer: str, hits: list[dict]) -> CitationCheck:
     return check
 
 
-def is_refusal(answer: str) -> bool:
-    """Did the model decline, rather than answer from nothing?
+def classify_response(answer: str, check: CitationCheck) -> str:
+    """Is this a refusal, an answer, or an answer wearing a refusal as a hedge?
 
-    Checked on the whole reply rather than the first line only: a model that
-    prefixes the token with a courtesy sentence has still refused, and treating
-    that as an answer would score a correct refusal as a hallucination.
+    A boolean is not enough. The token appearing anywhere was the first rule
+    here, and it misread a reply that answered the question with two grounded
+    citations and then noted the text did not settle one detail. Scoring that as
+    a refusal would credit the system for declining while it had in fact
+    answered, which is the opposite of what refusal correctness is meant to
+    measure.
+
+    The split keys on whether the reply did any citing at all:
+
+        refusal  the token, with nothing substantive attached
+        hedged   the token, alongside cited content
+        answer   no token
+
+    `hedged` is deliberately a holding pen rather than a verdict. It catches two
+    behaviours that look identical from here: answering and then caveating one
+    detail, and declining while citing the sections examined to justify why they
+    do not answer. Separating those is a judgment about meaning, so it is left
+    to the hand-graded set rather than guessed at with a rule.
     """
-    return REFUSAL_TOKEN in answer.upper()
+    if REFUSAL_TOKEN not in answer.upper():
+        return "answer"
+    return "hedged" if check.total else "refusal"
 
 
 # Published rates in USD per million tokens. Kept next to the code that uses
@@ -252,12 +285,16 @@ class Answer:
     backend: str
     model: str
     citations: CitationCheck
-    refused: bool
+    outcome: str
     input_tokens: int
     output_tokens: int
     latency_ms: float
     cost_usd: float
     retrieved: list[str]
+
+    @property
+    def refused(self) -> bool:
+        return self.outcome == "refusal"
 
     def as_dict(self) -> dict:
         return {
@@ -265,6 +302,7 @@ class Answer:
             "answer": self.text,
             "backend": self.backend,
             "model": self.model,
+            "outcome": self.outcome,
             "refused": self.refused,
             "citations": self.citations.as_dict(),
             "input_tokens": self.input_tokens,
@@ -388,13 +426,15 @@ def generate(question: str, hits: list[dict], backend) -> Answer:
     text, input_tokens, output_tokens = backend.complete(SYSTEM_PROMPT, prompt)
     latency_ms = (time.perf_counter() - started) * 1000
 
+    check = verify_citations(text, hits)
+
     return Answer(
         question=question,
         text=text,
         backend=backend.name,
         model=backend.model,
-        citations=verify_citations(text, hits),
-        refused=is_refusal(text),
+        citations=check,
+        outcome=classify_response(text, check),
         input_tokens=input_tokens,
         output_tokens=output_tokens,
         latency_ms=latency_ms,
