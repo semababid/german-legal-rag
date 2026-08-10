@@ -9,7 +9,8 @@
     "refused": 0,
     "hedged": 12,
     "refusal_rate": 0.0,
-    "ungrounded_citations": 17,
+    "invented_citations": 2,
+    "cross_referenced_citations": 15,
     "answers_citing_nothing": 1,
     "latency_p50_ms": 7879.6,
     "latency_p95_ms": 10958.8,
@@ -35,8 +36,10 @@
           "§ 551 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1106,
       "output_tokens": 126,
@@ -69,8 +72,10 @@
           "§ 551 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 910,
       "output_tokens": 67,
@@ -103,8 +108,10 @@
           "§ 551 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 784,
       "output_tokens": 98,
@@ -138,8 +145,10 @@
           "§ 580a Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1047,
       "output_tokens": 114,
@@ -172,8 +181,10 @@
           "§ 556 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 937,
       "output_tokens": 88,
@@ -206,8 +217,10 @@
           "§ 548 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 824,
       "output_tokens": 102,
@@ -241,8 +254,10 @@
           "§ 536c Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 754,
       "output_tokens": 97,
@@ -276,8 +291,10 @@
           "§ 573 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 925,
       "output_tokens": 148,
@@ -314,8 +331,10 @@
           "§ 569 Abs. 5"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1329,
       "output_tokens": 243,
@@ -352,8 +371,10 @@
         "section_only": [
           "§ 566 Abs. 2"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 928,
       "output_tokens": 133,
@@ -388,10 +409,12 @@
           "§ 559 Abs. 3"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 555b"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1249,
       "output_tokens": 164,
@@ -429,8 +452,10 @@
           "§ 555c",
           "§ 559c"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 839,
       "output_tokens": 115,
@@ -465,8 +490,10 @@
           "§ 547 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 686,
       "output_tokens": 101,
@@ -500,8 +527,10 @@
           "§ 553 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1021,
       "output_tokens": 111,
@@ -535,8 +564,10 @@
           "§ 558 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1016,
       "output_tokens": 120,
@@ -571,8 +602,10 @@
           "§ 551 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 724,
       "output_tokens": 93,
@@ -606,8 +639,10 @@
           "§ 540 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1068,
       "output_tokens": 81,
@@ -644,10 +679,12 @@
         "section_only": [
           "§ 543 Abs. 1"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 549 Abs. 2"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 978,
       "output_tokens": 118,
@@ -682,8 +719,10 @@
           "§ 543 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1345,
       "output_tokens": 154,
@@ -721,8 +760,10 @@
           "§ 559e Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1017,
       "output_tokens": 175,
@@ -757,8 +798,10 @@
           "§ 574 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 795,
       "output_tokens": 87,
@@ -794,8 +837,10 @@
           "§ 536b"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 943,
       "output_tokens": 165,
@@ -830,8 +875,10 @@
           "§ 569 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1293,
       "output_tokens": 171,
@@ -865,8 +912,10 @@
           "§ 559e",
           "§ 556c"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1018,
       "output_tokens": 106,
@@ -901,8 +950,10 @@
           "§ 540 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 821,
       "output_tokens": 139,
@@ -936,8 +987,10 @@
           "§ 563 Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 945,
       "output_tokens": 119,
@@ -970,8 +1023,10 @@
           "§ 556 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 977,
       "output_tokens": 164,
@@ -1005,8 +1060,10 @@
           "§ 543 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 994,
       "output_tokens": 117,
@@ -1040,8 +1097,10 @@
           "§ 573 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 930,
       "output_tokens": 107,
@@ -1074,8 +1133,10 @@
           "§ 566 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 722,
       "output_tokens": 68,
@@ -1109,8 +1170,10 @@
           "§ 556a Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 984,
       "output_tokens": 113,
@@ -1143,8 +1206,10 @@
           "§ 556 Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 971,
       "output_tokens": 63,
@@ -1180,8 +1245,10 @@
           "§ 560 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 860,
       "output_tokens": 160,
@@ -1216,8 +1283,10 @@
           "§ 556 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 901,
       "output_tokens": 103,
@@ -1252,11 +1321,13 @@
           "§ 557a Abs. 2"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 558",
           "§ 559b"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 630,
       "output_tokens": 108,
@@ -1295,8 +1366,10 @@
           "§ 559",
           "§ 559e"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1197,
       "output_tokens": 126,
@@ -1333,8 +1406,10 @@
         "section_only": [
           "§ 558"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 778,
       "output_tokens": 123,
@@ -1370,8 +1445,10 @@
           "§ 558 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1179,
       "output_tokens": 157,
@@ -1405,8 +1482,10 @@
           "§ 555a Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 724,
       "output_tokens": 70,
@@ -1443,8 +1522,10 @@
         "section_only": [
           "§ 536a"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1002,
       "output_tokens": 140,
@@ -1478,8 +1559,10 @@
           "§ 536c Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1158,
       "output_tokens": 95,
@@ -1514,8 +1597,10 @@
           "§ 555a Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 771,
       "output_tokens": 69,
@@ -1549,8 +1634,10 @@
           "§ 555d Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1034,
       "output_tokens": 86,
@@ -1585,8 +1672,10 @@
           "§ 555d Abs. 5"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 907,
       "output_tokens": 138,
@@ -1617,11 +1706,13 @@
       "citations": {
         "exact": [],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [
           "§ 556e Abs. 1",
           "§ 556c Abs. 5"
         ],
-        "grounded": false
+        "grounded": false,
+        "fully_verifiable": false
       },
       "input_tokens": 843,
       "output_tokens": 95,
@@ -1654,8 +1745,10 @@
         "section_only": [
           "§ 555b Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 994,
       "output_tokens": 155,
@@ -1691,10 +1784,12 @@
         "section_only": [
           "§ 558"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 560"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 966,
       "output_tokens": 111,
@@ -1731,11 +1826,13 @@
           "§ 540 Abs. 1"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 558",
           "§ 560"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1061,
       "output_tokens": 134,
@@ -1771,8 +1868,10 @@
         "section_only": [
           "§ 566a Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 914,
       "output_tokens": 164,
@@ -1809,8 +1908,10 @@
           "§ 545 Abs. 2",
           "§ 575"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 871,
       "output_tokens": 138,
@@ -1844,8 +1945,10 @@
           "§ 547 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 810,
       "output_tokens": 124,
@@ -1884,8 +1987,10 @@
         "section_only": [
           "§ 574"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1017,
       "output_tokens": 187,
@@ -1923,8 +2028,10 @@
           "§ 536a Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 977,
       "output_tokens": 141,
@@ -1959,10 +2066,12 @@
           "§ 536d"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 536 Abs. 1"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 846,
       "output_tokens": 127,
@@ -1998,8 +2107,10 @@
           "§ 569 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1253,
       "output_tokens": 162,
@@ -2034,8 +2145,10 @@
           "§ 544"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 889,
       "output_tokens": 164,
@@ -2069,8 +2182,10 @@
           "§ 575 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 842,
       "output_tokens": 102,
@@ -2104,8 +2219,10 @@
           "§ 551 Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 492,
       "output_tokens": 70,
@@ -2142,8 +2259,10 @@
         "section_only": [
           "§ 557b"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 657,
       "output_tokens": 114,
@@ -2176,8 +2295,10 @@
           "§ 536 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 794,
       "output_tokens": 75,
@@ -2213,8 +2334,10 @@
           "§ 558 Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 954,
       "output_tokens": 115,
@@ -2251,8 +2374,10 @@
         "section_only": [
           "§ 543 Abs. 6"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 964,
       "output_tokens": 152,
@@ -2290,8 +2415,10 @@
           "§ 559c",
           "§ 555c"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1080,
       "output_tokens": 113,
@@ -2326,8 +2453,10 @@
           "§ 555d Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 818,
       "output_tokens": 98,
@@ -2360,8 +2489,10 @@
           "§ 573c Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 875,
       "output_tokens": 57,
@@ -2395,8 +2526,10 @@
           "§ 559 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 873,
       "output_tokens": 78,
@@ -2431,8 +2564,10 @@
           "§ 579 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 921,
       "output_tokens": 83,
@@ -2465,8 +2600,10 @@
         "section_only": [
           "§ 566a Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 907,
       "output_tokens": 63,
@@ -2500,8 +2637,10 @@
           "§ 557b Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 852,
       "output_tokens": 124,
@@ -2534,8 +2673,10 @@
           "§ 569 Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 801,
       "output_tokens": 115,
@@ -2569,8 +2710,10 @@
           "§ 550"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1047,
       "output_tokens": 115,
@@ -2605,8 +2748,10 @@
           "§ 564"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 779,
       "output_tokens": 106,
@@ -2641,8 +2786,10 @@
           "§ 563 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 785,
       "output_tokens": 117,
@@ -2676,8 +2823,10 @@
           "§ 563a Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 800,
       "output_tokens": 69,
@@ -2711,8 +2860,10 @@
           "§ 573 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 769,
       "output_tokens": 124,
@@ -2746,8 +2897,10 @@
           "§ 571 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 952,
       "output_tokens": 113,
@@ -2781,10 +2934,12 @@
           "§ 577a Abs. 2"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 573 Abs. 2"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 949,
       "output_tokens": 108,
@@ -2819,8 +2974,10 @@
         "section_only": [
           "§ 573"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1057,
       "output_tokens": 81,
@@ -2855,8 +3012,10 @@
         "section_only": [
           "§ 573"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 856,
       "output_tokens": 91,
@@ -2889,8 +3048,10 @@
           "§ 554 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 807,
       "output_tokens": 74,
@@ -2925,8 +3086,10 @@
           "§ 536 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1174,
       "output_tokens": 185,
@@ -2964,8 +3127,10 @@
           "§ 574",
           "§ 574b"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 759,
       "output_tokens": 101,
@@ -3002,10 +3167,12 @@
         "section_only": [
           "§ 574b"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 574"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 619,
       "output_tokens": 68,
@@ -3040,8 +3207,10 @@
           "§ 573 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 807,
       "output_tokens": 84,
@@ -3075,8 +3244,10 @@
           "§ 563",
           "§ 564 Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 857,
       "output_tokens": 83,
@@ -3111,8 +3282,10 @@
           "§ 573a Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 900,
       "output_tokens": 148,
@@ -3145,8 +3318,10 @@
           "§ 556b Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 833,
       "output_tokens": 90,
@@ -3181,8 +3356,10 @@
           "§ 573c Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 974,
       "output_tokens": 134,
@@ -3218,8 +3395,10 @@
           "§ 571 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 785,
       "output_tokens": 186,
@@ -3255,8 +3434,10 @@
           "§ 562b Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 769,
       "output_tokens": 161,
@@ -3291,8 +3472,10 @@
           "§ 536",
           "§ 536a"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 869,
       "output_tokens": 87,
@@ -3326,8 +3509,10 @@
           "§ 536 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 836,
       "output_tokens": 111,
@@ -3360,8 +3545,10 @@
           "§ 541"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 843,
       "output_tokens": 90,
@@ -3395,8 +3582,10 @@
           "§ 545"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 901,
       "output_tokens": 64,
@@ -3434,10 +3623,12 @@
         "section_only": [
           "§ 559"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 560"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 881,
       "output_tokens": 178,
@@ -3472,10 +3663,12 @@
         "section_only": [
           "§ 556d"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 556g"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1504,
       "output_tokens": 94,
@@ -3509,8 +3702,10 @@
           "§ 556g Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1050,
       "output_tokens": 88,
@@ -3543,8 +3738,10 @@
           "§ 559c Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1157,
       "output_tokens": 89,
@@ -3578,8 +3775,10 @@
           "§ 574a Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 809,
       "output_tokens": 105,
@@ -3613,8 +3812,10 @@
           "§ 573d Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1013,
       "output_tokens": 86,
@@ -3652,8 +3853,10 @@
           "§ 554 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 882,
       "output_tokens": 157,
@@ -3691,13 +3894,15 @@
           "§ 549",
           "§ 556d"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 535",
           "§ 548",
           "§ 577a",
           "§ 561"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1147,
       "output_tokens": 140,
@@ -3732,8 +3937,10 @@
           "§ 571 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 798,
       "output_tokens": 98,
@@ -3767,8 +3974,10 @@
           "§ 545 Abs. 1",
           "§ 550 Abs. 2"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 895,
       "output_tokens": 124,
@@ -3804,10 +4013,12 @@
           "§ 536b Abs. 1",
           "§ 536d Abs. 1"
         ],
-        "unsupported": [
+        "cross_referenced": [
           "§ 536"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1014,
       "output_tokens": 174,
@@ -3840,8 +4051,10 @@
           "§ 580a Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1191,
       "output_tokens": 124,
@@ -3878,8 +4091,10 @@
         "section_only": [
           "§ 574c"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 869,
       "output_tokens": 176,
@@ -3914,11 +4129,13 @@
           "§ 580a Abs. 4"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 573",
           "§ 573a"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1084,
       "output_tokens": 126,
@@ -3953,8 +4170,10 @@
         "section_only": [
           "§ 555c"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1147,
       "output_tokens": 132,
@@ -3992,8 +4211,10 @@
           "§ 555c",
           "§ 555d"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 893,
       "output_tokens": 180,
@@ -4026,8 +4247,10 @@
           "§ 556 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 980,
       "output_tokens": 119,
@@ -4063,8 +4286,10 @@
           "§ 558d Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 788,
       "output_tokens": 165,
@@ -4100,8 +4325,10 @@
         "section_only": [
           "§ 559 Abs. 3"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1137,
       "output_tokens": 148,
@@ -4134,8 +4361,10 @@
           "§ 560 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 857,
       "output_tokens": 71,
@@ -4173,8 +4402,10 @@
         "section_only": [
           "§ 573a"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 636,
       "output_tokens": 153,
@@ -4208,8 +4439,10 @@
           "§ 573 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 886,
       "output_tokens": 129,
@@ -4243,8 +4476,10 @@
           "§ 576 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 825,
       "output_tokens": 107,
@@ -4278,8 +4513,10 @@
           "§ 566e Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 948,
       "output_tokens": 101,
@@ -4314,8 +4551,10 @@
         "section_only": [
           "§ 558c Abs. 5"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 879,
       "output_tokens": 94,
@@ -4349,8 +4588,10 @@
           "§ 544 Abs. 1",
           "§ 544 Abs. 2"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 891,
       "output_tokens": 80,
@@ -4384,8 +4625,10 @@
           "§ 555c Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 888,
       "output_tokens": 92,
@@ -4420,8 +4663,10 @@
           "§ 560 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 912,
       "output_tokens": 130,
@@ -4458,10 +4703,12 @@
           "§ 557 Abs. 3"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 557b"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 756,
       "output_tokens": 101,
@@ -4495,8 +4742,10 @@
           "§ 565 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1030,
       "output_tokens": 135,
@@ -4532,8 +4781,10 @@
           "§ 574 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 710,
       "output_tokens": 134,
@@ -4571,8 +4822,10 @@
           "§ 545 Abs. 2",
           "§ 564 Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 956,
       "output_tokens": 141,
@@ -4608,8 +4861,10 @@
           "§ 571 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 846,
       "output_tokens": 99,
@@ -4643,8 +4898,10 @@
           "§ 551 Abs. 3"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 745,
       "output_tokens": 132,
@@ -4678,8 +4935,10 @@
           "§ 543 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1123,
       "output_tokens": 125,
@@ -4715,10 +4974,12 @@
           "§ 569 Abs. 2"
         ],
         "section_only": [],
-        "unsupported": [
+        "cross_referenced": [
           "§ 551"
         ],
-        "grounded": false
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
       },
       "input_tokens": 1359,
       "output_tokens": 151,
@@ -4751,8 +5012,10 @@
           "§ 569 Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1109,
       "output_tokens": 75,
@@ -4787,8 +5050,10 @@
         "section_only": [
           "§ 547"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 864,
       "output_tokens": 112,
@@ -4824,8 +5089,10 @@
           "§ 562b Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 900,
       "output_tokens": 144,
@@ -4860,8 +5127,10 @@
           "§ 536c Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 923,
       "output_tokens": 175,
@@ -4895,8 +5164,10 @@
           "§ 552 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 498,
       "output_tokens": 115,
@@ -4931,8 +5202,10 @@
           "§ 540 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 805,
       "output_tokens": 95,
@@ -4968,8 +5241,10 @@
           "§ 546 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 788,
       "output_tokens": 131,
@@ -5004,8 +5279,10 @@
           "§ 556c Abs. 4"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 940,
       "output_tokens": 108,
@@ -5039,8 +5316,10 @@
           "§ 559 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 935,
       "output_tokens": 149,
@@ -5075,8 +5354,10 @@
           "§ 556a Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 926,
       "output_tokens": 185,
@@ -5112,8 +5393,10 @@
         "section_only": [
           "§ 562a Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 734,
       "output_tokens": 157,
@@ -5149,8 +5432,10 @@
         "section_only": [
           "§ 566c Abs. 1"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 983,
       "output_tokens": 209,
@@ -5183,8 +5468,10 @@
           "§ 551 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 907,
       "output_tokens": 149,
@@ -5218,8 +5505,10 @@
           "§ 551 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 813,
       "output_tokens": 64,
@@ -5254,8 +5543,10 @@
           "§ 547 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 870,
       "output_tokens": 163,
@@ -5292,8 +5583,10 @@
           "§ 536a Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1172,
       "output_tokens": 125,
@@ -5328,8 +5621,10 @@
           "§ 571 Abs. 1"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1105,
       "output_tokens": 86,
@@ -5365,10 +5660,12 @@
           "§ 560 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [
           "§ 560b Abs. 1"
         ],
-        "grounded": false
+        "grounded": false,
+        "fully_verifiable": false
       },
       "input_tokens": 779,
       "output_tokens": 169,
@@ -5403,8 +5700,10 @@
           "§ 543 Abs. 2"
         ],
         "section_only": [],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1119,
       "output_tokens": 148,
@@ -5443,8 +5742,10 @@
         "section_only": [
           "§ 555c"
         ],
+        "cross_referenced": [],
         "unsupported": [],
-        "grounded": true
+        "grounded": true,
+        "fully_verifiable": true
       },
       "input_tokens": 1041,
       "output_tokens": 112,

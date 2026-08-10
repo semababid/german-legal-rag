@@ -74,8 +74,10 @@ def summarise(rows: list[dict]) -> dict:
     refused = sum(1 for r in rows if r.get("outcome", "answer") == "refusal")
     hedged = sum(1 for r in rows if r.get("outcome") == "hedged")
     answered = [r for r in rows if r.get("outcome", "answer") != "refusal"]
-    ungrounded = sum(1 for r in answered if r["citations"]["unsupported"])
-    uncited = sum(1 for r in answered if not r["citations"]["exact"] and not r["citations"]["section_only"])
+    invented = sum(1 for r in answered if r["citations"]["unsupported"])
+    crossref = sum(1 for r in answered if r["citations"].get("cross_referenced"))
+    uncited = sum(1 for r in answered if not any(
+        r["citations"].get(k) for k in ("exact", "section_only", "cross_referenced")))
     latencies = sorted(r["latency_ms"] for r in rows)
 
     return {
@@ -83,7 +85,8 @@ def summarise(rows: list[dict]) -> dict:
         "refused": refused,
         "hedged": hedged,
         "refusal_rate": round(refused / n, 3),
-        "ungrounded_citations": ungrounded,
+        "invented_citations": invented,
+        "cross_referenced_citations": crossref,
         "answers_citing_nothing": uncited,
         "latency_p50_ms": latencies[len(latencies) // 2],
         "latency_p95_ms": latencies[int(0.95 * (n - 1))],
@@ -176,7 +179,8 @@ def main() -> int:
     print(f"\n{label}  {stats['n']} answers")
     print(f"  refused                {stats['refused']} ({stats['refusal_rate']:.1%})")
     print(f"  answered then hedged   {stats['hedged']}")
-    print(f"  ungrounded citations   {stats['ungrounded_citations']}")
+    print(f"  invented citations     {stats['invented_citations']}")
+    print(f"  cross-referenced only  {stats['cross_referenced_citations']}")
     print(f"  citing nothing         {stats['answers_citing_nothing']}")
     print(f"  latency p50 / p95      {stats['latency_p50_ms']:.0f} / {stats['latency_p95_ms']:.0f} ms")
     print(f"  cost per 1k queries    ${stats['cost_per_1k_queries_usd']:.2f}")

@@ -178,35 +178,72 @@ def available_citations(hits: list[dict]) -> tuple[set[tuple[str, str | None]], 
     return exact, sections
 
 
+def sections_mentioned_in(hits: list[dict]) -> set[str]:
+    """Sections named anywhere inside the retrieved text.
+
+    Distinct from the sections that were retrieved. The statute refers to itself
+    constantly, so a model reading § 559 sees § 555b, § 558 and § 560 named
+    without being shown a word of any of them.
+    """
+    mentioned: set[str] = set()
+    for hit in hits:
+        for section, _ in parse_citations(hit["payload"].get("text", "")):
+            mentioned.add(section)
+    return mentioned
+
+
 @dataclass
 class CitationCheck:
     """Where every citation in an answer landed.
 
-    exact       the Absatz was in the context
-    section     the § was in the context, a different Absatz of it was cited
-    unsupported the § was never shown at all
+    Four outcomes, not two, because the statute cites itself constantly and
+    lumping those together hides the difference between a model that followed a
+    pointer and one that made a section up:
+
+    exact            the Absatz was shown
+    section          the § was shown, a different Absatz of it was cited
+    cross_referenced the § was named inside the text shown, but never shown
+                     itself. § 559 Abs. 1 says "im Sinne des § 555b", so an
+                     answer citing § 555b is repeating something it read rather
+                     than recalling it. Still a risk: it is asserting what that
+                     section says without ever having read it.
+    unsupported      the § appears nowhere. This is the invented one.
     """
 
     exact: list[tuple[str, str | None]] = field(default_factory=list)
     section: list[tuple[str, str | None]] = field(default_factory=list)
+    cross_referenced: list[tuple[str, str | None]] = field(default_factory=list)
     unsupported: list[tuple[str, str | None]] = field(default_factory=list)
 
     @property
     def total(self) -> int:
-        return len(self.exact) + len(self.section) + len(self.unsupported)
+        return (len(self.exact) + len(self.section)
+                + len(self.cross_referenced) + len(self.unsupported))
 
     @property
     def grounded(self) -> bool:
-        """No invented sections, and at least one citation to check."""
+        """Cites something, and invented none of it.
+
+        Cross-references do not disqualify an answer here. They are traceable to
+        the text the model was given, which is a different and lesser problem
+        than a section pulled from memory, and it is reported on its own.
+        """
         return self.total > 0 and not self.unsupported
+
+    @property
+    def fully_verifiable(self) -> bool:
+        """Every citation points at text the model actually read."""
+        return self.total > 0 and not self.unsupported and not self.cross_referenced
 
     def as_dict(self) -> dict:
         fmt = lambda pairs: [f"§ {s}" + (f" Abs. {a}" if a else "") for s, a in pairs]
         return {
             "exact": fmt(self.exact),
             "section_only": fmt(self.section),
+            "cross_referenced": fmt(self.cross_referenced),
             "unsupported": fmt(self.unsupported),
             "grounded": self.grounded,
+            "fully_verifiable": self.fully_verifiable,
         }
 
 
@@ -215,10 +252,15 @@ def verify_citations(answer: str, hits: list[dict]) -> CitationCheck:
 
     A section-only match is not counted as a failure. The generator is handed a
     whole section's neighbouring Absätze often enough that pointing at the § when
-    the precise Absatz is arguable is defensible; pointing at a § that was never
-    retrieved is not.
+    the precise Absatz is arguable is defensible.
+
+    Cross-references are separated out because the BGB is dense with them. On
+    the first 150-question run, 15 of the 17 answers that looked like they had
+    invented a section had in fact cited one named in the text they were shown.
+    Reporting those as hallucinations would have been an eightfold overstatement.
     """
     exact_available, sections_available = available_citations(hits)
+    mentioned = sections_mentioned_in(hits)
     check = CitationCheck()
 
     for pair in parse_citations(answer):
@@ -227,6 +269,8 @@ def verify_citations(answer: str, hits: list[dict]) -> CitationCheck:
             check.exact.append(pair)
         elif section in sections_available:
             check.section.append(pair)
+        elif section in mentioned:
+            check.cross_referenced.append(pair)
         else:
             check.unsupported.append(pair)
     return check

@@ -121,6 +121,8 @@ src/compare_runs.py       significance testing between two runs
 src/generator.py          prompt, model backends, citation checking
 src/answer.py             ask one question, get a cited answer
 src/generate_answers.py   answer the whole eval set and save it
+src/make_calibration_set.py  draw the stratified sample to grade by hand
+src/grade.py              grade those answers, one at a time
 tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions
 RESULTS.md                retrieval scores

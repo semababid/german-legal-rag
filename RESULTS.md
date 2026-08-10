@@ -237,24 +237,34 @@ number here before those exist would be inventing one.
 | | |
 | --- | --- |
 | Answers | 150 |
-| Cited a § that was never retrieved | 17 |
 | Cited nothing at all | 1 |
 | Used the refusal token | 12 |
 | Latency p50 / p95 | 7.9 s / 11.0 s |
 | Cost | none, runs on the machine |
 
-17 of 150 citing a section the retriever never returned is the number that
-matters, because it is the failure a legal assistant cannot have. Those
-citations come from the model's own memory of the BGB rather than from the text
-in front of it, and they are plausible enough to pass a skim: § 558 and § 560
-turn up in answers about subletting, which is the right neighbourhood and the
-wrong provision.
+| Cited a § named nowhere in the text shown | 2 |
+| Cited a § named in the text but never shown | 15 |
 
-Two of the original 19 turned out to be my own bug. The BGB cross-references
-other statutes, so an answer quoting § 555b faithfully reproduces its reference
-to § 3 Nr. 33 of the Telekommunikationsgesetz, and the checker read that as a
-BGB section that was never retrieved. A citation qualified by another law's name
-is now skipped.
+The split in those last two rows is the finding, and getting to it took three
+corrections to the checker rather than to the model.
+
+The first count was 19. Two were a bug: the BGB cross-references other statutes,
+so an answer quoting § 555b faithfully reproduces its reference to § 3 Nr. 33 of
+the Telekommunikationsgesetz, and the checker read that as a BGB section that
+was never retrieved. Citations qualified by another law's name are now skipped.
+
+The remaining 17 looked like the model citing sections from memory, which would
+be the failure a legal assistant cannot have. Fifteen of them were not that. The
+statute refers to itself constantly, and § 559 Abs. 1 opens with
+"Modernisierungsmaßnahmen im Sinne des § 555b", so a model shown § 559 and
+citing § 555b is repeating a pointer it read. Counting those as inventions
+overstated the rate eightfold.
+
+That leaves 2 answers in 150 citing a section that appears nowhere at all. The
+15 are a real but lesser problem: the model asserts what § 560 provides while
+having seen only its name, so the claim is traceable to the prompt and still
+unverified. They are counted separately rather than forgiven, and
+`fully_verifiable` is the stricter reading that excludes them.
 
 The refusal count needs reading carefully. Not one of the 12 is a clean refusal.
 Every one cites something alongside the token, and they split into two

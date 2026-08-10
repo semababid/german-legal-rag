@@ -115,7 +115,7 @@ def test_section_and_absatz_are_distinct():
     assert parse_citations("§ 573 und § 573c") == [("573", None), ("573c", None)]
 
 
-def test_citation_check_separates_the_three_outcomes():
+def test_citation_check_separates_the_outcomes():
     answer = (
         "Die Kaution beträgt höchstens drei Monatsmieten [§ 551 Abs. 1]. "
         "Kündigung siehe [§ 573c Abs. 3]. "
@@ -125,9 +125,33 @@ def test_citation_check_separates_the_three_outcomes():
 
     assert check.exact == [("551", "1")]
     assert check.section == [("573c", "3")]      # right §, an Absatz that was not shown
-    assert check.unsupported == [("536", "1")]   # never retrieved
+    assert check.unsupported == [("536", "1")]   # named nowhere
     assert check.total == 3
     assert not check.grounded
+
+
+def test_a_section_named_inside_the_shown_text_is_a_cross_reference():
+    """Regression from the first 150-question run.
+
+    § 559 Abs. 1 reads "Modernisierungsmaßnahmen im Sinne des § 555b", so an
+    answer citing § 555b followed a pointer it was shown rather than inventing
+    one. Scoring those as hallucinations overstated the rate eightfold.
+    """
+    context = [hit("bgb-559-1", "BGB § 559 Abs. 1",
+                   "Hat der Vermieter Modernisierungsmaßnahmen im Sinne des § 555b "
+                   "durchgeführt, so kann er die Miete erhöhen.")]
+
+    check = verify_citations("Die Erhöhung setzt eine Maßnahme nach [§ 555b] voraus.", context)
+    assert check.cross_referenced == [("555b", None)]
+    assert check.unsupported == []
+    # traceable, so not an invention, but its text was never read
+    assert check.grounded
+    assert not check.fully_verifiable
+
+    # a section named nowhere is still an invention
+    invented = verify_citations("Siehe [§ 902 Abs. 1].", context)
+    assert invented.unsupported == [("902", "1")]
+    assert not invented.grounded
 
 
 def test_grounded_needs_a_citation_and_no_invented_section():

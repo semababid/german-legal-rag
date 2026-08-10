@@ -47,7 +47,7 @@ The breadcrumb ablation is the one to run first. BGB § 573c Abs. 1 states a not
 | Step | What it produces | State |
 | --- | --- | --- |
 | 4.1 Cited answers | German answers constrained to the retrieved sections, with every citation checked against them | Done: running on Qwen 3.5 9B, 9 s per question, 21 unit tests |
-| 4.2 Calibration set | 30 answers graded by hand, before any judge sees them | Needs 4.1 output |
+| 4.2 Calibration set | 30 answers graded by hand, before any judge sees them | Sample drawn and grading tool built, waiting on the grading itself |
 | 4.3 LLM judge | Faithfulness and relevance, agreement against the hand grades reported | Needs 4.2 |
 | 4.4 Local vs API | Same answers from both backends, quality and cost and p95 latency side by side | Needs a local model installed |
 
@@ -61,6 +61,14 @@ most in a legal setting.
 Refusal is a fixed token rather than a polite sentence, so a partial refusal
 cannot be scored as an answer. The eight questions no retrieval configuration
 answers in the top ten are the test cases: declining those is correct.
+
+The 30 hand grades have to be written by a person. They are the reference the
+judge in 4.3 is measured against, and a reference produced by a model turns
+agreement into two models agreeing, which says nothing about whether either is
+right. The sample is stratified rather than random: a random 30 would contain
+three or four interesting failures, too few to say anything about the judge on
+the cases that matter. Agreement is therefore reported per stratum, not as one
+average, for the same reason retrieval reports core and peripheral separately.
 
 ## Metrics
 
