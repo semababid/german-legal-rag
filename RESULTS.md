@@ -274,6 +274,56 @@ not answer. The prompt asks for the bare token and nothing else; the model
 prefers to argue its case. Those 12 go into the hand-graded set rather than
 being counted either way here.
 
+## The hand-graded set
+
+30 of the 150 answers, graded by hand before any judge existed. Stratified
+rather than random, so the interesting failures are represented: all 12 that
+used the refusal token, both that cited a section named nowhere, 8 of the 15
+that cited a cross-reference, and 8 whose citations were mechanically perfect.
+
+| Judgment | yes | partly | no |
+| --- | --- | --- | --- |
+| Every claim supported by the sections shown | 11 | 16 | 3 |
+| Answers the question asked | 16 | 2 | 12 |
+| Declining was right (the 12 token cases) | 4 | 2 | 6 |
+
+The middle column is where the answers live. Outright invention is rare and
+complete faithfulness is not the norm either: two thirds of answers mix
+supported claims with unsupported ones, which is the failure mode a citation
+count cannot see.
+
+### The citation check does not measure faithfulness
+
+Of the 8 answers where every citation pointed at text the model had actually
+read, 4 were judged fully faithful. The mechanical check is right about half the
+time as a proxy for the thing it looks like it measures.
+
+That is not a defect in the check. It answers a narrower question than it
+appears to, and answers it exactly: did this answer cite a section it was never
+shown. An answer can clear that bar and still assert something the cited section
+does not say. Nothing short of reading both can catch that, which is the entire
+reason this set exists and the reason it had to be graded by a person.
+
+### Refusal is the weak spot
+
+Every one of the 12 answers that reached for the refusal token was judged not to
+have answered the question, and 6 of those 12 declined when the sections in
+front of them did contain the answer. The model gives up roughly twice as often
+as it should, and when it gives up it also stops being useful. Over-refusal is a
+quieter failure than a wrong answer and a real one for a product.
+
+### What this set cannot support
+
+One grader, 30 items, no second annotator, so there is no inter-annotator
+agreement figure and no way to separate a judge disagreeing with the grader from
+a judge disagreeing with the truth. The counts are small enough that the
+per-stratum splits are indicative and not much more: 4 against 4 in a stratum of
+8 would move to 5 against 3 on one changed mind.
+
+What it does support is the thing it was built for. A judge that guesses the
+majority class every time scores 53% on faithfulness, 53% on relevance and 50%
+on refusal, so a judge worth trusting has to beat those and can be seen not to.
+
 ## Setup
 
 Model `BAAI/bge-m3`, 1024-dimensional, cosine similarity, on Apple Silicon (MPS).
