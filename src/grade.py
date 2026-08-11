@@ -91,40 +91,75 @@ def show(row: dict, position: str) -> None:
             print(wrap("erwartete Fundstellen: " + ", ".join(row["gold_citations"])))
 
     c = row["citation_check"]
-    print("\nAUTOMATISCHE PRÜFUNG")
-    print(f"    exact: {c['exact'] or '-'}   section only: {c['section_only'] or '-'}")
-    print(f"    nicht vorgelegt: {c['unsupported'] or '-'}   outcome: {row['outcome']}")
-    print()
+    print("\nAUTOMATISCHE PRÜFUNG (zur Information, entscheide selbst)")
+    print(f"    exact: {c['exact'] or '-'}   nur Paragraf: {c['section_only'] or '-'}")
+    print(f"    nur erwähnt: {c.get('cross_referenced') or '-'}   "
+          f"nirgends: {c['unsupported'] or '-'}")
+    print(f"    outcome: {row['outcome']}")
+    print("\n" + "-" * 92)
 
 
-def ask(question: str, allow_skip: bool = True) -> str | None:
-    options = "y=yes  p=partly  n=no" + ("  s=skip  q=quit" if allow_skip else "")
+def ask(question: str, step: int, steps: int) -> str | None:
+    """Put one question and insist on a real answer.
+
+    Every branch here exists because the first version had none of them: it
+    ended the prompt without a newline, so the next question printed on the same
+    line as the reply and the whole screen read as one blob, and pressing return
+    was not a recognised choice, so the most natural key on the keyboard
+    silently re-asked the same question.
+    """
+    prompt = (
+        f"  ({step} of {steps})  {question}\n"
+        f"      y = yes    p = partly    n = no\n"
+        f"      s = skip this one    q = save and quit\n"
+        f"      > "
+    )
     while True:
-        raw = input(f"  {question}\n    [{options}] > ").strip().lower()
+        raw = input(prompt).strip().lower()
         if raw in SCALE:
+            print(f"      recorded: {SCALE[raw]}\n")
             return SCALE[raw]
-        if raw == "s" and allow_skip:
+        if raw == "s":
+            print("      skipped\n")
             return None
-        if raw == "q" and allow_skip:
+        if raw == "q":
             raise KeyboardInterrupt
-        print("    not one of those.")
+        if raw == "":
+            print("      nothing entered. Press y, p or n, then return.\n")
+        else:
+            print(f"      '{raw}' is not one of y, p, n, s, q.\n")
 
 
 def grade_one(row: dict) -> bool:
-    """Ask the three questions. Returns False if the grader wants to stop."""
+    """Ask the questions for one answer. Returns False if the grader stops.
+
+    Two questions normally, three when the answer used the refusal token. The
+    count is announced up front so a third prompt does not arrive as a surprise.
+    """
+    declined = row["outcome"] in ("refusal", "hedged")
+    steps = 3 if declined else 2
+
     try:
-        row["faithful"] = ask("Is every claim supported by the sections shown?")
+        row["faithful"] = ask(
+            "Is every claim supported by the sections shown above?", 1, steps)
         if row["faithful"] is None:
             return True
-        row["relevant"] = ask("Does it answer the question that was asked?")
-        if row["outcome"] in ("refusal", "hedged"):
-            print("\n    This answer used the refusal token.")
-            row["refusal_correct"] = ask("Was declining right, given these sections?")
-        note = input("  note (optional) > ").strip()
+
+        row["relevant"] = ask(
+            "Does it answer the question that was asked?", 2, steps)
+
+        if declined:
+            print("  This answer used the refusal token.")
+            row["refusal_correct"] = ask(
+                "Was declining right, given these sections?", 3, steps)
+
+        note = input("  note, or return to skip\n      > ").strip()
         if note:
             row["note"] = note
+        print()
     except (KeyboardInterrupt, EOFError):
-        print("\nstopped, progress saved")
+        print("\n\nstopped. Everything graded so far is saved.")
+        print("Pick up where you left off with: python src/grade.py")
         return False
     return True
 
