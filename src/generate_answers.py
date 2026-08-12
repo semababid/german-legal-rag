@@ -138,6 +138,7 @@ def main() -> int:
 
     retriever = build_retriever(args.retriever, collection=args.collection)
     rows: list[dict] = []
+    failures: list[dict] = []
 
     try:
         for i, q in enumerate(questions, 1):
@@ -146,7 +147,17 @@ def main() -> int:
                 continue
 
             hits = retriever.search(q["question"], k=args.k)
-            answer = generate(q["question"], hits, backend)
+            try:
+                answer = generate(q["question"], hits, backend)
+            except Exception as exc:
+                # One stalled question must not cost a run that takes hours.
+                # ev-009 spent more than ten minutes reasoning about § 543 and
+                # took the whole job down with it. Failures are recorded by id
+                # and skipped; rerunning picks up exactly those, because
+                # anything already answered is left alone.
+                failures.append({"id": q["id"], "error": f"{type(exc).__name__}: {exc}"})
+                print(f"{i:3}/{len(questions)}  {q['id']}  FAILED  {type(exc).__name__}")
+                continue
 
             row = {"id": q["id"], "type": q["type"], "topic": q["topic"],
                    "ground_truth": q["ground_truth"], **answer.as_dict()}
@@ -165,7 +176,8 @@ def main() -> int:
             with out_path.open("w", encoding="utf-8") as fh:
                 json.dump({"label": label, "backend": args.backend, "model": backend.model,
                            "k": args.k, "retriever": args.retriever,
-                           "answers": rows}, fh, ensure_ascii=False, indent=2)
+                           "failures": failures, "answers": rows}, fh,
+                          ensure_ascii=False, indent=2)
     finally:
         if hasattr(retriever, "close"):
             retriever.close()
@@ -174,9 +186,13 @@ def main() -> int:
     with out_path.open("w", encoding="utf-8") as fh:
         json.dump({"label": label, "backend": args.backend, "model": backend.model,
                    "k": args.k, "retriever": args.retriever,
-                   "summary": stats, "answers": rows}, fh, ensure_ascii=False, indent=2)
+                   "summary": stats, "failures": failures, "answers": rows}, fh,
+                  ensure_ascii=False, indent=2)
 
     print(f"\n{label}  {stats['n']} answers")
+    if failures:
+        print(f"  failed, rerun to retry  {len(failures)}: "
+              f"{', '.join(f['id'] for f in failures[:8])}")
     print(f"  refused                {stats['refused']} ({stats['refusal_rate']:.1%})")
     print(f"  answered then hedged   {stats['hedged']}")
     print(f"  invented citations     {stats['invented_citations']}")

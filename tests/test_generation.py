@@ -188,6 +188,40 @@ def test_think_tags_are_stripped_before_citations_are_read():
     assert strip_think_tags("  Ein Satz.  ") == "Ein Satz."
 
 
+def test_an_empty_reply_is_raised_as_a_catchable_error():
+    """Regression: the guard used SystemExit and killed a five-hour run.
+
+    SystemExit derives from BaseException, so the per-question `except
+    Exception` in generate_answers.py never saw it. One model hiccup at
+    question 12 ended the job instead of being recorded and skipped.
+    """
+    import io
+    import json as jsonlib
+    import urllib.request
+
+    import generator
+
+    def fake_urlopen(request, timeout=None):
+        body = jsonlib.dumps({
+            "message": {"content": "   ", "thinking": "lots of reasoning"},
+            "prompt_eval_count": 1100,
+            "eval_count": 981,
+        })
+        return io.BytesIO(body.encode())
+
+    original = urllib.request.urlopen
+    urllib.request.urlopen = fake_urlopen
+    try:
+        with pytest.raises(RuntimeError) as caught:
+            generator.OllamaBackend().complete("system", "user")
+    finally:
+        urllib.request.urlopen = original
+
+    assert isinstance(caught.value, Exception)      # catchable, unlike SystemExit
+    assert not isinstance(caught.value, SystemExit)
+    assert "981 output tokens" in str(caught.value)
+
+
 def test_a_bare_token_is_a_refusal_even_with_a_courtesy_sentence():
     empty = verify_citations("", CONTEXT)
     assert classify_response(REFUSAL_TOKEN, empty) == "refusal"

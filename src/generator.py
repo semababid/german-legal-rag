@@ -421,13 +421,22 @@ class OllamaBackend:
         # inlines it, so any leftover think tags are stripped as well.
         text = strip_think_tags(body["message"]["content"])
         if not text:
-            # Loud rather than silent. An empty answer scores as citing nothing,
-            # which reads as a model failure when it is a configuration one.
-            raise SystemExit(
-                f"{self.model} returned an empty answer after "
-                f"{body.get('eval_count', 0)} output tokens. The context window "
-                f"(num_ctx={self.num_ctx}) is most likely too small for this "
-                f"prompt plus reasoning. Raise it and run again."
+            # An empty reply would otherwise be stored as an answer that cited
+            # nothing, which is a real grade for something the model never said.
+            # Raised as an ordinary exception, not SystemExit, so the caller can
+            # record it and carry on: SystemExit derives from BaseException and
+            # slips straight through `except Exception`.
+            #
+            # Two causes look identical from here. Reasoning can overflow the
+            # context window, leaving no room for the answer, which is what
+            # happened at the 4,096-token default. It can also just stop without
+            # writing one: this fires at around 1,000 reasoning tokens against a
+            # 16,384 window, where overflow is not a plausible explanation. The
+            # message reports what happened rather than picking a cause.
+            raise RuntimeError(
+                f"{self.model} produced no answer after "
+                f"{body.get('eval_count', 0)} output tokens "
+                f"(prompt {body.get('prompt_eval_count', 0)}, num_ctx={self.num_ctx})"
             )
         return text, body.get("prompt_eval_count", 0), body.get("eval_count", 0)
 

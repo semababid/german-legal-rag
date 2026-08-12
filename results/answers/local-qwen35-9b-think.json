@@ -4,6 +4,12 @@
   "model": "qwen3.5:9b",
   "k": 6,
   "retriever": "domain",
+  "failures": [
+    {
+      "id": "ev-009",
+      "error": "TimeoutError: timed out"
+    }
+  ],
   "answers": [
     {
       "id": "ev-001",
@@ -75,6 +81,305 @@
         "bgb-551-3",
         "bgb-556-2",
         "bgb-559-3a"
+      ]
+    },
+    {
+      "id": "ev-003",
+      "type": "direct",
+      "topic": "kaution",
+      "ground_truth": [
+        "bgb-551-3"
+      ],
+      "question": "Muss der Vermieter die Kaution verzinsen?",
+      "answer": "Nach § 551 Abs. 3 stehen die Erträge einer als Sicherheit überlassenen Geldsumme dem Mieter zu und erhöhen die Sicherheit. [1] Der Vermieter hat diese Summe bei einem Kreditinstitut zum üblichen Zinssatz anzulegen, wobei eine andere Anlageform vereinbart werden kann. [1] Bei Wohnraum in einem Studenten- oder Jugendwohnheim besteht für den Vermieter keine Pflicht, die Sicherheitsleistung zu verzinsen. [1]",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 551 Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 782,
+      "output_tokens": 1853,
+      "latency_ms": 91759.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-551-3",
+        "bgb-551-1",
+        "bgb-547-1",
+        "bgb-555a-3",
+        "bgb-563b-3",
+        "bgb-551-2"
+      ]
+    },
+    {
+      "id": "ev-004",
+      "type": "direct",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573c-1"
+      ],
+      "question": "Welche Kündigungsfrist gilt für den Mieter bei einem unbefristeten Mietvertrag?",
+      "answer": "NICHT_BEANTWORTBAR",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "refusal",
+      "refused": true,
+      "citations": {
+        "exact": [],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": false,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1045,
+      "output_tokens": 2031,
+      "latency_ms": 100759.2,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-573c-1",
+        "bgb-580a-1",
+        "bgb-573a-1",
+        "bgb-550",
+        "bgb-544",
+        "bgb-569-3"
+      ]
+    },
+    {
+      "id": "ev-005",
+      "type": "direct",
+      "topic": "betriebskosten",
+      "ground_truth": [
+        "bgb-556-3"
+      ],
+      "question": "Bis wann muss der Vermieter die Betriebskostenabrechnung vorlegen?",
+      "answer": "Der Vermieter hat die Abrechnung dem Mieter spätestens bis zum Ablauf des zwölften Monats nach Ende des Abrechnungszeitraums mitzuteilen [§ 556 Abs. 3]. Nach Ablauf dieser Frist ist eine verspätete Geltendmachung einer Nachforderung ausgeschlossen, es sei denn, der Vermieter hat die Verspätung nicht zu vertreten [§ 556 Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 556 Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 935,
+      "output_tokens": 2199,
+      "latency_ms": 108849.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-556-3",
+        "bgb-560-2",
+        "bgb-556-1",
+        "bgb-556-4",
+        "bgb-556c-2",
+        "bgb-556a-2"
+      ]
+    },
+    {
+      "id": "ev-006",
+      "type": "direct",
+      "topic": "schaeden",
+      "ground_truth": [
+        "bgb-548-1"
+      ],
+      "question": "Wann verjähren die Ersatzansprüche des Vermieters wegen Schäden an der Wohnung?",
+      "answer": "Die Ersatzansprüche des Vermieters wegen Veränderungen oder Verschlechterungen der Mietsache verjähren in sechs Monaten.[§ 548 Abs. 1] Der Verjährungsbeginn erfolgt mit dem Zeitpunkt, in dem er die Mietsache zurückerhält.[§ 548 Abs. 1] Mit der Verjährung des Anspruchs auf Rückgabe der Mietsache verjähren auch seine Ersatzansprüche.[§ 548 Abs. 1]",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 548 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 822,
+      "output_tokens": 2296,
+      "latency_ms": 113383.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-548-1",
+        "bgb-548-2",
+        "bgb-571-1",
+        "bgb-536c-2",
+        "bgb-571-2",
+        "bgb-562-2"
+      ]
+    },
+    {
+      "id": "ev-007",
+      "type": "direct",
+      "topic": "schaeden",
+      "ground_truth": [
+        "bgb-538"
+      ],
+      "question": "Muss der Mieter normale Abnutzung der Wohnung ersetzen?",
+      "answer": "Nein, der Mieter muss normale Abnutzung nicht ersetzen. [§ 538] Veränderungen oder Verschlechterungen der Mietsache, die durch den vertragsgemäßen Gebrauch herbeigeführt werden, hat der Mieter nicht zu vertreten. [§ 538 Abs. 1]",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 538"
+        ],
+        "section_only": [
+          "§ 538 Abs. 1"
+        ],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 752,
+      "output_tokens": 3758,
+      "latency_ms": 182344.0,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-538",
+        "bgb-539-1",
+        "bgb-539-2",
+        "bgb-555a-3",
+        "bgb-567",
+        "bgb-536c-2"
+      ]
+    },
+    {
+      "id": "ev-008",
+      "type": "direct",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573-2"
+      ],
+      "question": "Wann hat der Vermieter ein berechtigtes Interesse an der Beendigung des Mietverhältnisses?",
+      "answer": "Ein berechtigtes Interesse liegt insbesondere vor, wenn der Mieter seine vertraglichen Pflichten schuldhaft nicht unerheblich verletzt hat [§ 573 Abs. 2]. Ferner besteht ein solches Interesse, wenn der Vermieter die Räume für sich oder Angehörige benötigt oder durch Fortsetzung des Mietverhältnisses an einer angemessenen wirtschaftlichen Verwertung gehindert ist [§ 573 Abs. 2]. Die Kündigung zum Zwecke der Mieterhöhung ist ausgeschlossen [§ 573 Abs. 1]. Andere Gründe werden nur berücksichtigt, soweit sie nachträglich entstanden sind [§ 573 Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 573 Abs. 2",
+          "§ 573 Abs. 1",
+          "§ 573 Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 923,
+      "output_tokens": 3970,
+      "latency_ms": 195952.5,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-573-2",
+        "bgb-573-1",
+        "bgb-573-3",
+        "bgb-575-1",
+        "bgb-574-1",
+        "bgb-574b-2"
+      ]
+    },
+    {
+      "id": "ev-010",
+      "type": "direct",
+      "topic": "sonstiges",
+      "ground_truth": [
+        "bgb-566-1"
+      ],
+      "question": "Was passiert mit dem Mietvertrag, wenn der Vermieter die Wohnung verkauft?",
+      "answer": "Wird der vermietete Wohnraum nach Überlassung an den Mieter von dem Vermieter veräußert, so tritt der Erwerber anstelle des Vermieters in die Rechte und Pflichten aus dem Mietverhältnis ein [§ 566 Abs. 1]. Hat der Mieter Sicherheit geleistet, so tritt auch der Erwerber in die dadurch begründeten Rechte und Pflichten ein [§ 566a]. Ein Rechtsgeschäft über die Miete ist dem Erwerber gegenüber wirksam, soweit es sich nicht auf spätere Zeit bezieht als den Kalendermonat des Übergangs der Kenntnis [§ 566c].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 566 Abs. 1",
+          "§ 566a",
+          "§ 566c"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 926,
+      "output_tokens": 3357,
+      "latency_ms": 168940.7,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-566-1",
+        "bgb-565-1",
+        "bgb-566c",
+        "bgb-566a",
+        "bgb-540-1",
+        "bgb-567b"
+      ]
+    },
+    {
+      "id": "ev-011",
+      "type": "direct",
+      "topic": "mieterhoehung",
+      "ground_truth": [
+        "bgb-559-1"
+      ],
+      "question": "Um wie viel darf der Vermieter die Miete nach einer Modernisierung erhöhen?",
+      "answer": "Der Vermieter kann die jährliche Miete im Regelfall um acht Prozent der für die Wohnung aufgewendeten Kosten erhöhen, sofern Modernisierungsmaßnahmen nach § 555b Nummer 1 bis 6 durchgeführt wurden [§ 559 Abs. 1]. Bei Einbau einer Heizungsanlage mit Drittmitteln kann die Erhöhung um zehn Prozent abzüglich dieser Mittel erfolgen, andernfalls gilt die Regelung des Absatzes 1 entsprechend [§ 559e Abs. 1]. Die monatliche Miete darf sich innerhalb von sechs Jahren nicht um mehr als drei Euro je Quadratmeter erhöhen oder bei Heizungsanlagen nach § 555b Nummer 1a nur bis zu fünfzig Cent pro Quadratmeter, wobei die Grenzen des Absatzes 3a auch für Maßnahmen nach § 559e anzuwenden sind [§ 559 Abs. 3a], [§ 559e Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 559 Abs. 1",
+          "§ 559e Abs. 1",
+          "§ 559 Abs. 3",
+          "§ 559e Abs. 3"
+        ],
+        "section_only": [
+          "§ 559e"
+        ],
+        "cross_referenced": [
+          "§ 555b"
+        ],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1247,
+      "output_tokens": 4878,
+      "latency_ms": 243800.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-559-1",
+        "bgb-559-3a",
+        "bgb-559e-1",
+        "bgb-559e-3",
+        "bgb-556e-2",
+        "bgb-555c-1"
       ]
     }
   ]
