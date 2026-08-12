@@ -87,14 +87,19 @@ def disagreements(a: dict, b: dict, ids: set[str]) -> list[dict]:
     return out
 
 
+COL = 22
+
+
 def row(name: str, left, right, fmt: str = "{}") -> str:
-    return f"  {name:24}{fmt.format(left):>18}{fmt.format(right):>18}"
+    return f"  {name:24}{fmt.format(left):>{COL}}{fmt.format(right):>{COL}}"
 
 
 def report(a: dict, b: dict, diffs: list[dict]) -> None:
-    print(f"\n{'':26}{a['label']:>18}{b['label']:>18}")
-    print(f"  {'model':24}{a['model']:>18}{b['model']:>18}")
-    print(f"  {'questions':24}{a['n']:>18}{b['n']:>18}")
+    # Labels are long enough to collide with the row names at a narrower width,
+    # which produced a header reading "local-qwen35-9blocal-qwen35-9b-think".
+    print(f"\n  {'':24}{a['label'][:COL]:>{COL}}{b['label'][:COL]:>{COL}}")
+    print(f"  {'model':24}{a['model']:>{COL}}{b['model']:>{COL}}")
+    print(f"  {'questions':24}{a['n']:>{COL}}{b['n']:>{COL}}")
 
     print("\n  citations")
     print(row("invented", a["invented"], b["invented"]))
@@ -110,7 +115,15 @@ def report(a: dict, b: dict, diffs: list[dict]) -> None:
     print(row("latency p50", a["latency_p50_ms"], b["latency_p50_ms"], "{:.0f} ms"))
     print(row("latency p95", a["latency_p95_ms"], b["latency_p95_ms"], "{:.0f} ms"))
     print(row("median out tokens", a["output_tokens_median"], b["output_tokens_median"], "{:.0f}"))
-    print(row("cost per 1k queries", a["cost_per_1k_usd"], b["cost_per_1k_usd"], "${:.2f}"))
+    # A local model has no per-token price, and printing $0.00 next to another
+    # $0.00 hides that one of them takes twenty times as long to produce. The
+    # machine time is the cost there, and it is in the latency rows above.
+    print(row("cost per 1k queries",
+              f"${a['cost_per_1k_usd']:.2f}" if a["cost_per_1k_usd"] else "free, local",
+              f"${b['cost_per_1k_usd']:.2f}" if b["cost_per_1k_usd"] else "free, local"))
+    print(row("hours per 1k queries",
+              a["latency_p50_ms"] * 1000 / 3_600_000, b["latency_p50_ms"] * 1000 / 3_600_000,
+              "{:.1f} h"))
 
     print(f"\n  {len(diffs)} questions where the two behaved differently")
     for d in diffs[:10]:

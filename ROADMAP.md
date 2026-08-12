@@ -49,7 +49,7 @@ The breadcrumb ablation is the one to run first. BGB § 573c Abs. 1 states a not
 | 4.1 Cited answers | German answers constrained to the retrieved sections, with every citation checked against them | Done: running on Qwen 3.5 9B, 9 s per question, 21 unit tests |
 | 4.2 Calibration set | 30 answers graded by hand, before any judge sees them | Done: 30 graded, majority-class baselines 53/53/50 |
 | 4.3 LLM judge | Faithfulness and relevance, agreement against the hand grades reported | Done, and the answer is no. The 9B judge scores below the guessing baseline on faithfulness, so it is not used |
-| 4.4 Local vs API | Same answers from both backends, cost and p95 latency and citation behaviour side by side | Comparison tool built and tested. Local column filled, API column blocked on a key |
+| 4.4 Backend comparison | Two runs side by side on citation behaviour, refusal, latency and cost | Done for reasoning on against off, n=50. The API column stays empty: no key |
 
 Citation checking is deliberately separate from the judge. It answers a narrower
 question, whether the answer cites a § that was actually retrieved, and it

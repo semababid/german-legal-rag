@@ -415,6 +415,74 @@ Two routes out, neither taken here. A stronger judge, which is what the API side
 of the comparison was for and needs a key. Or a second hand-graded sample, held
 out, which is the only way to get an honest number for a revised prompt.
 
+## Reasoning on against reasoning off
+
+Qwen 3.5 reasons before answering unless told not to. The 150-question run has
+it switched off, because a one-sentence answer had cost 1,444 output tokens with
+it on against 43 without. That was measured on a bare question with no retrieved
+sections, so it did not settle whether reasoning earns its keep once the right
+text is already in the prompt. This is the same model, same prompts, same
+sections, reasoning the only difference.
+
+Stopped at 50 questions rather than 150. The columns that matter had tracked
+each other exactly for the first 21, and the remaining 100 would have cost about
+five more hours of machine time to confirm a gap already visible.
+
+| | reasoning off | reasoning on |
+| --- | --- | --- |
+| Questions | 50 | 50 |
+| Invented citations | 1 | 0 |
+| Cross-referenced only | 5 | 5 |
+| Fully verifiable | 44 | 42 |
+| Cited nothing | 1 | 0 |
+| Clean refusals | 0 | 3 |
+| Token plus content | 4 | 0 |
+| Latency p50 | 7.9 s | 172.5 s |
+| Latency p95 | 11.0 s | 406.1 s |
+| Median output tokens | 118 | 3,486 |
+| Machine time per 1,000 queries | 2.2 h | 47.9 h |
+| Answers it could not produce at all | 0 | 2 |
+
+Reasoning costs 22 times the latency and 30 times the output tokens. What it
+buys is not visible in the citation columns, which are within one or two of each
+other on every row.
+
+### The one thing reasoning does better
+
+Refusal. Every one of the 4 answers where the fast path reached for the refusal
+token and then kept talking came back as a clean refusal with reasoning on, and
+the hand grading found that hedged answers do not answer the question. Three
+questions moved from a hedge to a proper decline, and one moved from a hedge to
+an answer.
+
+That is a real improvement on the weakest behaviour in the system, and it is not
+worth 22 times the latency. A prompt change is the cheaper lever and has not
+been tried.
+
+### Reasoning does not always finish
+
+Two of 52 attempts produced nothing usable. § 543 on termination for cause ran
+past a ten minute ceiling and never returned. Another finished reasoning after
+981 tokens and emitted an empty answer, with a 16,384 token context window and
+about 1,100 tokens of prompt, so it had not run out of room. The fast path
+answered both without trouble.
+
+Both were originally invisible. The empty answer was being stored as an answer
+that cited nothing, which is a grade for something the model never said, and the
+timeout took down a run that had been going for over an hour. They are counted
+now, and a 4% rate of producing nothing belongs next to the latency figures when
+deciding whether to switch reasoning on.
+
+### What this does not answer
+
+Whether either configuration is more faithful. The judge cannot be trusted to
+say and the 50 reasoning answers are not hand graded, so the quality column is
+missing rather than estimated. The citation counts show that reasoning does not
+invent more sections, which is a narrower claim than being more correct.
+
+It also says nothing about a hosted model, which was the comparison this step was
+meant to make. Local against API needs an API key and there is none.
+
 ## Setup
 
 Model `BAAI/bge-m3`, 1024-dimensional, cosine similarity, on Apple Silicon (MPS).

@@ -8,6 +8,10 @@
     {
       "id": "ev-009",
       "error": "TimeoutError: timed out"
+    },
+    {
+      "id": "ev-012",
+      "error": "RuntimeError: qwen3.5:9b produced no answer after 981 output tokens (prompt 837, num_ctx=16384)"
     }
   ],
   "answers": [
@@ -380,6 +384,1519 @@
         "bgb-559e-3",
         "bgb-556e-2",
         "bgb-555c-1"
+      ]
+    },
+    {
+      "id": "ev-013",
+      "type": "direct",
+      "topic": "sonstiges",
+      "ground_truth": [
+        "bgb-546-1"
+      ],
+      "question": "Welche Pflicht hat der Mieter nach Beendigung des Mietverhältnisses?",
+      "answer": "Der Mieter ist verpflichtet, die Mietsache nach Beendigung des Mietverhältnisses zurückzugeben.[§ 546 Abs. 1] Hat der Mieter den Gebrauch einem Dritten überlassen, so kann der Vermieter die Sache auch von dem Dritten zurückfordern.[§ 546 Abs. 2]",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 546 Abs. 1",
+          "§ 546 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 684,
+      "output_tokens": 1954,
+      "latency_ms": 96774.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-546-1",
+        "bgb-546-2",
+        "bgb-535-1",
+        "bgb-547-1",
+        "bgb-540-1",
+        "bgb-535-2"
+      ]
+    },
+    {
+      "id": "ev-014",
+      "type": "direct",
+      "topic": "untervermietung",
+      "ground_truth": [
+        "bgb-540-1"
+      ],
+      "question": "Darf der Mieter die Wohnung ohne Erlaubnis des Vermieters untervermieten?",
+      "answer": "Der Mieter ist ohne die Erlaubnis des Vermieters nicht berechtigt, den Gebrauch der Mietsache einem Dritten zu überlassen, insbesondere sie weiter zu vermieten.[§ 540 Abs. 1]",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 540 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1019,
+      "output_tokens": 1750,
+      "latency_ms": 87342.5,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-540-1",
+        "bgb-553-1",
+        "bgb-556g-1a",
+        "bgb-541",
+        "bgb-572-1",
+        "bgb-553-2"
+      ]
+    },
+    {
+      "id": "ev-015",
+      "type": "direct",
+      "topic": "mieterhoehung",
+      "ground_truth": [
+        "bgb-558-1"
+      ],
+      "question": "Wann darf der Vermieter die Miete bis zur ortsüblichen Vergleichsmiete erhöhen?",
+      "answer": "Der Vermieter kann die Zustimmung zu einer Erhöhung der Miete bis zur ortsüblichen Vergleichsmiete verlangen, wenn sie seit mindestens 15 Monaten unverändert ist [§ 558 Abs. 1]. Das Mieterhöhungsverlangen darf frühestens ein Jahr nach der letzten Mieterhöhung geltend gemacht werden [§ 558 Abs. 1]. Im Übrigen kann die Erhöhung nur nach Maßgabe der §§ 558 bis 560 verlangt werden, soweit nicht eine Erhöhung durch Vereinbarung ausgeschlossen ist oder sich der Ausschluss aus den Umständen ergibt [§ 557 Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 558 Abs. 1",
+          "§ 557 Abs. 3"
+        ],
+        "section_only": [
+          "§ 558"
+        ],
+        "cross_referenced": [
+          "§ 560"
+        ],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1014,
+      "output_tokens": 1993,
+      "latency_ms": 99670.7,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-558-1",
+        "bgb-558-2",
+        "bgb-558-3",
+        "bgb-558-4",
+        "bgb-556d-1",
+        "bgb-557-3"
+      ]
+    },
+    {
+      "id": "ev-016",
+      "type": "multi_section",
+      "topic": "kaution",
+      "ground_truth": [
+        "bgb-551-1",
+        "bgb-551-2"
+      ],
+      "question": "Wie hoch darf die Kaution sein und wie muss ich sie bezahlen?",
+      "answer": "Die Mietsicherheit darf höchstens das Dreifache der auf einen Monat entfallenden Miete ohne die als Pauschale oder Vorauszahlung ausgewiesenen Betriebskosten betragen [§ 551 Abs. 1]. Ist eine Geldsumme als Sicherheit bereitzustellen, so ist der Mieter zu drei gleichen monatlichen Teilzahlungen berechtigt und die erste Zahlung fällig am Beginn des Mietverhältnisses [§ 551 Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 551 Abs. 1",
+          "§ 551 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 722,
+      "output_tokens": 1348,
+      "latency_ms": 68166.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-551-1",
+        "bgb-551-2",
+        "bgb-551-3",
+        "bgb-557a-1",
+        "bgb-556-2",
+        "bgb-555a-3"
+      ]
+    },
+    {
+      "id": "ev-017",
+      "type": "multi_section",
+      "topic": "untervermietung",
+      "ground_truth": [
+        "bgb-540-1",
+        "bgb-553-1"
+      ],
+      "question": "Darf ich ein Zimmer meiner Wohnung untervermieten und was gilt, wenn der Vermieter die Erlaubnis verweigert?",
+      "answer": "Der Mieter ist ohne die Erlaubnis des Vermieters nicht berechtigt, den Gebrauch der Mietsache einem Dritten zu überlassen oder weiterzuvermieten [§ 540 Abs. 1]. Verweigert der Vermieter diese Erlaubnis, so kann der Mieter das Mietverhältnis außerordentlich mit der gesetzlichen Frist kündigen [§ 540 Abs. 1], sofern nicht in der Person des Dritten ein wichtiger Grund vorliegt [§ 540 Abs. 1]. Ein berechtigtes Interesse zur Überlassung an einen Dritten kann nach Abschluss des Vertrags entstehen, sodass eine Erlaubnis verlangt werden kann [§ 553 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 540 Abs. 1",
+          "§ 553 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1066,
+      "output_tokens": 4357,
+      "latency_ms": 216953.5,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-540-1",
+        "bgb-553-1",
+        "bgb-541",
+        "bgb-556g-1a",
+        "bgb-573b-1",
+        "bgb-537-2"
+      ]
+    },
+    {
+      "id": "ev-018",
+      "type": "multi_section",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573-1",
+        "bgb-573c-1"
+      ],
+      "question": "Was braucht der Vermieter für eine ordentliche Kündigung und welche Frist muss er einhalten?",
+      "answer": "Für eine ordentliche Kündigung muss der Vermieter die Fristen nach § 573c Abs. 1 einhalten, wonach sie spätestens am dritten Werktag eines Kalendermonats zum Ablauf des übernächsten Monats zulässig ist [§ 573c Abs. 1]. Bei Wohnraum mit Dienstverhältnis gelten abweichende Voraussetzungen und Fristen gemäß § 576 Abs. 1 [§ 576 Abs. 1]. Zudem verlängert sich die Kündigungsfrist nach fünf und acht Jahren seit der Überlassung des Wohnraums um jeweils drei Monate [§ 573c Abs. 1]. Bei Mietzahlungsperioden in Monaten gilt ebenfalls der dritte Werktag zum Ablauf des übernächsten Monats, bei gewerblich genutzten unbebauten Grundstücken jedoch nur zum Ablauf eines Kalendervierteljahrs [§ 580a Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 573c Abs. 1",
+          "§ 576 Abs. 1",
+          "§ 580a Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 976,
+      "output_tokens": 3841,
+      "latency_ms": 199417.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-573c-1",
+        "bgb-576-1",
+        "bgb-543-4",
+        "bgb-580a-1",
+        "bgb-543-3",
+        "bgb-573c-3"
+      ]
+    },
+    {
+      "id": "ev-019",
+      "type": "multi_section",
+      "topic": "mangel",
+      "ground_truth": [
+        "bgb-543-1",
+        "bgb-569-1"
+      ],
+      "question": "Kann ich fristlos kündigen, wenn die Wohnung gesundheitsgefährdend ist?",
+      "answer": "Ja, ein wichtiger Grund im Sinne des § 543 Abs. 1 liegt für den Mieter vor, wenn der gemietete Wohnraum so beschaffen ist, dass seine Benutzung mit einer erheblichen Gefährdung der Gesundheit verbunden ist [§ 569 Abs. 1]. Jede Vertragspartei kann das Mietverhältnis aus wichtigem Grund außerordentlich fristlos kündigen [§ 543 Abs. 1]. Dies gilt auch dann, wenn die Gefahr bei Vertragsschluss bekannt war oder darauf verzichtet wurde, Rechte geltend zu machen [§ 569 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 543 Abs. 1",
+          "§ 569 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1343,
+      "output_tokens": 3445,
+      "latency_ms": 192706.5,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-569-1",
+        "bgb-569-2",
+        "bgb-543-1",
+        "bgb-543-3",
+        "bgb-543-2",
+        "bgb-569-3"
+      ]
+    },
+    {
+      "id": "ev-020",
+      "type": "multi_section",
+      "topic": "modernisierung",
+      "ground_truth": [
+        "bgb-555c-1",
+        "bgb-559-1",
+        "bgb-559b-1"
+      ],
+      "question": "Welche Schritte muss der Vermieter einhalten, um nach einer Modernisierung die Miete zu erhöhen?",
+      "answer": "Der Vermieter muss die Modernisierungsmaßnahme dem Mieter spätestens drei Monate vor ihrem Beginn in Textform ankündigen [§ 555c Abs. 1]. Die Ankündigung ist von Angaben über Art, Umfang und voraussichtlichen Kosten sowie den Betrag der zu erwartenden Mieterhöhung zu begleiten [§ 555c Abs. 1 Satz 2 Nummer 3]. Bei Nutzung des vereinfachten Verfahrens muss in der Ankündigung angegeben werden, dass davon Gebrauch gemacht wird [§ 559c Abs. 5]. Die Mieterhöhung erfolgt um acht Prozent nach § 559 oder zehn Prozent abzüglich Drittmittel nach § 559e für bestimmte Maßnahmen [§ 559 Abs. 1 / § 559e Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 555c Abs. 1",
+          "§ 559c Abs. 5",
+          "§ 559 Abs. 1",
+          "§ 559e Abs. 1"
+        ],
+        "section_only": [
+          "§ 559",
+          "§ 559e"
+        ],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1015,
+      "output_tokens": 7030,
+      "latency_ms": 406107.9,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-559-1",
+        "bgb-555c-1",
+        "bgb-559e-1",
+        "bgb-559c-5",
+        "bgb-555d-3",
+        "bgb-559c-2"
+      ]
+    },
+    {
+      "id": "ev-021",
+      "type": "multi_section",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573-1",
+        "bgb-574-1"
+      ],
+      "question": "Kann ich einer Kündigung des Vermieters widersprechen, wenn ich keine neue Wohnung finde?",
+      "answer": "Ja, eine Härte liegt auch vor, wenn angemessener Ersatzwohnraum zu zumutbaren Bedingungen nicht beschafft werden kann [§ 574 Abs. 2]. In diesem Fall ist der Mieter berechtigt, dem Vermieter den Widerspruch gegen die Kündigung und die Fortsetzung des Mietverhältnisses zu verlangen [§ 574 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 574 Abs. 2",
+          "§ 574 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 793,
+      "output_tokens": 6453,
+      "latency_ms": 316181.2,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-574-1",
+        "bgb-574c-2",
+        "bgb-574-2",
+        "bgb-574b-2",
+        "bgb-573a-1",
+        "bgb-573c-1"
+      ]
+    },
+    {
+      "id": "ev-022",
+      "type": "multi_section",
+      "topic": "mangel",
+      "ground_truth": [
+        "bgb-536-1",
+        "bgb-536a-1"
+      ],
+      "question": "Welche Rechte habe ich bei einem Mangel der Wohnung, und bekomme ich Schadensersatz?",
+      "answer": "Sie können Schadensersatz verlangen, wenn ein Mangel bei Vertragsschluss vorhanden ist oder der Vermieter mit seiner Beseitigung in Verzug kommt [§ 536a Abs. 1]. Zudem dürfen Sie den Mangel selbst beseitigen und Ersatz für Aufwendungen fordern, falls die umgehende Beseitigung notwendig ist oder der Vermieter in Verzug ist [§ 536a Abs. 2]. Diese Rechte stehen Ihnen jedoch nicht zu, wenn Sie den Mangel bei Vertragsschluss kannten und sich keine Vorbehalte machten [§ 536b]. Zudem unterlässt eine Anzeige des Mieters die Geltendmachung dieser Ansprüche nach § 536c Abs. 2 [§ 536c Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 536a Abs. 1",
+          "§ 536a Abs. 2",
+          "§ 536b",
+          "§ 536c Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 941,
+      "output_tokens": 3095,
+      "latency_ms": 151121.7,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-536a-1",
+        "bgb-536a-2",
+        "bgb-536b",
+        "bgb-536d",
+        "bgb-536c-2",
+        "bgb-571-1"
+      ]
+    },
+    {
+      "id": "ev-023",
+      "type": "multi_section",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-543-1",
+        "bgb-543-2"
+      ],
+      "question": "Kann der Vermieter fristlos kündigen, wenn ich mit der Miete im Rückstand bin?",
+      "answer": "Ja, eine fristlose Kündigung ist möglich, wenn die Voraussetzungen der außerordentlichen fristlosen Kündigung aus wichtigem Grund wegen Zahlungsverzugs vorliegen [§ 543 Abs. 2]. Ein wichtiger Grund liegt insbesondere dann vor, wenn der Mieter für zwei aufeinander folgende Termine oder in einem Zeitraum über mehr als zwei Termine mit der Entrichtung der Miete in Verzug ist [§ 543 Abs. 2]. Die Kündigung wird unwirksam, wenn der Vermieter vorher befriedigt wird oder bestimmte Fristen nach Eintritt der Rechtshängigkeit eingehalten werden müssen [§ 569 Abs. 3]. Der Mieter kann zwar widersprechen und die Fortsetzung verlangen, dies gilt jedoch nicht, wenn ein Grund vorliegt, der den Vermieter zur außerordentlichen fristlosen Kündigung berechtigt [§ 574 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 543 Abs. 2",
+          "§ 569 Abs. 3",
+          "§ 574 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1291,
+      "output_tokens": 2849,
+      "latency_ms": 134469.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-543-2",
+        "bgb-569-3",
+        "bgb-543-1",
+        "bgb-574-1",
+        "bgb-574c-2",
+        "bgb-540-1"
+      ]
+    },
+    {
+      "id": "ev-024",
+      "type": "layperson",
+      "topic": "mangel",
+      "ground_truth": [
+        "bgb-536-1"
+      ],
+      "question": "Meine Heizung ist seit zwei Wochen kaputt. Muss ich trotzdem die volle Miete zahlen?",
+      "answer": "NICHT_BEANTWORTBAR",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "refusal",
+      "refused": true,
+      "citations": {
+        "exact": [],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": false,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1016,
+      "output_tokens": 2789,
+      "latency_ms": 136619.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-559e-3",
+        "bgb-559e-5",
+        "bgb-559e-2",
+        "bgb-556c-1",
+        "bgb-559e-1",
+        "bgb-536c-2"
+      ]
+    },
+    {
+      "id": "ev-025",
+      "type": "layperson",
+      "topic": "untervermietung",
+      "ground_truth": [
+        "bgb-553-1"
+      ],
+      "question": "Mein Partner soll bei mir einziehen, aber der Vermieter ist dagegen. Was kann ich tun?",
+      "answer": "Laut § 540 Abs. 1 ist der Mieter ohne Erlaubnis des Vermieters nicht berechtigt, den Gebrauch der Mietsache einem Dritten zu überlassen [§ 540 Abs. 1]. Verweigert der Vermieter die Erlaubnis, kann das Mietverhältnis außerordentlich mit der gesetzlichen Frist gekündigt werden [§ 540 Abs. 1], sofern nicht in der Person des Dritten ein wichtiger Grund vorliegt [§ 540 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 540 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 819,
+      "output_tokens": 5062,
+      "latency_ms": 250348.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-566e-1",
+        "bgb-574-1",
+        "bgb-566e-2",
+        "bgb-574b-2",
+        "bgb-566d",
+        "bgb-540-1"
+      ]
+    },
+    {
+      "id": "ev-026",
+      "type": "layperson",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573c-1"
+      ],
+      "question": "Ich habe einen neuen Job in einer anderen Stadt. Wie schnell komme ich aus meinem Mietvertrag raus?",
+      "answer": "NICHT_BEANTWORTBAR",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "refusal",
+      "refused": true,
+      "citations": {
+        "exact": [],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": false,
+        "fully_verifiable": false
+      },
+      "input_tokens": 943,
+      "output_tokens": 1433,
+      "latency_ms": 71866.3,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-576-1",
+        "bgb-575a-3",
+        "bgb-573c-1",
+        "bgb-563-4",
+        "bgb-580a-1",
+        "bgb-573d-2"
+      ]
+    },
+    {
+      "id": "ev-027",
+      "type": "layperson",
+      "topic": "betriebskosten",
+      "ground_truth": [
+        "bgb-556-3"
+      ],
+      "question": "Die Nebenkostenabrechnung kam erst 14 Monate nach dem Abrechnungsjahr, mit einer Nachzahlung. Muss ich die noch zahlen?",
+      "answer": "Nach Ablauf des zwölften Monats ist die Geltendmachung einer Nachforderung ausgeschlossen [§ 556 Abs. 3]. Da die Abrechnung erst nach 14 Monaten kam, liegt dies über dieser Frist und schließt eine Zahlungspflicht aus [§ 556 Abs. 3], es sei denn der Vermieter hat die verspätete Geltendmachung nicht zu vertreten [§ 556 Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 556 Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 975,
+      "output_tokens": 8831,
+      "latency_ms": 442338.9,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-556-3",
+        "bgb-560-2",
+        "bgb-556-1",
+        "bgb-560-4",
+        "bgb-559-2",
+        "bgb-559b-2"
+      ]
+    },
+    {
+      "id": "ev-028",
+      "type": "layperson",
+      "topic": "mangel",
+      "ground_truth": [
+        "bgb-569-1"
+      ],
+      "question": "In der Wohnung ist Schimmel und mein Kind hustet ständig. Kann ich sofort ausziehen?",
+      "answer": "Ja, wenn der gemietete Wohnraum eine erhebliche Gefährdung der Gesundheit darstellt, liegt ein wichtiger Grund vor [§ 569 Abs. 1]. Jede Vertragspartei kann das Mietverhältnis aus wichtigem Grund außerordentlich fristlos kündigen [§ 543 Abs. 1]. Dies gilt auch für den Mieter selbst bei gesundheitlicher Gefährdung durch die Beschaffenheit des Wohnraums [§ 569 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 569 Abs. 1",
+          "§ 543 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 992,
+      "output_tokens": 4035,
+      "latency_ms": 200789.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-569-1",
+        "bgb-573c-3",
+        "bgb-543-1",
+        "bgb-576-1",
+        "bgb-573-2",
+        "bgb-557a-3"
+      ]
+    },
+    {
+      "id": "ev-029",
+      "type": "layperson",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573-1"
+      ],
+      "question": "Kann mein Vermieter mir kündigen, nur um die Wohnung teurer zu vermieten?",
+      "answer": "Nein, die Kündigung zum Zwecke einer Mieterhöhung ist ausgeschlossen [§ 573 Abs. 1]. Der Vermieter kann nur kündigen, wenn er ein berechtigtes Interesse an der Beendigung des Mietverhältnisses hat [§ 573 Abs. 1]. Die Möglichkeit, durch eine anderweitige Vermietung als Wohnraum eine höhere Miete zu erzielen, bleibt bei einem berechtigten Interesse außer Betracht [§ 573 Abs. 2]. Daher ist die Kündigung zum Zwecke höherer Mietsätze nicht zulässig [§ 573 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 573 Abs. 1",
+          "§ 573 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 928,
+      "output_tokens": 6213,
+      "latency_ms": 305272.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-573-1",
+        "bgb-574-1",
+        "bgb-561-1",
+        "bgb-573-2",
+        "bgb-540-1",
+        "bgb-574c-2"
+      ]
+    },
+    {
+      "id": "ev-030",
+      "type": "layperson",
+      "topic": "sonstiges",
+      "ground_truth": [
+        "bgb-566-1"
+      ],
+      "question": "Das Haus wurde verkauft. Muss ich jetzt ausziehen?",
+      "answer": "Die Vorschrift besagt lediglich den Übergang der Rechte und Pflichten auf den Erwerber während des Eigentums ([§ 566 Abs. 1]). Es wird nicht erwähnt, dass ein sofortiger Auszug aufgrund eines Verkaufs erforderlich ist. Daher ergibt sich aus diesen Texten keine unmittelbare Verpflichtung zum Umziehen bei Verkauf allein.",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 566 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 720,
+      "output_tokens": 8259,
+      "latency_ms": 401668.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-562b-2",
+        "bgb-566-1",
+        "bgb-562b-1",
+        "bgb-566a",
+        "bgb-555d-1",
+        "bgb-559-2"
+      ]
+    },
+    {
+      "id": "ev-031",
+      "type": "direct",
+      "topic": "betriebskosten",
+      "ground_truth": [
+        "bgb-556a-1"
+      ],
+      "question": "Nach welchem Maßstab werden die Betriebskosten verteilt, wenn im Mietvertrag nichts dazu vereinbart ist?",
+      "answer": "Wenn die Vertragsparteien nichts anderes vereinbart haben, sind die Betriebskosten vorbehaltlich anderweitiger Vorschriften nach dem Anteil der Wohnfläche umzulegen [§ 556a Abs. 1]. Kosten abhängig vom Verbrauch oder Verursachung durch den Mieter werden entsprechend einem anderen Maßstab verteilt [§ 556a Abs. 1]. Ist Wohnungseigentum vermietet, können die Betriebskosten abweichend nach dem zwischen Eigentümern geltenden Verteilungsmaßstab umgelegt werden [§ 556a Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 556a Abs. 1",
+          "§ 556a Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 982,
+      "output_tokens": 5298,
+      "latency_ms": 256779.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-556a-3",
+        "bgb-556a-1",
+        "bgb-556-1",
+        "bgb-556a-2",
+        "bgb-556-3",
+        "bgb-556-2"
+      ]
+    },
+    {
+      "id": "ev-032",
+      "type": "direct",
+      "topic": "betriebskosten",
+      "ground_truth": [
+        "bgb-556-4"
+      ],
+      "question": "Darf ich als Mieter Einsicht in die Belege zur Betriebskostenabrechnung verlangen?",
+      "answer": "Ja, Sie können Einsicht in die der Abrechnung zugrundeliegenden Belege verlangen [§ 556 Abs. 4]. Der Vermieter hat dem Mieter auf Verlangen diese Einsicht zu gewähren [§ 556 Abs. 4].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 556 Abs. 4"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 969,
+      "output_tokens": 2582,
+      "latency_ms": 124564.4,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-556-4",
+        "bgb-556-3",
+        "bgb-560-1",
+        "bgb-556-1",
+        "bgb-556a-2",
+        "bgb-560-2"
+      ]
+    },
+    {
+      "id": "ev-033",
+      "type": "direct",
+      "topic": "betriebskosten",
+      "ground_truth": [
+        "bgb-560-4"
+      ],
+      "question": "Kann die monatliche Betriebskostenvorauszahlung nach einer Abrechnung angepasst werden?",
+      "answer": "Nach einer Abrechnung kann jede Vertragspartei eine Anpassung der Betriebskostenvorauszahlungen auf eine angemessene Höhe vornehmen [§ 560 Abs. 4]. Die Erklärung ist in Textform zu erfolgen und bei Erhöhungen nur wirksam, wenn im Mietvertrag vereinbart [§ 560 Abs. 1], während Ermäßigungen die Pauschale herabsetzen lassen [§ 560 Abs. 3]. Der Mieter schuldet den Teil der Umlage mit Beginn des übernächsten Monats nach Erklärung [§ 560 Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 560 Abs. 4",
+          "§ 560 Abs. 1",
+          "§ 560 Abs. 3",
+          "§ 560 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 858,
+      "output_tokens": 5543,
+      "latency_ms": 267537.1,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-560-4",
+        "bgb-556a-2",
+        "bgb-560-1",
+        "bgb-556-3",
+        "bgb-560-2",
+        "bgb-560-3"
+      ]
+    },
+    {
+      "id": "ev-034",
+      "type": "multi_section",
+      "topic": "betriebskosten",
+      "ground_truth": [
+        "bgb-556-2",
+        "bgb-556-3"
+      ],
+      "question": "Wie hoch dürfen Betriebskostenvorauszahlungen sein und muss darüber abgerechnet werden?",
+      "answer": "Vorauszahlungen für Betriebskosten dürfen nur in angemessener Höhe vereinbart werden [§ 556 Abs. 2]. Über die Vorauszahlungen ist jährlich abzurechnen, wobei der Vermieter die Abrechnung dem Mieter spätestens bis zum Ablauf des zwölften Monats nach Ende des Abrechnungszeitraums mitzuteilen hat [§ 556 Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 556 Abs. 2",
+          "§ 556 Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 899,
+      "output_tokens": 2997,
+      "latency_ms": 145257.8,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-560-4",
+        "bgb-556-2",
+        "bgb-556-1",
+        "bgb-560-1",
+        "bgb-556a-1",
+        "bgb-556-3"
+      ]
+    },
+    {
+      "id": "ev-035",
+      "type": "multi_section",
+      "topic": "mieterhoehung",
+      "ground_truth": [
+        "bgb-557a-1",
+        "bgb-557a-2"
+      ],
+      "question": "Was ist eine Staffelmiete und wie lange muss die Miete jeweils unverändert bleiben?",
+      "answer": "Eine Staffelmiete ist eine schriftliche Vereinbarung, bei der die Miete für bestimmte Zeiträume in unterschiedlicher Höhe auszuweisen ist [§ 557a Abs. 1]. Während dieser Laufzeit muss die Miete jeweils mindestens ein Jahr unverändert bleiben [§ 557a Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 557a Abs. 1",
+          "§ 557a Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 628,
+      "output_tokens": 2538,
+      "latency_ms": 123516.9,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-557a-2",
+        "bgb-557a-1",
+        "bgb-557a-3",
+        "bgb-557a-4",
+        "bgb-557-2",
+        "bgb-557a-5"
+      ]
+    },
+    {
+      "id": "ev-036",
+      "type": "direct",
+      "topic": "mieterhoehung",
+      "ground_truth": [
+        "bgb-558-3"
+      ],
+      "question": "Um wie viel darf die Miete innerhalb von drei Jahren höchstens steigen?",
+      "answer": "Nach § 558 Absatz 3 darf sich die Miete innerhalb von drei Jahren nicht um mehr als 20 vom Hundert erhöhen [§ 558 Abs. 3]. Dieser Prozentsatz beträgt 15 vom Hundert, wenn eine Gemeinde oder ein Teil einer Gemeinde nach Satz 3 bestimmt ist und dort besonders gefährdet sind [§ 558 Abs. 3 Satz 2]. Erhöhungen nach den §§ 559 bis 560 werden bei dieser Berechnung nicht berücksichtigt [§ 558 Abs. 3 Satz 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 558 Abs. 3"
+        ],
+        "section_only": [
+          "§ 559"
+        ],
+        "cross_referenced": [
+          "§ 560"
+        ],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1195,
+      "output_tokens": 2228,
+      "latency_ms": 112070.0,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-559-3a",
+        "bgb-558-3",
+        "bgb-559e-3",
+        "bgb-559e-1",
+        "bgb-558-1",
+        "bgb-557b-2"
+      ]
+    },
+    {
+      "id": "ev-037",
+      "type": "layperson",
+      "topic": "mieterhoehung",
+      "ground_truth": [
+        "bgb-558b-2"
+      ],
+      "question": "Mein Vermieter will die Miete erhöhen. Wie viel Zeit habe ich, um zu reagieren?",
+      "answer": "Der Mieter muss der Mieterhöhung bis zum Ablauf des zweiten Kalendermonats nach dem Zugang des Verlangens zustimmen [§ 558b Abs. 2]. Wird diese Frist nicht eingehalten, kann der Vermieter auf Erteilung der Zustimmung klagen [§ 558b Abs. 2]. Zudem besteht ein Sonderkündigungsrecht bis zum Ablauf desselben Monats nach dem Zugang der Erklärung [§ 561 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 558b Abs. 2",
+          "§ 561 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 776,
+      "output_tokens": 4069,
+      "latency_ms": 206155.1,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-558b-2",
+        "bgb-559b-2",
+        "bgb-558-1",
+        "bgb-558b-3",
+        "bgb-561-1",
+        "bgb-558b-1"
+      ]
+    },
+    {
+      "id": "ev-038",
+      "type": "direct",
+      "topic": "mieterhoehung",
+      "ground_truth": [
+        "bgb-556d-1"
+      ],
+      "question": "Bei einer Neuvermietung in einer Stadt mit angespanntem Wohnungsmarkt: wie weit darf die Miete über der ortsüblichen Vergleichsmiete liegen?",
+      "answer": "Die Miete darf die ortsübliche Vergleichsmiete zu Beginn des Mietverhältnisses höchstens um 10 Prozent übersteigen [§ 556d Abs. 1]. Eine Überschreitung dieser zulässigen Miethöhe ist möglich, wenn der Vermieter in den letzten drei Jahren vor dem Mietbeginn Modernisierungsmaßnahmen durchgeführt hat [§ 556e Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 556d Abs. 1",
+          "§ 556e Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1177,
+      "output_tokens": 5139,
+      "latency_ms": 257646.3,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-556d-1",
+        "bgb-556d-2",
+        "bgb-558-2",
+        "bgb-558-1",
+        "bgb-556e-1",
+        "bgb-556e-2"
+      ]
+    },
+    {
+      "id": "ev-039",
+      "type": "direct",
+      "topic": "schaeden",
+      "ground_truth": [
+        "bgb-535-1"
+      ],
+      "question": "Wer muss die Wohnung während der Mietzeit instand halten?",
+      "answer": "Der Vermieter hat die Mietsache während der Mietzeit in einem zum vertragsgemäßen Gebrauch geeigneten Zustand zu erhalten [§ 535 Abs. 1]. Der Mieter ist lediglich verpflichtet, Maßnahmen zur Instandhaltung oder Instandsetzung zu dulden [§ 555a Abs. 1]. Aufwendungen für Erhaltungsmaßnahmen hat der Vermieter in angemessenem Umfang zu ersetzen [§ 555a Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 535 Abs. 1",
+          "§ 555a Abs. 1",
+          "§ 555a Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 722,
+      "output_tokens": 1626,
+      "latency_ms": 82171.9,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-535-1",
+        "bgb-555a-1",
+        "bgb-555a-3",
+        "bgb-536c-1",
+        "bgb-536c-2",
+        "bgb-535-2"
+      ]
+    },
+    {
+      "id": "ev-040",
+      "type": "multi_section",
+      "topic": "schaeden",
+      "ground_truth": [
+        "bgb-536c-1",
+        "bgb-536c-2"
+      ],
+      "question": "Muss ich einen Mangel dem Vermieter melden, und was passiert, wenn ich es nicht tue?",
+      "answer": "Ja, der Mieter hat die Pflicht, während der Mietzeit auftretende Mängel dem Vermieter unverzüglich anzuzeigen [§ 536c Abs. 1]. Unterlässt er dies, ist er zum Ersatz des daraus entstehenden Schadens verpflichtet und verliert bestimmte Rechte [§ 536c Abs. 2]. Dazu zählt die Unmöglichkeit, ohne Bestimmung einer angemessenen Frist zur Abhilfe nach § 543 Abs. 3 Satz 1 zu kündigen oder Ansprüche aus § 536 geltend zu machen, wenn der Vermieter infolge der Unterlassung nicht abhelfen konnte [§ 536c Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 536c Abs. 1",
+          "§ 536c Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [
+          "§ 543 Abs. 3",
+          "§ 536"
+        ],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1000,
+      "output_tokens": 6889,
+      "latency_ms": 344713.4,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-536c-1",
+        "bgb-536b",
+        "bgb-536c-2",
+        "bgb-536a-2",
+        "bgb-536a-1",
+        "bgb-556g-2"
+      ]
+    },
+    {
+      "id": "ev-041",
+      "type": "layperson",
+      "topic": "schaeden",
+      "ground_truth": [
+        "bgb-536c-1"
+      ],
+      "question": "Bei mir tropft seit ein paar Tagen ein Rohr unter der Spüle. Muss ich das dem Vermieter sagen oder kann ich warten?",
+      "answer": "Nach § 536c Abs. 1 hat der Mieter einen während der Mietzeit auftretenden Mangel dem Vermieter unverzüglich anzuzeigen [§ 536c Abs. 1]. Unterlässt er die Anzeige, ist er zum Ersatz des daraus entstehenden Schadens verpflichtet [§ 536c Abs. 2]. Ein tropfendes Rohr stellt einen solchen während der Mietzeit auftretenden Mangel dar und muss daher unverzüglich angezeigt werden [§ 536c Abs. 1]. Eine Verzögerung führt dazu, dass der Mieter für entstehende Schäden haftet [§ 536c Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 536c Abs. 1",
+          "§ 536c Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1156,
+      "output_tokens": 4129,
+      "latency_ms": 206413.7,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-575-2",
+        "bgb-536c-1",
+        "bgb-556g-1a",
+        "bgb-556g-2",
+        "bgb-536c-2",
+        "bgb-556c-2"
+      ]
+    },
+    {
+      "id": "ev-042",
+      "type": "multi_section",
+      "topic": "schaeden",
+      "ground_truth": [
+        "bgb-555a-1",
+        "bgb-555a-3"
+      ],
+      "question": "Muss der Mieter Reparaturarbeiten des Vermieters in der Wohnung dulden, und bekommt er dadurch entstandene Auslagen ersetzt?",
+      "answer": "Der Mieter hat Maßnahmen zur Instandhaltung oder Instandsetzung der Mietsache zu dulden, die vom Vermieter erforderlich sind [§ 555a Abs. 1]. Aufwendungen, die der Mieter infolge einer Erhaltungsmaßnahme machen muss, hat der Vermieter in angemessenem Umfang zu ersetzen [§ 555a Abs. 3].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 555a Abs. 1",
+          "§ 555a Abs. 3"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 769,
+      "output_tokens": 3483,
+      "latency_ms": 172540.5,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-555a-3",
+        "bgb-536c-2",
+        "bgb-539-1",
+        "bgb-536a-2",
+        "bgb-555a-1",
+        "bgb-536a-1"
+      ]
+    },
+    {
+      "id": "ev-043",
+      "type": "direct",
+      "topic": "modernisierung",
+      "ground_truth": [
+        "bgb-555d-1"
+      ],
+      "question": "Muss der Mieter eine Modernisierungsmaßnahme dulden?",
+      "answer": "Der Mieter hat eine Modernisierungsmaßnahme grundsätzlich zu dulden [§ 555d Abs. 1]. Eine Duldungspflicht besteht jedoch nicht, wenn die Maßnahme für den Mieter oder einen Angehörigen seines Haushalts eine Härte bedeuten würde, die auch unter Würdigung der berechtigten Interessen sowohl des Vermieters als auch anderer Mieter in dem Gebäude sowie von Belangen der Energieeinsparung und des Klimaschutzes nicht zu rechtfertigen ist [§ 555d Abs. 2]. Die zu erwartende Mieterhöhung bleibt bei dieser Abwägung im Rahmen der Duldungspflicht außer Betracht, sie sind nur nach § 559 Absatz 4 und 5 bei einer Mieterhöhung zu berücksichtigen [§ 555d Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 555d Abs. 1",
+          "§ 555d Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [
+          "§ 559 Abs. 4"
+        ],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": false
+      },
+      "input_tokens": 1032,
+      "output_tokens": 3039,
+      "latency_ms": 149963.3,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-555d-1",
+        "bgb-555c-1",
+        "bgb-555c-3",
+        "bgb-555d-3",
+        "bgb-555b",
+        "bgb-555d-2"
+      ]
+    },
+    {
+      "id": "ev-044",
+      "type": "direct",
+      "topic": "modernisierung",
+      "ground_truth": [
+        "bgb-555d-3"
+      ],
+      "question": "Bis wann muss der Mieter dem Vermieter mitteilen, dass eine Modernisierung für ihn eine Härte bedeutet?",
+      "answer": "Der Mieter hat die Umstände einer Härte bis zum Ablauf des Monats mitzuteilen, der auf den Zugang der Modernisierungsankündigung folgt [§ 555d Abs. 3]. Diese Frist beginnt nur, wenn die Ankündigung den Vorschriften entspricht und der Vermieter darauf hingewiesen hat [§ 555c Abs. 2; § 555d Abs. 3]. Hat der Vermieter nicht auf Form und Frist hingewiesen, bedarf die Mitteilung dieser Frist nicht [§ 555d Abs. 5].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 555d Abs. 3",
+          "§ 555c Abs. 2",
+          "§ 555d Abs. 5"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 905,
+      "output_tokens": 5776,
+      "latency_ms": 272700.0,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-555c-2",
+        "bgb-555d-3",
+        "bgb-555c-1",
+        "bgb-555d-4",
+        "bgb-555d-5",
+        "bgb-559b-2"
+      ]
+    },
+    {
+      "id": "ev-045",
+      "type": "layperson",
+      "topic": "modernisierung",
+      "ground_truth": [
+        "bgb-555e-1"
+      ],
+      "question": "Mein Vermieter hat eine große Modernisierung angekündigt, die ich nicht mitmachen will. Kann ich deswegen ausziehen?",
+      "answer": "Ja, der Mieter kann das Mietverhältnis außerordentlich kündigen und muss dies bis zum Ablauf des Monats tun, der auf den Zugang der Ankündigung folgt [§ 555e Abs. 1]. Der Vermieter hat die Maßnahme spätestens drei Monate vorher anzukündigen [§ 555c Abs. 1]. Eine Duldungspflicht besteht grundsätzlich für den Mieter [§ 555d Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 555e Abs. 1",
+          "§ 555c Abs. 1",
+          "§ 555d Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 841,
+      "output_tokens": 3630,
+      "latency_ms": 169931.6,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-559-4",
+        "bgb-555c-1",
+        "bgb-555d-1",
+        "bgb-555d-3",
+        "bgb-555c-5",
+        "bgb-555e-1"
+      ]
+    },
+    {
+      "id": "ev-046",
+      "type": "direct",
+      "topic": "modernisierung",
+      "ground_truth": [
+        "bgb-555b"
+      ],
+      "question": "Was gilt rechtlich als Modernisierungsmaßnahme?",
+      "answer": "Modernisierungsmaßnahmen sind nach [§ 555b] bauliche Veränderungen zur nachhaltigen Einsparung von Energie, zum Schutz des Klimas sowie zur Reduktion des Wasserverbrauchs und Erhöhung des Gebrauchswerts. Dazu zählen auch der erstmalige Anschluss an Glasfasernetze, die Verbesserung allgemeiner Wohnverhältnisse und das Schaffen neuer Wohnräume gemäß [§ 555b]. Eine Härte für den Mieter kann die Duldungspflicht nach [§ 555d] ausschließen. Die Ankündigungsregeln gelten nicht bei unerheblichen Maßnahmen nach [§ 555c Abs. 4].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 555b",
+          "§ 555c Abs. 4"
+        ],
+        "section_only": [
+          "§ 555d"
+        ],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 992,
+      "output_tokens": 10265,
+      "latency_ms": 487874.1,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-555b",
+        "bgb-555c-1",
+        "bgb-555c-3",
+        "bgb-555d-1",
+        "bgb-555d-2",
+        "bgb-555c-4"
+      ]
+    },
+    {
+      "id": "ev-047",
+      "type": "direct",
+      "topic": "untervermietung",
+      "ground_truth": [
+        "bgb-553-2"
+      ],
+      "question": "Darf der Vermieter die Erlaubnis zur Untervermietung von einer Mieterhöhung abhängig machen?",
+      "answer": "Ja, der Vermieter kann die Erlaubnis zur Untervermietung von einer Mieterhöhung abhängig machen, wenn ihm eine Überlassung nur bei angemessener Erhöhung zuzumuten ist [§ 553 Abs. 2]. In diesem Fall darf er verlangen, dass sich der Mieter mit dieser Erhöhung einverstanden erklärt [§ 553 Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 553 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 964,
+      "output_tokens": 1914,
+      "latency_ms": 90670.3,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-553-2",
+        "bgb-557-3",
+        "bgb-557-1",
+        "bgb-558-1",
+        "bgb-556g-1a",
+        "bgb-557-2"
+      ]
+    },
+    {
+      "id": "ev-048",
+      "type": "multi_section",
+      "topic": "untervermietung",
+      "ground_truth": [
+        "bgb-553-1",
+        "bgb-553-2"
+      ],
+      "question": "Ich möchte ein Zimmer untervermieten. Habe ich einen Anspruch auf die Erlaubnis, und darf der Vermieter dafür mehr Miete verlangen?",
+      "answer": "Sie können von dem Vermieter die Erlaubnis zur Überlassung des Wohnraums an einen Dritten verlangen, wenn ein berechtigtes Interesse besteht [§ 553 Abs. 1]. Der Vermieter kann diese Erlaubnis davon abhängig machen, dass der Mieter sich mit einer angemessenen Erhöhung der Miete einverstanden erklärt [§ 553 Abs. 2]. Ohne die Erlaubnis ist eine Überlassung des Gebrauchs an Dritte nicht gestattet [§ 540 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 553 Abs. 1",
+          "§ 553 Abs. 2",
+          "§ 540 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1059,
+      "output_tokens": 1548,
+      "latency_ms": 74082.4,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-553-1",
+        "bgb-553-2",
+        "bgb-557-3",
+        "bgb-540-1",
+        "bgb-558b-3",
+        "bgb-556g-1a"
+      ]
+    },
+    {
+      "id": "ev-049",
+      "type": "direct",
+      "topic": "sonstiges",
+      "ground_truth": [
+        "bgb-566a"
+      ],
+      "question": "Was passiert mit meiner Kaution, wenn die Wohnung während des Mietverhältnisses verkauft wird?",
+      "answer": "Wenn vermietete Wohnräume veräußert werden, tritt der Erwerber anstelle des Vermieters in die Rechte und Pflichten ein [§ 566 Abs. 1]. Dies gilt auch für eine vom Mieter geleistete Sicherheit, da der Erwerber dann in die dadurch begründeten Rechte und Pflichten eintritt [§ 566a]. Der Vermieter bleibt nur zur Rückgewähr verpflichtet, wenn der Mieter die Sicherheit von dem Erwerber nicht erlangen kann [§ 566a].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 566 Abs. 1",
+          "§ 566a"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 912,
+      "output_tokens": 6954,
+      "latency_ms": 327779.5,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-566-1",
+        "bgb-577-1",
+        "bgb-566c",
+        "bgb-566a",
+        "bgb-566b-2",
+        "bgb-551-3"
+      ]
+    },
+    {
+      "id": "ev-050",
+      "type": "direct",
+      "topic": "sonstiges",
+      "ground_truth": [
+        "bgb-545"
+      ],
+      "question": "Was gilt, wenn der Mieter nach Ablauf der Mietzeit einfach in der Wohnung bleibt?",
+      "answer": "Setzt der Mieter nach Ablauf der Mietzeit den Gebrauch fort, verlängert sich das Mietverhältnis auf unbestimmte Zeit [§ 545]. Dies gilt jedoch nicht, sofern nicht eine Vertragspartei ihren entgegenstehenden Willen innerhalb von zwei Wochen dem anderen Teil erklärt hat [§ 545]. Die Frist beginnt für den Mieter mit der Fortsetzung des Gebrauchs und für den Vermieter mit dem Zeitpunkt, in dem er davon Kenntnis erhält [§ 545].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 545"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 869,
+      "output_tokens": 3486,
+      "latency_ms": 164559.9,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-575-1",
+        "bgb-545",
+        "bgb-550",
+        "bgb-573a-2",
+        "bgb-574c-2",
+        "bgb-574a-1"
+      ]
+    },
+    {
+      "id": "ev-051",
+      "type": "layperson",
+      "topic": "sonstiges",
+      "ground_truth": [
+        "bgb-547-1"
+      ],
+      "question": "Ich habe die Miete für zwei Monate im Voraus gezahlt und ziehe früher aus. Bekomme ich das Geld zurück?",
+      "answer": "Ja, der Vermieter hat die im Voraus entrichtete Miete für die Zeit nach Beendigung des Mietverhältnisses zurückzuerstatten [§ 547 Abs. 1]. Bei Wohnraum ist eine zum Nachteil des Mieters abweichende Vereinbarung unwirksam [§ 547 Abs. 2]. Wenn der Vermieter die Beendigung nicht zu vertreten hat, muss er das Erlangte nach den Vorschriften über die Herausgabe einer ungerechtfertigten Bereicherung zurückzuerstatten [§ 547 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 547 Abs. 1",
+          "§ 547 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 808,
+      "output_tokens": 3295,
+      "latency_ms": 154689.0,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-547-1",
+        "bgb-546a-1",
+        "bgb-556g-2",
+        "bgb-547-2",
+        "bgb-546a-2",
+        "bgb-571-1"
+      ]
+    },
+    {
+      "id": "ev-052",
+      "type": "multi_section",
+      "topic": "kuendigung",
+      "ground_truth": [
+        "bgb-573-2",
+        "bgb-573c-1",
+        "bgb-574-1"
+      ],
+      "question": "Der Vermieter kündigt wegen Eigenbedarf. Auf welchen Grund stützt er sich, welche Frist gilt, und kann ich mich wehren?",
+      "answer": "Der Vermieter stützt sich auf das berechtigte Interesse nach § 573 Abs. 2 Nr. 2 [§ 573 Abs. 2]. Sie können die Kündigung widersprechen, wenn Härte vorliegt (§ 574 Abs. 1) [§ 574 Abs. 1]. Eine allgemeine Kündigungsfrist ist in den vorgelegten Vorschriften nicht enthalten; nur für Werkmietwohnungen gelten Fristen nach § 576 Abs. 1 [§ 576 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 573 Abs. 2",
+          "§ 574 Abs. 1",
+          "§ 576 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1015,
+      "output_tokens": 7672,
+      "latency_ms": 370771.1,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-573-2",
+        "bgb-543-4",
+        "bgb-540-1",
+        "bgb-576-1",
+        "bgb-574-1",
+        "bgb-573-1"
       ]
     }
   ]
