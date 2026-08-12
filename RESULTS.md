@@ -237,15 +237,14 @@ number here before those exist would be inventing one.
 | | |
 | --- | --- |
 | Answers | 150 |
+| Cited a § named nowhere in the text shown | 2 |
+| Cited a § named in the text but never shown | 15 |
 | Cited nothing at all | 1 |
 | Used the refusal token | 12 |
 | Latency p50 / p95 | 7.9 s / 11.0 s |
 | Cost | none, runs on the machine |
 
-| Cited a § named nowhere in the text shown | 2 |
-| Cited a § named in the text but never shown | 15 |
-
-The split in those last two rows is the finding, and getting to it took three
+Those two citation rows started as one, and separating them took three
 corrections to the checker rather than to the model.
 
 The first count was 19. Two were a bug: the BGB cross-references other statutes,
@@ -287,6 +286,11 @@ that cited a cross-reference, and 8 whose citations were mechanically perfect.
 | Answers the question asked | 16 | 2 | 12 |
 | Declining was right (the 12 token cases) | 4 | 2 | 6 |
 
+The grader found "no" clear to apply and the line between "yes" and "partly"
+frequently not, so the split between the first two columns carries more
+uncertainty than the third. What that does and does not affect is worked through
+under the judge results below.
+
 The middle column is where the answers live. Outright invention is rare and
 complete faithfulness is not the norm either: two thirds of answers mix
 supported claims with unsupported ones, which is the failure mode a citation
@@ -298,19 +302,19 @@ Of the 8 answers where every citation pointed at text the model had actually
 read, 4 were judged fully faithful. The mechanical check is right about half the
 time as a proxy for the thing it looks like it measures.
 
-That is not a defect in the check. It answers a narrower question than it
-appears to, and answers it exactly: did this answer cite a section it was never
-shown. An answer can clear that bar and still assert something the cited section
-does not say. Nothing short of reading both can catch that, which is the entire
-reason this set exists and the reason it had to be graded by a person.
+The check is not broken. It answers a narrower question than its name suggests:
+did this answer cite a section it was never shown. An answer can clear that bar
+and still claim something the cited section does not say. Catching that means
+reading the answer against the text, which is why these 30 were graded by a
+person.
 
 ### Refusal is the weak spot
 
 Every one of the 12 answers that reached for the refusal token was judged not to
 have answered the question, and 6 of those 12 declined when the sections in
-front of them did contain the answer. The model gives up roughly twice as often
-as it should, and when it gives up it also stops being useful. Over-refusal is a
-quieter failure than a wrong answer and a real one for a product.
+front of them did contain the answer. So the model gives up about twice as often
+as it should. A wrong answer is easier to notice than an unnecessary refusal,
+which is what makes this one worth measuring rather than assuming.
 
 ### What this set cannot support
 
@@ -323,6 +327,93 @@ per-stratum splits are indicative and not much more: 4 against 4 in a stratum of
 What it does support is the thing it was built for. A judge that guesses the
 majority class every time scores 53% on faithfulness, 53% on relevance and 50%
 on refusal, so a judge worth trusting has to beat those and can be seen not to.
+
+## The judge, and why it is not being used
+
+A model was asked to grade the same 30 answers on the same three points, shown
+exactly what the human grader saw and nothing else. Agreement was then measured
+against the hand grades. Kappa is agreement above chance: 0 means a judge that
+learned nothing, 1 means perfect. The baseline column is what a judge scores by
+guessing the commonest human grade every time.
+
+| Judge | | exact | within one | kappa | baseline |
+| --- | --- | --- | --- | --- | --- |
+| v1 | faithful | 33% | 87% | 0.04 | 53% |
+| v1 | relevant | 77% | 83% | 0.54 | 53% |
+| v1 | refusal (n=4) | 50% | 50% | 0.00 | 50% |
+| v2 | faithful | 43% | 90% | 0.17 | 53% |
+| v2 | relevant | 67% | 77% | 0.33 | 53% |
+| v2 | refusal (n=10) | 40% | 80% | 0.12 | 40% |
+
+Qwen 3.5 9B cannot grade faithfulness. Both versions score below the baseline,
+so on this evidence a judge that ignored the answer entirely and always guessed
+"partly" would be more accurate.
+
+The cause is visible without reference to the human grades at all. v1 returned
+yes 23 times, no 7 times and partly not once across 30 answers, against a human
+who used the middle grade for 16 of 30. Two thirds of a three-point scale cannot
+match a grader who lives in the middle of it. v1 was adjacent-correct 87% of the
+time, which is the same finding from the other side: the judge knows roughly
+where an answer sits and will not say so.
+
+v2 defined each grade explicitly, including a sentence saying that a mix of
+supported and unsupported claims is the normal case rather than the exception.
+It moved the middle grade from 0 uses to 2. The refusal field went from 4
+verdicts to 10 after being made mandatory when the token is present, which is
+the one clear improvement. Relevance fell from 0.54 to 0.33, though at n=30 that
+is three answers and inside the noise.
+
+The prompt was revised once, and the reason is worth stating because the
+distinction is easy to lose. A judge emitting zero "partly" verdicts is a defect
+readable in the judge's own output, with the human grades covered up, so fixing
+it is not tuning against them. Measuring the fix on the same 30 answers is still
+optimistic, and no further revision was made: iterating a prompt until the
+agreement number rises fits the judge to the calibration set and produces a
+figure that says nothing about the other 120 answers.
+
+### Was it the grader or the judge?
+
+The grader reported afterwards that "no" felt clear every time, while the line
+between "yes" and "partly" often did not. That is worth checking rather than
+noting, because if most of the disagreement sat on a boundary the human was
+unsure of, the judge would be taking the blame for the scale.
+
+Merging that boundary, both directions, on faithfulness:
+
+| Collapse | v1 kappa | v2 kappa | above baseline |
+| --- | --- | --- | --- |
+| three-point, as graded | +0.04 | +0.17 | no |
+| is it broken (yes+partly vs no) | +0.07 | +0.07 | no |
+| is it perfect (yes vs partly+no) | +0.07 | +0.28 | no |
+
+The judge stays at or under the baseline under every reading of the scale. Had
+the disagreement been about where the middle grade starts, merging the two
+grades would have shown it, and it does not. The conclusion survives the
+grader's own doubt about the grades it rests on, which is a stronger position
+than it started in. The check runs on every comparison rather than being
+remembered as a one-off.
+
+The doubt still bites elsewhere. Any figure that turns on the yes-against-partly
+line inherits it: the 11 fully faithful against 16 partly above, and the finding
+that 4 of 8 mechanically perfect answers were fully faithful. Both would move if
+the boundary moved. The count of 3 answers with essentially nothing supported is
+the one that does not, since that grade is the one the grader trusted. A second
+annotator would settle it and there was not one.
+
+Relevance under v1 is the one usable result: 0.54 is moderate agreement, clear
+of the baseline, on the simplest of the three judgments. It is not being quoted
+as the judge's score, because picking v1 for relevance and v2 for refusal is
+choosing the flattering half of each run after seeing both.
+
+So the answers in this project are not judged by a model. Faithfulness on the
+other 120 stays unmeasured rather than measured wrongly. Without the 30 hand
+grades the natural next step would have been to run the judge across all 150 and
+publish the scores, and nothing in that output would have revealed that the
+judge was worse than guessing.
+
+Two routes out, neither taken here. A stronger judge, which is what the API side
+of the comparison was for and needs a key. Or a second hand-graded sample, held
+out, which is the only way to get an honest number for a revised prompt.
 
 ## Setup
 

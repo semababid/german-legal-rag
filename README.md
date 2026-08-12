@@ -13,7 +13,8 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Retrieval | hit@1 0.70, MRR 0.79 on the final config, see [RESULTS.md](RESULTS.md) |
 | Measurement | n=150, two scoring levels, core and peripheral split, all comparisons significance tested |
 | Experiments | Six run, two significant improvements. Phase complete |
-| Generation | Working end to end on the local model. Answers are cited and grounding-checked; not yet scored for quality |
+| Generation | Working end to end on the local model. Answers are cited and grounding-checked |
+| Judging | 30 answers graded by hand. The local judge scored below the guessing baseline on faithfulness, so answers are not model-judged |
 | Serving | Not started |
 
 ## The corpus
@@ -123,6 +124,7 @@ src/answer.py             ask one question, get a cited answer
 src/generate_answers.py   answer the whole eval set and save it
 src/make_calibration_set.py  draw the stratified sample to grade by hand
 src/grade.py              grade those answers, one at a time
+src/judge.py              model-graded scoring, and its agreement with the hand grades
 tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions
 RESULTS.md                retrieval scores

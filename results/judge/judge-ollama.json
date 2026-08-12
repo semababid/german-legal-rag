@@ -1,0 +1,788 @@
+{
+  "label": "judge-ollama",
+  "backend": "ollama",
+  "model": "qwen3.5:9b",
+  "think": false,
+  "judged": [
+    {
+      "id": "ev-004",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist korrekt begründet (keine Mieterkündigung in den Vorschriften), beantwortet aber die Frage nicht direkt mit dem geforderten 'NICHT_BEANTWORTBAR'-Status."
+      },
+      "raw": null,
+      "input_tokens": 1272,
+      "output_tokens": 66
+    },
+    {
+      "id": "ev-024",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": ""
+      },
+      "raw": null,
+      "input_tokens": 1239,
+      "output_tokens": 21
+    },
+    {
+      "id": "ev-025",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": ""
+      },
+      "raw": null,
+      "input_tokens": 1082,
+      "output_tokens": 21
+    },
+    {
+      "id": "ev-026",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist treu zu den Vorschriften (da diese keinen Fall für Umzug ohne Dienstverhältnis regeln), aber sie beantwortet die Frage des Nutzers nicht direkt mit einer allgemeinen Frist."
+      },
+      "raw": null,
+      "input_tokens": 1158,
+      "output_tokens": 65
+    },
+    {
+      "id": "ev-066",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "no",
+        "reason": "Die Antwort ist relevant, aber nicht treu (nicht gedeckt), da die vorgelegten Vorschriften keine allgemeine Regel für Reparaturen enthalten und das Modell daher fälschlicherweise eine Verweigerung ausspricht."
+      },
+      "raw": null,
+      "input_tokens": 1042,
+      "output_tokens": 71
+    },
+    {
+      "id": "ev-067",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "no",
+        "reason": "Die Antwort ist relevant und verweigert korrekt, da die vorgelegten Vorschriften tatsächlich keine Regelung zur Abnutzung bei Auszug enthalten; eine Verweigerung auf Basis dieser Lücke ist jedoch nicht 'korrekt' im Sinne der Definition, wenn das Modell behauptet, es sei NICHT_BEANTWORTBAR, obwohl di"
+      },
+      "raw": null,
+      "input_tokens": 1099,
+      "output_tokens": 222
+    },
+    {
+      "id": "ev-086",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist inhaltlich korrekt basierend auf den Texten (keine Regelung zum Vermieter-Eigenbedarf bei Umwandlung), beantwortet aber die Frage nicht direkt mit einem klaren Ja/Nein."
+      },
+      "raw": null,
+      "input_tokens": 1163,
+      "output_tokens": 68
+    },
+    {
+      "id": "ev-106",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "no",
+        "reason": "Die Antwort ist relevant, aber nicht treu, da § 580a Abs. 1 die Kündigungsfristen für Garagen (als Räume ohne Wohnraum) explizit regelt und das Modell dies fälschlicherweise als ungedeckt ansieht."
+      },
+      "raw": null,
+      "input_tokens": 1437,
+      "output_tokens": 85
+    },
+    {
+      "id": "ev-132",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist relevant und korrekt im Sinne der vorgelegten Vorschriften (die nur Aufwendungen regeln), aber sie verweigert fälschlicherweise die Beantwortung für 'gestecktes Geld', da dies juristisch als Mietkaution oder Vorauszahlung (§ 547) zu verstehen ist, was in den Texten geregelt wird."
+      },
+      "raw": null,
+      "input_tokens": 1079,
+      "output_tokens": 99
+    },
+    {
+      "id": "ev-135",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": ""
+      },
+      "raw": null,
+      "input_tokens": 725,
+      "output_tokens": 21
+    },
+    {
+      "id": "ev-139",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert zwar die richtigen Paragraphen aus dem vorgelegten Text, beantwortet aber nicht direkt und eindeutig auf Ja oder Nein, ob der Mieter zahlen muss, sondern verweigert eine definitive Aussage mit 'NICHT_BEANTWORTBAR', was irrelevant für die direkte Frage ist."
+      },
+      "raw": null,
+      "input_tokens": 1189,
+      "output_tokens": 87
+    },
+    {
+      "id": "ev-145",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "no",
+        "reason": "Die Antwort ist relevant und verweigert korrekt basierend auf dem Text, obwohl der vorgelegte Text (§ 551 Abs. 3) tatsächlich eine getrennte Anlage vorsieht, die den Verlust im Insolvenzfall verhindern würde."
+      },
+      "raw": null,
+      "input_tokens": 1132,
+      "output_tokens": 77
+    },
+    {
+      "id": "ev-045",
+      "stratum": "invented",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert falsche Paragraphen (§ 556e statt § 555e) und ignoriert die korrekte Frist zum Ablauf des übernächsten Monats."
+      },
+      "raw": null,
+      "input_tokens": 1052,
+      "output_tokens": 66
+    },
+    {
+      "id": "ev-148",
+      "stratum": "invented",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort enthält eine falsche Zuordnung der Paragraphen (§ 560 Abs. 2 statt § 559b oder § 579) und ignoriert die Ausnahmen bei Modernisierungen in § 559b."
+      },
+      "raw": null,
+      "input_tokens": 1046,
+      "output_tokens": 79
+    },
+    {
+      "id": "ev-011",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort fasst alle in den vorgelegten Vorschriften genannten Erhöhungsmodalitäten korrekt zusammen."
+      },
+      "raw": null,
+      "input_tokens": 1527,
+      "output_tokens": 47
+    },
+    {
+      "id": "ev-035",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort basiert vollständig auf dem vorgelegten Text und beantwortet die Frage präzise."
+      },
+      "raw": null,
+      "input_tokens": 869,
+      "output_tokens": 45
+    },
+    {
+      "id": "ev-048",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort basiert vollständig auf den vorgelegten Textstellen und beantwortet beide Teilfragen der Nutzerfrage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1332,
+      "output_tokens": 49
+    },
+    {
+      "id": "ev-054",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort basiert vollständig auf den vorgelegten Vorschriften und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1095,
+      "output_tokens": 44
+    },
+    {
+      "id": "ev-083",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort stimmt vollständig mit dem vorgelegten Text übereinander und beantwortet die Frage präzise."
+      },
+      "raw": null,
+      "input_tokens": 791,
+      "output_tokens": 47
+    },
+    {
+      "id": "ev-102",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Das Modell beantwortet die Frage vollständig und stützt alle Aussagen exakt auf die vorgelegten Textstellen."
+      },
+      "raw": null,
+      "input_tokens": 1387,
+      "output_tokens": 49
+    },
+    {
+      "id": "ev-105",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort basiert vollständig auf dem vorgelegten Text und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1311,
+      "output_tokens": 44
+    },
+    {
+      "id": "ev-130",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort stimmt mit den vorgelegten Vorschriften überein und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1613,
+      "output_tokens": 45
+    },
+    {
+      "id": "ev-010",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort basiert vollständig auf den vorgelegten Paragrafen des BGB und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1159,
+      "output_tokens": 48
+    },
+    {
+      "id": "ev-021",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert korrekt § 574 Abs. 2 und beantwortet die Frage präzise basierend auf dem vorgelegten Text."
+      },
+      "raw": null,
+      "input_tokens": 1001,
+      "output_tokens": 58
+    },
+    {
+      "id": "ev-030",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist relevant, stimmt mit den vorgelegten Vorschriften überein und verweigert nicht die Beantwortung."
+      },
+      "raw": null,
+      "input_tokens": 880,
+      "output_tokens": 51
+    },
+    {
+      "id": "ev-039",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist vollständig durch die vorgelegten Vorschriften gedeckt und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 896,
+      "output_tokens": 46
+    },
+    {
+      "id": "ev-085",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort basiert vollständig auf den vorgelegten Textstellen und beantwortet beide Teile der Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1040,
+      "output_tokens": 47
+    },
+    {
+      "id": "ev-087",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert die Vorschrift korrekt, beantwortet aber nicht direkt auf den spezifischen Fall des fünften Kalendertags (ob das konkret verspätet ist), sondern erklärt nur die Regel."
+      },
+      "raw": null,
+      "input_tokens": 1032,
+      "output_tokens": 68
+    },
+    {
+      "id": "ev-112",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort fasst die vorgelegten Vorschriften korrekt zusammen und beantwortet die Frage vollständig."
+      },
+      "raw": null,
+      "input_tokens": 1062,
+      "output_tokens": 45
+    },
+    {
+      "id": "ev-144",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort stimmt vollständig mit den vorgelegten Vorschriften übereinander und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 977,
+      "output_tokens": 46
+    }
+  ],
+  "agreement": {
+    "unparseable": [],
+    "faithful": {
+      "n": 30,
+      "exact": 0.333,
+      "within_one": 0.867,
+      "kappa": 0.042,
+      "majority_baseline": 0.533,
+      "confusion": {
+        "human=yes,judge=yes": 9,
+        "human=yes,judge=no": 2,
+        "human=partly,judge=yes": 12,
+        "human=partly,judge=no": 4,
+        "human=no,judge=yes": 2,
+        "human=no,judge=no": 1
+      }
+    },
+    "relevant": {
+      "n": 30,
+      "exact": 0.767,
+      "within_one": 0.833,
+      "kappa": 0.535,
+      "majority_baseline": 0.533,
+      "confusion": {
+        "human=yes,judge=yes": 16,
+        "human=partly,judge=yes": 1,
+        "human=partly,judge=no": 1,
+        "human=no,judge=yes": 5,
+        "human=no,judge=no": 7
+      }
+    },
+    "refusal_correct": {
+      "n": 4,
+      "exact": 0.5,
+      "within_one": 0.5,
+      "kappa": 0.0,
+      "majority_baseline": 0.5,
+      "confusion": {
+        "human=yes,judge=no": 2,
+        "human=no,judge=no": 2
+      }
+    },
+    "disagreements": [
+      {
+        "id": "ev-004",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "no",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort ist korrekt begründet (keine Mieterkündigung in den Vorschriften), beantwortet aber die Frage nicht direkt mit dem geforderten 'NICHT_BEANTWORTBAR'-Status."
+      },
+      {
+        "id": "ev-025",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "partly"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": ""
+      },
+      {
+        "id": "ev-026",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort ist treu zu den Vorschriften (da diese keinen Fall für Umzug ohne Dienstverhältnis regeln), aber sie beantwortet die Frage des Nutzers nicht direkt mit einer allgemeinen Frist."
+      },
+      {
+        "id": "ev-066",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "no"
+        },
+        "judge_reason": "Die Antwort ist relevant, aber nicht treu (nicht gedeckt), da die vorgelegten Vorschriften keine allgemeine Regel für Reparaturen enthalten und das Modell daher fälschlicherweise eine Verweigerung ausspricht."
+      },
+      {
+        "id": "ev-067",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "no"
+        },
+        "judge_reason": "Die Antwort ist relevant und verweigert korrekt, da die vorgelegten Vorschriften tatsächlich keine Regelung zur Abnutzung bei Auszug enthalten; eine Verweigerung auf Basis dieser Lücke ist jedoch nicht 'korrekt' im Sinne der Definition, wenn das Modell behauptet, es sei NICHT_BEANTWORTBAR, obwohl di"
+      },
+      {
+        "id": "ev-086",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "partly"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort ist inhaltlich korrekt basierend auf den Texten (keine Regelung zum Vermieter-Eigenbedarf bei Umwandlung), beantwortet aber die Frage nicht direkt mit einem klaren Ja/Nein."
+      },
+      {
+        "id": "ev-106",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "no"
+        },
+        "judge_reason": "Die Antwort ist relevant, aber nicht treu, da § 580a Abs. 1 die Kündigungsfristen für Garagen (als Räume ohne Wohnraum) explizit regelt und das Modell dies fälschlicherweise als ungedeckt ansieht."
+      },
+      {
+        "id": "ev-132",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort ist relevant und korrekt im Sinne der vorgelegten Vorschriften (die nur Aufwendungen regeln), aber sie verweigert fälschlicherweise die Beantwortung für 'gestecktes Geld', da dies juristisch als Mietkaution oder Vorauszahlung (§ 547) zu verstehen ist, was in den Texten geregelt wird."
+      },
+      {
+        "id": "ev-135",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": ""
+      },
+      {
+        "id": "ev-139",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "partly",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert zwar die richtigen Paragraphen aus dem vorgelegten Text, beantwortet aber nicht direkt und eindeutig auf Ja oder Nein, ob der Mieter zahlen muss, sondern verweigert eine definitive Aussage mit 'NICHT_BEANTWORTBAR', was irrelevant für die direkte Frage ist."
+      },
+      {
+        "id": "ev-145",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "no",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "no"
+        },
+        "judge_reason": "Die Antwort ist relevant und verweigert korrekt basierend auf dem Text, obwohl der vorgelegte Text (§ 551 Abs. 3) tatsächlich eine getrennte Anlage vorsieht, die den Verlust im Insolvenzfall verhindern würde."
+      },
+      {
+        "id": "ev-045",
+        "stratum": "invented",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert falsche Paragraphen (§ 556e statt § 555e) und ignoriert die korrekte Frist zum Ablauf des übernächsten Monats."
+      },
+      {
+        "id": "ev-148",
+        "stratum": "invented",
+        "human": {
+          "faithful": "partly",
+          "relevant": "partly",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort enthält eine falsche Zuordnung der Paragraphen (§ 560 Abs. 2 statt § 559b oder § 579) und ignoriert die Ausnahmen bei Modernisierungen in § 559b."
+      },
+      {
+        "id": "ev-048",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort basiert vollständig auf den vorgelegten Textstellen und beantwortet beide Teilfragen der Nutzerfrage korrekt."
+      },
+      {
+        "id": "ev-054",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort basiert vollständig auf den vorgelegten Vorschriften und beantwortet die Frage korrekt."
+      },
+      {
+        "id": "ev-105",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort basiert vollständig auf dem vorgelegten Text und beantwortet die Frage korrekt."
+      },
+      {
+        "id": "ev-130",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort stimmt mit den vorgelegten Vorschriften überein und beantwortet die Frage korrekt."
+      },
+      {
+        "id": "ev-021",
+        "stratum": "clean",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert korrekt § 574 Abs. 2 und beantwortet die Frage präzise basierend auf dem vorgelegten Text."
+      },
+      {
+        "id": "ev-087",
+        "stratum": "clean",
+        "human": {
+          "faithful": "no",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert die Vorschrift korrekt, beantwortet aber nicht direkt auf den spezifischen Fall des fünften Kalendertags (ob das konkret verspätet ist), sondern erklärt nur die Regel."
+      },
+      {
+        "id": "ev-112",
+        "stratum": "clean",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort fasst die vorgelegten Vorschriften korrekt zusammen und beantwortet die Frage vollständig."
+      },
+      {
+        "id": "ev-144",
+        "stratum": "clean",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort stimmt vollständig mit den vorgelegten Vorschriften übereinander und beantwortet die Frage korrekt."
+      }
+    ]
+  }
+}

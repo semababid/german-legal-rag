@@ -3,14 +3,14 @@
 The source format keeps two things separate that a retriever needs together:
 
   * Structural headings (Buch / Abschnitt / Titel / Untertitel) live in their own
-    `<norm>` elements and carry a `gliederungskennzahl` — a nested numeric key
+    `<norm>` elements and carry a `gliederungskennzahl`, a nested numeric key
     using three digits per level ("010" -> "010010" -> "010010010").
   * The actual sections (`§ 573c`) carry no hierarchy of their own; they inherit
     it from whichever headings preceded them in document order.
 
 So this walks the document once, maintaining a hierarchy stack, and attaches the
 current breadcrumb to every section it emits. Output is one JSON object per
-Absatz, which is the natural chunk boundary for German statutes — an Absatz is
+Absatz, which is the natural chunk boundary for German statutes. An Absatz is
 self-contained enough to answer a question and short enough to embed well.
 
     python src/parse_bgb.py --law bgb
@@ -183,7 +183,7 @@ def parse(xml_path: Path, law: str, granularity: str) -> tuple[list[Record], dic
 
         absaetze = split_absaetze(content)
 
-        # Drop individual repealed Absätze ("(2) (weggefallen)") — as chunks
+        # Drop individual repealed Absätze ("(2) (weggefallen)"): as chunks
         # they carry no information and waste retrieval slots.
         dropped = len(absaetze)
         absaetze = [(num, text) for num, text in absaetze if not REPEALED_RE.match(text)]
@@ -247,7 +247,7 @@ def main() -> int:
         "--granularity",
         choices=("absatz", "paragraph"),
         default="absatz",
-        help="one record per Absatz (default) or per section — the chunking comparison",
+        help="one record per Absatz (default) or per section, for the chunking comparison",
     )
     ap.add_argument("--stats", action="store_true", help="print a parse summary")
     args = ap.parse_args()

@@ -1,0 +1,829 @@
+{
+  "label": "judge-ollama-v2",
+  "backend": "ollama",
+  "model": "qwen3.5:9b",
+  "think": false,
+  "judged": [
+    {
+      "id": "ev-004",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist inhaltlich korrekt basierend auf dem vorgelegten Text (keine Mieterkündigungsfristen), beantwortet aber die Frage nicht direkt mit einer Fristangabe wie in der Referenzantwort."
+      },
+      "raw": null,
+      "input_tokens": 1460,
+      "output_tokens": 70
+    },
+    {
+      "id": "ev-024",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": "yes",
+        "reason": "Die Antwort verweigert korrekt, da der vorgelegte Text keine Regelung zur Mietminderung bei Heizungsausfall enthält."
+      },
+      "raw": null,
+      "input_tokens": 1427,
+      "output_tokens": 53
+    },
+    {
+      "id": "ev-025",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": "yes",
+        "reason": "Die Antwort verweigert korrekt basierend auf dem vorgelegten Text, da dieser keine Regelung zum Einzug eines Partners enthält und die zitierten Paragrafen nicht passen."
+      },
+      "raw": null,
+      "input_tokens": 1270,
+      "output_tokens": 64
+    },
+    {
+      "id": "ev-026",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "partly",
+        "reason": "Die Antwort ist thematisch relevant und verweigert korrekt basierend auf dem vorgelegten Text (der nur Sonderfälle wie Dienstverhältnis-Beendigung regelt), aber die Verweigerung ist 'partly' richtig, da der Nutzer eine allgemeine Frage stellt, die durch den allgemeinen Teil des vorgelegten Textes (§"
+      },
+      "raw": null,
+      "input_tokens": 1346,
+      "output_tokens": 109
+    },
+    {
+      "id": "ev-066",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "yes",
+        "reason": "Die Antwort verweigert korrekt, da der vorgelegte Text keine allgemeine Regel für Reparaturen enthält, obwohl die Verweigerung begründet ist."
+      },
+      "raw": null,
+      "input_tokens": 1230,
+      "output_tokens": 59
+    },
+    {
+      "id": "ev-067",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "partly",
+        "refusal_correct": "no",
+        "reason": "Die Antwort ist inhaltlich korrekt (nicht beantwortbar basierend auf dem Text), aber sie verweigert fälschlicherweise, da der vorgelegte Text zwar keine direkte Regelung zum Auszug enthält, die Frage jedoch thematisch mit den im Text zitierten Paragraphen (§ 559 Abs. 2) in Verbindung steht."
+      },
+      "raw": null,
+      "input_tokens": 1287,
+      "output_tokens": 99
+    },
+    {
+      "id": "ev-086",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "partly",
+        "reason": "Die Antwort verweigert korrekt, da der vorgelegte Text keine Regelung zum Eigenbedarf des Vermieters enthält, aber die Begründung ist teilweise unzutreffend, weil § 573a Abs. 2 implizit auf den Fall eines selbstbewohnenden Vermieters anwendbar sein könnte."
+      },
+      "raw": null,
+      "input_tokens": 1351,
+      "output_tokens": 94
+    },
+    {
+      "id": "ev-106",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "partly",
+        "reason": "Die Antwort ist relevant und verweigert korrekt basierend auf dem vorgelegten Text, der keine spezifische Garage-Regelung enthält, aber die Verweigerung als 'partly' eingestuft wird, da eine allgemeine Regel für nicht-gewerbliche Räume (§ 580a Abs. 1) existiert und das Modell diese pauschal ablehnt."
+      },
+      "raw": null,
+      "input_tokens": 1625,
+      "output_tokens": 108
+    },
+    {
+      "id": "ev-132",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "partly",
+        "reason": "Die Antwort ist relevant, da sie die Frage thematisiert und korrekt feststellt, dass der vorgelegte Text keine spezifische Regelung für 'Geld in die Wohnung stecken' (Investitionen) enthält; jedoch ist die Verweigerung nur teilweise richtig ('partly'), weil § 548 Abs. 2 eine allgemeine Regel für Auf"
+      },
+      "raw": null,
+      "input_tokens": 1267,
+      "output_tokens": 126
+    },
+    {
+      "id": "ev-135",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "no",
+        "refusal_correct": "yes",
+        "reason": "Die Antwort verweigert korrekt basierend auf dem Text, da dieser keine Aussage zur Untervermietung enthält."
+      },
+      "raw": null,
+      "input_tokens": 913,
+      "output_tokens": 49
+    },
+    {
+      "id": "ev-139",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "partly",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert korrekt die Bedingungen aus § 556 Abs. 3a für das Entgelt und verweigert zu Recht eine abschließende Beantwortung, da der vorgelegte Text keine vollständigen Details (wie den genauen Zeitpunkt oder spezifische Ausnahmen) enthält, um alle Aspekte der Frage 'Muss ich zahlen?' umfas"
+      },
+      "raw": null,
+      "input_tokens": 1377,
+      "output_tokens": 105
+    },
+    {
+      "id": "ev-145",
+      "stratum": "hedged",
+      "outcome": "hedged",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": "yes",
+        "reason": "Die Antwort verweigert korrekt basierend auf den vorgelegten Texten, da diese keine Regelung zum Insolvenzfall der Kaution enthalten (im Gegensatz zur Referenzantwort)."
+      },
+      "raw": null,
+      "input_tokens": 1320,
+      "output_tokens": 63
+    },
+    {
+      "id": "ev-045",
+      "stratum": "invented",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "no",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert falsche Paragraphen (§ 556e statt § 555e) und behauptet fälschlicherweise einen Nachteil als Voraussetzung für das Sonderkündigungsrecht."
+      },
+      "raw": null,
+      "input_tokens": 1240,
+      "output_tokens": 71
+    },
+    {
+      "id": "ev-148",
+      "stratum": "invented",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "partly",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist relevant, aber sie verwechselt die Zitate: § 560 Abs. 2 regelt Betriebskosten (nicht Indexmieten), und für Mieterhöhungen gilt primär § 558b oder § 559b, nicht § 579."
+      },
+      "raw": null,
+      "input_tokens": 1234,
+      "output_tokens": 89
+    },
+    {
+      "id": "ev-011",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen der Antwort finden sich wörtlich oder sinngemäß in den vorgelegten Vorschriften wieder."
+      },
+      "raw": null,
+      "input_tokens": 1715,
+      "output_tokens": 49
+    },
+    {
+      "id": "ev-035",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext finden sich wörtlich oder sinngemäß in den vorgelegten Vorschriften wieder und die Frage wird vollständig beantwortet."
+      },
+      "raw": null,
+      "input_tokens": 1057,
+      "output_tokens": 57
+    },
+    {
+      "id": "ev-048",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen der Antwort finden sich wortgetreu oder sinngemäß in den vorgelegten Vorschriften wieder und beantworten die Frage vollständig."
+      },
+      "raw": null,
+      "input_tokens": 1520,
+      "output_tokens": 54
+    },
+    {
+      "id": "ev-054",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten Vorschriften gedeckt und beantworten die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1283,
+      "output_tokens": 48
+    },
+    {
+      "id": "ev-083",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen der Antwort sind exakt durch die vorgelegten Vorschriften gedeckt und beantworten die Frage vollständig."
+      },
+      "raw": null,
+      "input_tokens": 979,
+      "output_tokens": 48
+    },
+    {
+      "id": "ev-102",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen der Antwort sind direkt in den vorgelegten Vorschriften (§§ 549 Abs. 1-3) belegt und beantworten die Frage vollständig."
+      },
+      "raw": null,
+      "input_tokens": 1575,
+      "output_tokens": 59
+    },
+    {
+      "id": "ev-105",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten Vorschriften (§ 536b Abs. 1 und § 536d) gedeckt."
+      },
+      "raw": null,
+      "input_tokens": 1499,
+      "output_tokens": 61
+    },
+    {
+      "id": "ev-130",
+      "stratum": "cross_referenced",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen der Antwort sind durch die vorgelegten Vorschriften (§ 543 Abs. 3, § 569 Abs. 2a) gedeckt und beantworten die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1801,
+      "output_tokens": 67
+    },
+    {
+      "id": "ev-010",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen der Antwort finden sich wörtlich oder sinngemäß in den vorgelegten Vorschriften (§ 566 Abs. 1, § 566a, § 567b)."
+      },
+      "raw": null,
+      "input_tokens": 1347,
+      "output_tokens": 71
+    },
+    {
+      "id": "ev-021",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext sind direkt durch § 574 Abs. 2 und Abs. 1 des vorgelegten Textes gedeckt."
+      },
+      "raw": null,
+      "input_tokens": 1189,
+      "output_tokens": 58
+    },
+    {
+      "id": "ev-030",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort ist vollständig durch § 566 Abs. 1 gedeckt und beantwortet die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1068,
+      "output_tokens": 49
+    },
+    {
+      "id": "ev-039",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten BGB-Paragrafen gedeckt."
+      },
+      "raw": null,
+      "input_tokens": 1084,
+      "output_tokens": 47
+    },
+    {
+      "id": "ev-085",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen basieren exakt auf den vorgelegten Texten zu § 564 und der Situation ohne Eintrittspersonen."
+      },
+      "raw": null,
+      "input_tokens": 1228,
+      "output_tokens": 55
+    },
+    {
+      "id": "ev-087",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Die Antwort zitiert korrekt die vorgelegte Vorschrift und erklärt logisch, warum eine Zahlung am fünften Tag nicht automatisch verspätet ist."
+      },
+      "raw": null,
+      "input_tokens": 1220,
+      "output_tokens": 58
+    },
+    {
+      "id": "ev-112",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext finden sich wortgetreu oder mit nur minimalen Abweichungen (z.B. Weglassen von 'oder einer vergleichbaren Gemeinde') in den vorgelegten Vorschriften."
+      },
+      "raw": null,
+      "input_tokens": 1250,
+      "output_tokens": 66
+    },
+    {
+      "id": "ev-144",
+      "stratum": "clean",
+      "outcome": "answer",
+      "verdict": {
+        "faithful": "yes",
+        "relevant": "yes",
+        "refusal_correct": null,
+        "reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten Vorschriften (§ 551 Abs. 1) gedeckt und beantworten die Frage korrekt."
+      },
+      "raw": null,
+      "input_tokens": 1165,
+      "output_tokens": 58
+    }
+  ],
+  "agreement": {
+    "unparseable": [],
+    "faithful": {
+      "n": 30,
+      "exact": 0.433,
+      "within_one": 0.9,
+      "kappa": 0.172,
+      "majority_baseline": 0.533,
+      "confusion": {
+        "human=yes,judge=yes": 10,
+        "human=yes,judge=no": 1,
+        "human=partly,judge=yes": 9,
+        "human=partly,judge=partly": 2,
+        "human=partly,judge=no": 5,
+        "human=no,judge=yes": 2,
+        "human=no,judge=no": 1
+      },
+      "collapsed": {
+        "is it broken (yes+partly vs no)": {
+          "exact": 0.733,
+          "kappa": 0.07,
+          "majority_baseline": 0.9
+        },
+        "is it perfect (yes vs partly+no)": {
+          "exact": 0.6,
+          "kappa": 0.277,
+          "majority_baseline": 0.633
+        }
+      }
+    },
+    "relevant": {
+      "n": 30,
+      "exact": 0.667,
+      "within_one": 0.767,
+      "kappa": 0.333,
+      "majority_baseline": 0.533,
+      "confusion": {
+        "human=yes,judge=yes": 16,
+        "human=partly,judge=yes": 2,
+        "human=no,judge=yes": 7,
+        "human=no,judge=partly": 1,
+        "human=no,judge=no": 4
+      },
+      "collapsed": {
+        "is it broken (yes+partly vs no)": {
+          "exact": 0.733,
+          "kappa": 0.375,
+          "majority_baseline": 0.6
+        },
+        "is it perfect (yes vs partly+no)": {
+          "exact": 0.7,
+          "kappa": 0.372,
+          "majority_baseline": 0.533
+        }
+      }
+    },
+    "refusal_correct": {
+      "n": 10,
+      "exact": 0.4,
+      "within_one": 0.8,
+      "kappa": 0.118,
+      "majority_baseline": 0.4,
+      "confusion": {
+        "human=yes,judge=yes": 3,
+        "human=yes,judge=no": 1,
+        "human=partly,judge=yes": 1,
+        "human=partly,judge=partly": 1,
+        "human=no,judge=yes": 1,
+        "human=no,judge=partly": 3
+      },
+      "collapsed": {
+        "is it broken (yes+partly vs no)": {
+          "exact": 0.5,
+          "kappa": -0.19,
+          "majority_baseline": 0.6
+        },
+        "is it perfect (yes vs partly+no)": {
+          "exact": 0.7,
+          "kappa": 0.4,
+          "majority_baseline": 0.6
+        }
+      }
+    },
+    "disagreements": [
+      {
+        "id": "ev-004",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "no",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort ist inhaltlich korrekt basierend auf dem vorgelegten Text (keine Mieterkündigungsfristen), beantwortet aber die Frage nicht direkt mit einer Fristangabe wie in der Referenzantwort."
+      },
+      {
+        "id": "ev-025",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "partly"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge_reason": "Die Antwort verweigert korrekt basierend auf dem vorgelegten Text, da dieser keine Regelung zum Einzug eines Partners enthält und die zitierten Paragrafen nicht passen."
+      },
+      {
+        "id": "ev-026",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "partly"
+        },
+        "judge_reason": "Die Antwort ist thematisch relevant und verweigert korrekt basierend auf dem vorgelegten Text (der nur Sonderfälle wie Dienstverhältnis-Beendigung regelt), aber die Verweigerung ist 'partly' richtig, da der Nutzer eine allgemeine Frage stellt, die durch den allgemeinen Teil des vorgelegten Textes (§"
+      },
+      {
+        "id": "ev-066",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "yes"
+        },
+        "judge_reason": "Die Antwort verweigert korrekt, da der vorgelegte Text keine allgemeine Regel für Reparaturen enthält, obwohl die Verweigerung begründet ist."
+      },
+      {
+        "id": "ev-067",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "partly",
+          "refusal_correct": "no"
+        },
+        "judge_reason": "Die Antwort ist inhaltlich korrekt (nicht beantwortbar basierend auf dem Text), aber sie verweigert fälschlicherweise, da der vorgelegte Text zwar keine direkte Regelung zum Auszug enthält, die Frage jedoch thematisch mit den im Text zitierten Paragraphen (§ 559 Abs. 2) in Verbindung steht."
+      },
+      {
+        "id": "ev-086",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "partly"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "partly"
+        },
+        "judge_reason": "Die Antwort verweigert korrekt, da der vorgelegte Text keine Regelung zum Eigenbedarf des Vermieters enthält, aber die Begründung ist teilweise unzutreffend, weil § 573a Abs. 2 implizit auf den Fall eines selbstbewohnenden Vermieters anwendbar sein könnte."
+      },
+      {
+        "id": "ev-106",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "partly"
+        },
+        "judge_reason": "Die Antwort ist relevant und verweigert korrekt basierend auf dem vorgelegten Text, der keine spezifische Garage-Regelung enthält, aber die Verweigerung als 'partly' eingestuft wird, da eine allgemeine Regel für nicht-gewerbliche Räume (§ 580a Abs. 1) existiert und das Modell diese pauschal ablehnt."
+      },
+      {
+        "id": "ev-132",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "partly"
+        },
+        "judge_reason": "Die Antwort ist relevant, da sie die Frage thematisiert und korrekt feststellt, dass der vorgelegte Text keine spezifische Regelung für 'Geld in die Wohnung stecken' (Investitionen) enthält; jedoch ist die Verweigerung nur teilweise richtig ('partly'), weil § 548 Abs. 2 eine allgemeine Regel für Auf"
+      },
+      {
+        "id": "ev-135",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "no",
+          "refusal_correct": "yes"
+        },
+        "judge_reason": "Die Antwort verweigert korrekt basierend auf dem Text, da dieser keine Aussage zur Untervermietung enthält."
+      },
+      {
+        "id": "ev-139",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "partly",
+          "relevant": "partly",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert korrekt die Bedingungen aus § 556 Abs. 3a für das Entgelt und verweigert zu Recht eine abschließende Beantwortung, da der vorgelegte Text keine vollständigen Details (wie den genauen Zeitpunkt oder spezifische Ausnahmen) enthält, um alle Aspekte der Frage 'Muss ich zahlen?' umfas"
+      },
+      {
+        "id": "ev-145",
+        "stratum": "hedged",
+        "human": {
+          "faithful": "no",
+          "relevant": "no",
+          "refusal_correct": "no"
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": "yes"
+        },
+        "judge_reason": "Die Antwort verweigert korrekt basierend auf den vorgelegten Texten, da diese keine Regelung zum Insolvenzfall der Kaution enthalten (im Gegensatz zur Referenzantwort)."
+      },
+      {
+        "id": "ev-045",
+        "stratum": "invented",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "no",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert falsche Paragraphen (§ 556e statt § 555e) und behauptet fälschlicherweise einen Nachteil als Voraussetzung für das Sonderkündigungsrecht."
+      },
+      {
+        "id": "ev-148",
+        "stratum": "invented",
+        "human": {
+          "faithful": "partly",
+          "relevant": "partly",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort ist relevant, aber sie verwechselt die Zitate: § 560 Abs. 2 regelt Betriebskosten (nicht Indexmieten), und für Mieterhöhungen gilt primär § 558b oder § 559b, nicht § 579."
+      },
+      {
+        "id": "ev-048",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen der Antwort finden sich wortgetreu oder sinngemäß in den vorgelegten Vorschriften wieder und beantworten die Frage vollständig."
+      },
+      {
+        "id": "ev-054",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten Vorschriften gedeckt und beantworten die Frage korrekt."
+      },
+      {
+        "id": "ev-105",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten Vorschriften (§ 536b Abs. 1 und § 536d) gedeckt."
+      },
+      {
+        "id": "ev-130",
+        "stratum": "cross_referenced",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen der Antwort sind durch die vorgelegten Vorschriften (§ 543 Abs. 3, § 569 Abs. 2a) gedeckt und beantworten die Frage korrekt."
+      },
+      {
+        "id": "ev-021",
+        "stratum": "clean",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen im Modelltext sind direkt durch § 574 Abs. 2 und Abs. 1 des vorgelegten Textes gedeckt."
+      },
+      {
+        "id": "ev-087",
+        "stratum": "clean",
+        "human": {
+          "faithful": "no",
+          "relevant": "no",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Die Antwort zitiert korrekt die vorgelegte Vorschrift und erklärt logisch, warum eine Zahlung am fünften Tag nicht automatisch verspätet ist."
+      },
+      {
+        "id": "ev-112",
+        "stratum": "clean",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen im Modelltext finden sich wortgetreu oder mit nur minimalen Abweichungen (z.B. Weglassen von 'oder einer vergleichbaren Gemeinde') in den vorgelegten Vorschriften."
+      },
+      {
+        "id": "ev-144",
+        "stratum": "clean",
+        "human": {
+          "faithful": "partly",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge": {
+          "faithful": "yes",
+          "relevant": "yes",
+          "refusal_correct": null
+        },
+        "judge_reason": "Alle Aussagen im Modelltext sind direkt durch die vorgelegten Vorschriften (§ 551 Abs. 1) gedeckt und beantworten die Frage korrekt."
+      }
+    ]
+  }
+}
