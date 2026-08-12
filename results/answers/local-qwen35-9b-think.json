@@ -1,0 +1,81 @@
+{
+  "label": "local-qwen35-9b-think",
+  "backend": "ollama",
+  "model": "qwen3.5:9b",
+  "k": 6,
+  "retriever": "domain",
+  "answers": [
+    {
+      "id": "ev-001",
+      "type": "direct",
+      "topic": "kaution",
+      "ground_truth": [
+        "bgb-551-1"
+      ],
+      "question": "Wie hoch darf die Mietkaution höchstens sein?",
+      "answer": "Die Sicherheitsleistung darf höchstens das Dreifache der auf einen Monat entfallenden Miete betragen, ohne die als Pauschale oder Vorauszahlung ausgewiesenen Betriebskosten [§ 551 Abs. 1]. Diese Obergrenze gilt vorbehaltlich des Absatzes 3 Satz 4 derselben Vorschrift [§ 551 Abs. 1].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 551 Abs. 1"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 1104,
+      "output_tokens": 4022,
+      "latency_ms": 193550.2,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-551-1",
+        "bgb-559-3a",
+        "bgb-558-3",
+        "bgb-556d-1",
+        "bgb-559e-3",
+        "bgb-551-3"
+      ]
+    },
+    {
+      "id": "ev-002",
+      "type": "direct",
+      "topic": "kaution",
+      "ground_truth": [
+        "bgb-551-2"
+      ],
+      "question": "Kann ich die Mietkaution in Raten zahlen?",
+      "answer": "Ja, ist als Sicherheit eine Geldsumme bereitzustellen, so ist der Mieter zu drei gleichen monatlichen Teilzahlungen berechtigt [§ 551 Abs. 2]. Die erste Teilzahlung ist dabei zu Beginn des Mietverhältnisses fällig und die weiteren zusammen mit den unmittelbar folgenden Mietzahlungen [§ 551 Abs. 2].",
+      "backend": "ollama",
+      "model": "qwen3.5:9b",
+      "outcome": "answer",
+      "refused": false,
+      "citations": {
+        "exact": [
+          "§ 551 Abs. 2"
+        ],
+        "section_only": [],
+        "cross_referenced": [],
+        "unsupported": [],
+        "grounded": true,
+        "fully_verifiable": true
+      },
+      "input_tokens": 908,
+      "output_tokens": 2125,
+      "latency_ms": 104654.7,
+      "cost_usd": 0.0,
+      "retrieved": [
+        "bgb-551-2",
+        "bgb-557a-1",
+        "bgb-551-1",
+        "bgb-551-3",
+        "bgb-556-2",
+        "bgb-559-3a"
+      ]
+    }
+  ]
+}

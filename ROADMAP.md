@@ -49,7 +49,7 @@ The breadcrumb ablation is the one to run first. BGB § 573c Abs. 1 states a not
 | 4.1 Cited answers | German answers constrained to the retrieved sections, with every citation checked against them | Done: running on Qwen 3.5 9B, 9 s per question, 21 unit tests |
 | 4.2 Calibration set | 30 answers graded by hand, before any judge sees them | Done: 30 graded, majority-class baselines 53/53/50 |
 | 4.3 LLM judge | Faithfulness and relevance, agreement against the hand grades reported | Done, and the answer is no. The 9B judge scores below the guessing baseline on faithfulness, so it is not used |
-| 4.4 Local vs API | Same answers from both backends, quality and cost and p95 latency side by side | Local side done. API side needs a key, and would also supply the stronger judge 4.3 wants |
+| 4.4 Local vs API | Same answers from both backends, cost and p95 latency and citation behaviour side by side | Comparison tool built and tested. Local column filled, API column blocked on a key |
 
 Citation checking is deliberately separate from the judge. It answers a narrower
 question, whether the answer cites a § that was actually retrieved, and it
@@ -164,4 +164,4 @@ Describe this one as retrieval quality work and that one as agentic control flow
 | --- | --- | --- |
 | Topic balance in the eval set | During phase 1 | Betriebskosten and Mieterhöhung have two questions each against eight for Kündigung. Worth evening out before the set is treated as final. |
 | Whether phase 3 needs all seven experiments | Start of phase 3 | If the first three produce a clear story, the rest become optional rather than obligatory |
-| Which backend to install first | Blocking 4.1 | Neither is on the machine yet. Ollama with Qwen 2.5 14B costs nothing and 4.4 needs it regardless, so it is the one to install first. The API side is a key and a few euros on top. |
+| Whether to spend the API budget | Blocking 4.4 | Roughly 26 cents for 150 answers and 8 more for a judge run over the 30 graded ones, at Haiku 4.5 rates. Without it the comparison has one column and 4.3's question about whether a stronger judge clears the bar stays open. |

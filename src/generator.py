@@ -368,10 +368,18 @@ class OllamaBackend:
     name = "ollama"
 
     def __init__(self, model: str = "qwen3.5:9b", host: str = "http://localhost:11434",
-                 timeout: int = 180, think: bool = False):
+                 timeout: int = 600, think: bool = False, num_ctx: int = 16384):
         self.model = model
         self.host = host.rstrip("/")
         self.timeout = timeout
+        # Ollama defaults the context window to a few thousand tokens whatever
+        # the model supports, and overflowing it truncates in silence. A prompt
+        # of six sections runs to about 1,100 tokens, which fits; the same
+        # prompt with reasoning switched on produced 2,992 tokens of thinking
+        # and then an empty answer, because the reasoning had consumed the
+        # window before the answer began. Nothing in the response says so: the
+        # request succeeds, tokens are billed, and `content` is an empty string.
+        self.num_ctx = num_ctx
         # Qwen 3.5 reasons before answering unless told not to, and it is not
         # cheap: a one-sentence answer cost 1,444 output tokens with reasoning
         # against 43 without. Off by default so a 150-question run finishes in
@@ -391,7 +399,7 @@ class OllamaBackend:
             "think": self.think,
             # Greedy decoding. Two runs of the eval set should differ because the
             # pipeline changed, not because the sampler rolled differently.
-            "options": {"temperature": 0.0},
+            "options": {"temperature": 0.0, "num_ctx": self.num_ctx},
         }
         request = urllib.request.Request(
             f"{self.host}/api/chat",
@@ -411,11 +419,17 @@ class OllamaBackend:
         # Reasoning arrives in its own field, so it never reaches the citation
         # check. Reading `content` blind would still be wrong on a model that
         # inlines it, so any leftover think tags are stripped as well.
-        return (
-            strip_think_tags(body["message"]["content"]),
-            body.get("prompt_eval_count", 0),
-            body.get("eval_count", 0),
-        )
+        text = strip_think_tags(body["message"]["content"])
+        if not text:
+            # Loud rather than silent. An empty answer scores as citing nothing,
+            # which reads as a model failure when it is a configuration one.
+            raise SystemExit(
+                f"{self.model} returned an empty answer after "
+                f"{body.get('eval_count', 0)} output tokens. The context window "
+                f"(num_ctx={self.num_ctx}) is most likely too small for this "
+                f"prompt plus reasoning. Raise it and run again."
+            )
+        return text, body.get("prompt_eval_count", 0), body.get("eval_count", 0)
 
 
 class AnthropicBackend:

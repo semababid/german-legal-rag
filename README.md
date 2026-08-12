@@ -124,6 +124,8 @@ src/answer.py             ask one question, get a cited answer
 src/generate_answers.py   answer the whole eval set and save it
 src/make_calibration_set.py  draw the stratified sample to grade by hand
 src/grade.py              grade those answers, one at a time
+src/judge.py              LLM judge, scored against the hand grades
+src/compare_backends.py   two answer runs side by side
 src/judge.py              model-graded scoring, and its agreement with the hand grades
 tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions
