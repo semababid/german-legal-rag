@@ -21,6 +21,7 @@ import json
 from pathlib import Path
 
 from generator import build_backend, generate
+from metrics import percentile
 from retrievers import build_retriever
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -78,7 +79,7 @@ def summarise(rows: list[dict]) -> dict:
     crossref = sum(1 for r in answered if r["citations"].get("cross_referenced"))
     uncited = sum(1 for r in answered if not any(
         r["citations"].get(k) for k in ("exact", "section_only", "cross_referenced")))
-    latencies = sorted(r["latency_ms"] for r in rows)
+    latencies = [r["latency_ms"] for r in rows]
 
     return {
         "n": n,
@@ -88,8 +89,8 @@ def summarise(rows: list[dict]) -> dict:
         "invented_citations": invented,
         "cross_referenced_citations": crossref,
         "answers_citing_nothing": uncited,
-        "latency_p50_ms": latencies[len(latencies) // 2],
-        "latency_p95_ms": latencies[int(0.95 * (n - 1))],
+        "latency_p50_ms": percentile(latencies, 0.50),
+        "latency_p95_ms": percentile(latencies, 0.95),
         "total_cost_usd": round(sum(r["cost_usd"] for r in rows), 4),
         "cost_per_1k_queries_usd": round(sum(r["cost_usd"] for r in rows) / n * 1000, 2),
     }

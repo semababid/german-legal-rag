@@ -111,9 +111,13 @@ SEPARATOR_RE = re.compile(r"\s*(?:,|;|\bund\b|\bbis\b)\s*", re.UNICODE)
 # citation at all. Counting it as one marks a faithful answer as ungrounded,
 # which is the worst direction for this check to be wrong in.
 FOREIGN_LAW_RE = re.compile(
+    # "§ 3 Nummer 33 des Telekommunikationsgesetzes"
     r"\s*(?:Nummer|Nr\.?)?\s*\d*\s*des\s+\w*(?:gesetzes|verordnung|buches)"
-    r"|\s*(?:TKG|GEG|EnWG|ZPO|HGB|BetrKV|WoFlV|EnEV)\b",
-    re.IGNORECASE | re.UNICODE,
+    # a trailing abbreviation: "§ 3 EGBGB", "§ 72 TKG". Two or more capitals so
+    # ordinary words are not swallowed, and BGB excluded because that is the law
+    # this corpus is made of and those citations must be checked, not skipped.
+    r"|\s+(?!BGB\b)[A-ZÄÖÜ]{2,}[a-zäöü]*\b",
+    re.UNICODE,
 )
 
 LAW_PREFIX_RE = re.compile(r"^\s*BGB\s+", re.IGNORECASE)
@@ -148,14 +152,21 @@ def parse_citations(text: str) -> list[tuple[str, str | None]]:
             if not item:
                 break
             pair = (item.group(1).lower(), item.group(2) or None)
-            # A reference qualified by another statute's name is that statute's
-            # section, not one of ours, so it is skipped rather than checked.
-            if FOREIGN_LAW_RE.match(text, item.end()):
-                cursor = item.end()
-                break
-            if pair not in seen:
-                seen.append(pair)
             cursor = item.end()
+
+            # A reference qualified by another statute's name belongs to that
+            # statute, so it is skipped rather than checked. Only that item is
+            # skipped: breaking out of the list here used to discard everything
+            # after it, so "§§ 3 des Telekommunikationsgesetzes, 551 Abs. 1"
+            # parsed to nothing at all and a real citation went unchecked. A
+            # citation the checker never sees cannot be reported as invented,
+            # which is the direction that hides a mistake rather than inventing
+            # one.
+            foreign = FOREIGN_LAW_RE.match(text, cursor)
+            if foreign:
+                cursor = foreign.end()
+            elif pair not in seen:
+                seen.append(pair)
 
             if not is_list:
                 break

@@ -192,10 +192,14 @@ ranking cannot repair that, since the retriever is matching the wrong concept
 faithfully. Rewriting the query into statutory language before retrieval is the
 obvious next lever and is out of scope for this phase.
 
-Eight questions are not answered in the top ten by any configuration tested. They
-are kept in the set rather than removed, and they double as the refusal test cases
-for the generation phase: a system that declines to answer those is behaving
-correctly.
+Five questions are not answered in the top ten by any configuration tested, at
+paragraph level; seven at strict level. They are kept in the set rather than
+removed, and they double as the refusal test cases for the generation phase: a
+system that declines to answer those is behaving correctly.
+
+An earlier version of this file said eight. That count was taken before three
+questions with unanswerable ground truth were repaired, and it was never
+recomputed afterwards.
 
 ## A note on the evaluation set
 
@@ -292,9 +296,10 @@ uncertainty than the third. What that does and does not affect is worked through
 under the judge results below.
 
 The middle column is where the answers live. Outright invention is rare and
-complete faithfulness is not the norm either: two thirds of answers mix
-supported claims with unsupported ones, which is the failure mode a citation
-count cannot see.
+complete faithfulness is not the norm either: 16 of 30 answers mix supported
+claims with unsupported ones, which is the failure mode a citation count cannot
+see. Counting the 3 judged unsupported alongside them, 19 of 30 have something
+in them the sections shown do not carry.
 
 ### The citation check does not measure faithfulness
 
@@ -331,8 +336,17 @@ on refusal, so a judge worth trusting has to beat those and can be seen not to.
 ## The judge, and why it is not being used
 
 A model was asked to grade the same 30 answers on the same three points, shown
-exactly what the human grader saw and nothing else. Agreement was then measured
-against the hand grades. Kappa is agreement above chance: 0 means a judge that
+the question, the sections, the answer, the reference answer and its expected
+citations. Agreement was then measured against the hand grades.
+
+The two views are not identical, and the difference runs against the judge
+rather than for it. The human also saw this project's own stratum label and
+citation verdict at the top of each screen, with an instruction to ignore them.
+The judge saw neither. That is an anchoring risk in the reference standard, and
+the visible evidence does not show it biting: answers labelled clean and answers
+labelled cross-referenced were both graded fully faithful 4 times in 8, where a
+grader following the label would have separated them. Eight in a stratum is too
+few to settle it. The grading tool no longer prints either label. Kappa is agreement above chance: 0 means a judge that
 learned nothing, 1 means perfect. The baseline column is what a judge scores by
 guessing the commonest human grade every time.
 
@@ -340,10 +354,10 @@ guessing the commonest human grade every time.
 | --- | --- | --- | --- | --- | --- |
 | v1 | faithful | 33% | 87% | 0.04 | 53% |
 | v1 | relevant | 77% | 83% | 0.54 | 53% |
-| v1 | refusal (n=4) | 50% | 50% | 0.00 | 50% |
+| v1 | refusal (4 of 12) | 50% | 50% | 0.00 | 50% |
 | v2 | faithful | 43% | 90% | 0.17 | 53% |
 | v2 | relevant | 67% | 77% | 0.33 | 53% |
-| v2 | refusal (n=10) | 40% | 80% | 0.12 | 40% |
+| v2 | refusal (10 of 12) | 40% | 80% | 0.12 | 40% |
 
 Qwen 3.5 9B cannot grade faithfulness. Both versions score below the baseline,
 so on this evidence a judge that ignored the answer entirely and always guessed
@@ -362,6 +376,16 @@ It moved the middle grade from 0 uses to 2. The refusal field went from 4
 verdicts to 10 after being made mandatory when the token is present, which is
 the one clear improvement. Relevance fell from 0.54 to 0.33, though at n=30 that
 is three answers and inside the noise.
+
+The refusal rows deserve their denominators. Twelve answers used the token and
+carry a hand grade for whether declining was right. v1 returned a refusal
+verdict on 4 of those 12, leaving the field out of the other 8 entirely rather
+than emitting anything unusable, and the agreement figure was computed on what
+was left. Which 4 it answered is the interesting part: the human graded those
+two yes and two no, while both of the cases graded partly sat in the 8 it
+skipped. The judge answered the clear-cut ones and went quiet on the ambiguous
+ones, which is a selection effect running in its own favour, and it still landed
+on kappa 0.00. v2 skipped 2 of 12.
 
 The prompt was revised once, and the reason is worth stating because the
 distinction is easy to lose. A judge emitting zero "partly" verdicts is a defect
@@ -437,10 +461,10 @@ five more hours of machine time to confirm a gap already visible.
 | Cited nothing | 1 | 0 |
 | Clean refusals | 0 | 3 |
 | Token plus content | 4 | 0 |
-| Latency p50 | 7.9 s | 172.5 s |
+| Latency p50 | 7.8 s | 169.9 s |
 | Latency p95 | 11.0 s | 406.1 s |
-| Median output tokens | 118 | 3,486 |
-| Machine time per 1,000 queries | 2.2 h | 47.9 h |
+| Median output tokens | 117 | 3,483 |
+| Machine time per 1,000 queries | 2.2 h | 47.2 h |
 | Answers it could not produce at all | 0 | 2 |
 
 Reasoning costs 22 times the latency and 30 times the output tokens. What it
@@ -484,6 +508,12 @@ It also says nothing about a hosted model, which was the comparison this step wa
 meant to make. Local against API needs an API key and there is none.
 
 ## Setup
+
+Latency percentiles are nearest-rank: the smallest observation at or above the
+requested fraction, so every figure is a time that actually occurred rather than
+an interpolation between two. Both the per-run summary and the two-run
+comparison call the same function, after an audit found them using different
+index conventions and reporting the same p95 as 406 s and 402 s.
 
 Model `BAAI/bge-m3`, 1024-dimensional, cosine similarity, on Apple Silicon (MPS).
 Reranking used `BAAI/bge-reranker-v2-m3`. Corpus is 4,921 Absatz records from the

@@ -7,6 +7,7 @@ an API key.
 
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -87,3 +88,40 @@ def test_disagreements_flag_only_the_questions_worth_reading():
     assert "q3" in ids                          # one invented a citation
     q3 = next(d for d in diffs if d["id"] == "q3")
     assert "only A invented a citation" in q3["why"]
+
+
+def test_percentile_is_nearest_rank_and_consistent_everywhere():
+    """Found in the phase 4 audit: two modules used two index conventions, so
+    the same run reported p95 as 406 ms in one table and 402 ms in another."""
+    from metrics import percentile as shared
+    import generate_answers
+
+    values = [float(i) for i in range(1, 51)]           # 1..50
+    assert shared(values, 0.95) == 48.0                 # nearest rank: ceil(.95*50)=48
+    assert shared(values, 0.50) == 25.0
+    assert shared([5.0], 0.95) == 5.0                   # single observation
+    assert shared([], 0.95) == 0.0
+
+    # the summary path must use the same definition, not its own
+    rows = [{"latency_ms": v, "cost_usd": 0.0, "outcome": "answer",
+             "citations": {"exact": ["x"], "section_only": [], "cross_referenced": [],
+                           "unsupported": []}} for v in values]
+    stats = generate_answers.summarise(rows)
+    assert stats["latency_p95_ms"] == shared(values, 0.95)
+    assert stats["latency_p50_ms"] == shared(values, 0.50)
+
+
+def test_json_mode_stays_parseable(tmp_path, capsys, monkeypatch):
+    """The note about partial coverage used to go to stdout and break --json."""
+    import compare_backends as cb
+
+    a = run("A", "m", [answer("q1"), answer("q2")])
+    b = run("B", "m", [answer("q1")])                 # covers fewer questions
+    monkeypatch.setattr(cb, "load", lambda label: a if label == "A" else b)
+    monkeypatch.setattr(sys, "argv", ["compare_backends.py", "A", "B", "--json"])
+
+    cb.main()
+    out = capsys.readouterr()
+    assert "note:" in out.err                          # the note went to stderr
+    parsed = json.loads(out.out)                       # stdout is valid JSON
+    assert parsed["a"]["n"] == 1

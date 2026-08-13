@@ -268,6 +268,29 @@ def test_a_reference_to_another_statute_is_not_a_bgb_citation():
     assert parse_citations("gemäß § 3 Nummer 33 gilt") == [("3", None)]
 
 
+@pytest.mark.parametrize(
+    "text, expected, why",
+    [
+        # Found in the phase 4 audit. Skipping a foreign reference used to break
+        # out of the whole list, so a real citation after it vanished. A
+        # citation the checker never sees cannot be flagged as invented, which
+        # is the direction that hides a mistake.
+        ("§§ 3 des Telekommunikationsgesetzes, 551 Abs. 1", [("551", "1")],
+         "a list survives a foreign entry"),
+        # Also found in the audit: another law named by trailing abbreviation
+        # rather than by "des ...gesetzes" was read as one of ours.
+        ("Art. 229 § 3 EGBGB", [], "trailing abbreviation of another law"),
+        ("§ 72 TKG", [], "abbreviation without a des-phrase"),
+        # The exception that makes the rule usable.
+        ("§ 551 Abs. 1 BGB", [("551", "1")], "our own law is not skipped"),
+        ("§ 551 Abs. 1 Satz 2", [("551", "1")], "Satz is not a law abbreviation"),
+        ("§ 551. Der Vermieter zahlt", [("551", None)], "a sentence boundary is not one either"),
+    ],
+)
+def test_references_to_other_statutes(text, expected, why):
+    assert parse_citations(text) == expected, why
+
+
 def test_cost_is_computed_from_published_rates():
     # Haiku 4.5 at $1 in / $5 out per million tokens
     assert cost_usd("claude-haiku-4-5", 1_000_000, 0) == pytest.approx(1.00)

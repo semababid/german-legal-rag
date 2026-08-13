@@ -1899,5 +1899,18 @@
         "bgb-573-1"
       ]
     }
-  ]
+  ],
+  "summary": {
+    "n": 50,
+    "refused": 3,
+    "hedged": 0,
+    "refusal_rate": 0.06,
+    "invented_citations": 0,
+    "cross_referenced_citations": 5,
+    "answers_citing_nothing": 0,
+    "latency_p50_ms": 169931.6,
+    "latency_p95_ms": 406107.9,
+    "total_cost_usd": 0.0,
+    "cost_per_1k_queries_usd": 0.0
+  }
 }

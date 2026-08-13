@@ -15,7 +15,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Experiments | Six run, two significant improvements. Phase complete |
 | Generation | Working end to end on the local model. Answers are cited and grounding-checked |
 | Judging | 30 answers graded by hand. The local judge scored below the guessing baseline on faithfulness, so answers are not model-judged |
-| Serving | Not started |
+| Serving | FastAPI with structured per-request logging. Container, frontend and deployment still to do |
 
 ## The corpus
 
@@ -97,8 +97,8 @@ Absatz of a section that was retrieved, or a section that was never in front of
 the model at all. The third case is the one worth catching, and catching it
 needs no judge and no key.
 
-The model is also told to refuse. Eight questions in the eval set are answered
-by no retrieval configuration tested, so they double as refusal cases: declining
+The model is also told to refuse. Five questions in the eval set are answered by
+no retrieval configuration tested, so they double as refusal cases: declining
 those is the correct behaviour, and a fixed token rather than a hedged sentence
 makes it countable.
 
@@ -107,6 +107,42 @@ one-sentence answer cost 1,444 output tokens with reasoning against 43 without.
 It is off by default so a run over 150 questions finishes in minutes, and
 because the API side of the comparison is measured without extended thinking
 too. `--think` turns it back on and measures the other side.
+
+## Serving it
+
+```bash
+uvicorn api:app --app-dir src --port 8000
+
+curl -X POST localhost:8000/ask -H 'Content-Type: application/json' \
+  -d '{"question":"Wie hoch darf die Mietkaution sein?"}'
+
+curl "localhost:8000/search?q=Schimmel%20in%20der%20Wohnung&k=3"
+```
+
+`/ask` returns the answer, the sections it was given with their scores and links
+to gesetze-im-internet.de, the citation check, timings and token counts. Every
+response carries a notice that this is the statute rather than legal advice.
+`/search` runs retrieval alone, which is what makes a bad answer diagnosable:
+the generator can only work with what it was handed.
+
+The embedding model takes about ten seconds to load and a query takes two tenths
+of a second afterwards, so it is loaded once at startup and reused. Requests are
+handled one at a time, since the local model serialises anyway.
+
+Every request is logged as one JSON line with the question, the records
+retrieved and their scores, how the citations checked out, tokens, and the split
+between retrieval and generation time:
+
+```json
+{"event": "ask", "request_id": "e7fb229c487f", "question": "Wie hoch darf die Mietkaution sein?",
+ "outcome": "answer", "retrieved": [{"id": "bgb-551-1", "citation": "BGB § 551 Abs. 1", "score": 0.6305}],
+ "citations": {"exact": ["§ 551 Abs. 1"], "grounded": true},
+ "input_tokens": 1104, "output_tokens": 121,
+ "retrieval_ms": 177.9, "generation_ms": 11984.0, "total_ms": 12162.0}
+```
+
+Questions can carry personal circumstances, so `LOG_QUESTIONS=false` keeps them
+out of the log while leaving everything else in place.
 
 ## Layout
 
@@ -126,8 +162,10 @@ src/make_calibration_set.py  draw the stratified sample to grade by hand
 src/grade.py              grade those answers, one at a time
 src/judge.py              LLM judge, scored against the hand grades
 src/compare_backends.py   two answer runs side by side
+src/api.py                FastAPI service with structured logging
 src/judge.py              LLM judge, scored against the hand grades
 src/compare_backends.py   two answer runs side by side
+src/api.py                FastAPI service with structured logging
 src/judge.py              model-graded scoring, and its agreement with the hand grades
 tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions

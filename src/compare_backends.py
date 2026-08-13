@@ -17,7 +17,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+from metrics import percentile
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ANSWERS_DIR = REPO_ROOT / "results" / "answers"
@@ -28,13 +31,6 @@ def load(label: str) -> dict:
     if not path.exists():
         raise SystemExit(f"No run at {path}")
     return json.load(path.open(encoding="utf-8"))
-
-
-def percentile(values: list[float], p: float) -> float:
-    if not values:
-        return 0.0
-    ordered = sorted(values)
-    return ordered[min(int(p * len(ordered)), len(ordered) - 1)]
 
 
 def measure(run: dict, ids: set[str]) -> dict:
@@ -150,7 +146,9 @@ def main() -> int:
     if not ids:
         raise SystemExit("the two runs share no questions")
     if len(ids) < max(len(a["answers"]), len(b["answers"])):
-        print(f"note: comparing the {len(ids)} questions both runs cover")
+        # stderr, so --json stays parseable. This note on stdout made the JSON
+        # output invalid, which is the one thing that mode exists for.
+        print(f"note: comparing the {len(ids)} questions both runs cover", file=sys.stderr)
 
     ma, mb = measure(a, ids), measure(b, ids)
     diffs = disagreements(a, b, ids)

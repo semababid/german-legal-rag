@@ -13,7 +13,7 @@ Assumed pace is six weeks part time, with no fixed deadline baked in. If you are
 | 2 | Baseline retrieval | Dense-only pipeline, deliberately untuned | hit-rate@1/3/5 and MRR recorded against the eval set | Done: hit@1 0.62, hit@5 0.85, MRR 0.71 |
 | 3 | Retrieval experiments | Six configurations, one results table | Table filled in and you can explain each result | Done: two significant wins. Final hit@1 0.700, MRR 0.790 at n=150 |
 | 4 | Generation and judging | Cited German answers, calibrated LLM judge, local vs API comparison | Faithfulness and relevance scored, cost and p95 latency reported for both models | 4.1 done, 4.2 next |
-| 5 | Serving | FastAPI, Docker Compose, thin frontend, structured logging, deployed | Public URL resolves and every request is logged with query, retrieved IDs, scores, tokens, latency | 1 wk |
+| 5 | Serving | FastAPI, Docker Compose, thin frontend, structured logging, deployed | Public URL resolves and every request is logged with query, retrieved IDs, scores, tokens, latency | 5.1 done, 5.2 next |
 | 6 | Write-up | README in English, German screenshots and queries | Results table leads the README and limitations are stated plainly | 3 d |
 
 Phase 1 comes before any retrieval code on purpose. Build the pipeline first and you will tune it against your own impressions, and by the time an eval exists you have already committed to choices you cannot defend with numbers.
@@ -59,7 +59,7 @@ needed to catch an invented section number, and that is the failure that matters
 most in a legal setting.
 
 Refusal is a fixed token rather than a polite sentence, so a partial refusal
-cannot be scored as an answer. The eight questions no retrieval configuration
+cannot be scored as an answer. The five questions no retrieval configuration
 answers in the top ten are the test cases: declining those is correct.
 
 The 30 hand grades have to be written by a person. They are the reference the

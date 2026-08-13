@@ -67,9 +67,21 @@ def wrap(text: str, indent: str = "    ") -> str:
     )
 
 
-def show(row: dict, position: str) -> None:
+def show(row: dict, position: str, show_check: bool = False) -> None:
+    """Put one answer on screen for grading.
+
+    The stratum label and the automatic citation check are hidden. Both are
+    this project's own verdict on the answer, and showing them above the grading
+    questions invites the grader to agree with a checker that has been wrong
+    five times so far. The first 30 were graded with both visible and an
+    instruction to ignore them, which is a weaker guarantee than not printing
+    them; `--show-check` reproduces that older view.
+    """
     print("\n" + "=" * 92)
-    print(f"{position}   {row['id']}   {row['type']}   stratum: {row['stratum']}")
+    header = f"{position}   {row['id']}   {row['type']}"
+    if show_check:
+        header += f"   stratum: {row['stratum']}"
+    print(header)
     print("=" * 92)
 
     print("\nFRAGE")
@@ -90,12 +102,14 @@ def show(row: dict, position: str) -> None:
         if row.get("gold_citations"):
             print(wrap("erwartete Fundstellen: " + ", ".join(row["gold_citations"])))
 
-    c = row["citation_check"]
-    print("\nAUTOMATISCHE PRÜFUNG (zur Information, entscheide selbst)")
-    print(f"    exact: {c['exact'] or '-'}   nur Paragraf: {c['section_only'] or '-'}")
-    print(f"    nur erwähnt: {c.get('cross_referenced') or '-'}   "
-          f"nirgends: {c['unsupported'] or '-'}")
-    print(f"    outcome: {row['outcome']}")
+    if show_check:
+        c = row["citation_check"]
+        print("\nAUTOMATISCHE PRÜFUNG (zur Information, entscheide selbst)")
+        print(f"    exact: {c['exact'] or '-'}   nur Paragraf: {c['section_only'] or '-'}")
+        print(f"    nur erwähnt: {c.get('cross_referenced') or '-'}   "
+              f"nirgends: {c['unsupported'] or '-'}")
+        print(f"    outcome: {row['outcome']}")
+
     print("\n" + "-" * 92)
 
 
@@ -194,6 +208,8 @@ def main() -> int:
     ap.add_argument("--summary", action="store_true", help="counts so far, grade nothing")
     ap.add_argument("--review", action="store_true", help="print what has been graded")
     ap.add_argument("--regrade", metavar="ID", help="grade one answer again")
+    ap.add_argument("--show-check", action="store_true",
+                    help="also show this project's own citation verdict, as the first 30 were graded")
     args = ap.parse_args()
 
     rows = load(args.path)
@@ -226,7 +242,7 @@ def main() -> int:
     total = len(rows)
     for row in targets:
         position = f"{rows.index(row) + 1}/{total}"
-        show(row, position)
+        show(row, position, args.show_check)
         if not grade_one(row):
             break
         save(args.path, rows)
