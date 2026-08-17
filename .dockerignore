@@ -1,0 +1,28 @@
+# The image needs the source and requirements. Everything else here is either
+# large, regenerable, or specific to one machine, and shipping it would slow
+# every build down for nothing.
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Local Qdrant storage. The container talks to the Qdrant service instead, and
+# copying a stale on-disk index into the image would be actively misleading.
+qdrant_storage/
+.chroma/
+*.faiss
+
+# Regenerable from scripts/fetch_corpus.sh, and large.
+data/raw/
+
+# Results, grades and notes belong in the repository rather than the image.
+results/
+notes/
+
+.git/
+.gitignore
+.DS_Store
+.pytest_cache/
+tests/
+*.md

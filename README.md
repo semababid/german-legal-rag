@@ -15,7 +15,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Experiments | Six run, two significant improvements. Phase complete |
 | Generation | Working end to end on the local model. Answers are cited and grounding-checked |
 | Judging | 30 answers graded by hand. The local judge scored below the guessing baseline on faithfulness, so answers are not model-judged |
-| Serving | FastAPI with structured per-request logging. Container, frontend and deployment still to do |
+| Serving | FastAPI with structured logging, running in containers against a Qdrant service. Frontend and deployment still to do |
 
 ## The corpus
 
@@ -144,6 +144,40 @@ between retrieval and generation time:
 Questions can carry personal circumstances, so `LOG_QUESTIONS=false` keeps them
 out of the log while leaving everything else in place.
 
+## In containers
+
+```bash
+docker compose --profile tools run --rm indexer   # once, embeds the corpus
+docker compose up -d                              # qdrant and the api
+```
+
+Qdrant moves from an on-disk directory to a service, which is what `QDRANT_URL`
+selects. Local mode needs no server and is what makes the retrieval experiments
+reproducible on a laptop, but it takes an exclusive lock on its storage
+directory, so indexing and serving cannot happen at the same time. Pointing at a
+server removes that. Nothing above `qdrant_client()` changes either way.
+
+The language model stays on the host. It is 6.6 GB already pulled, it wants
+Metal to be usable, and a Linux container on a Mac cannot have that, so the API
+container reaches back out through `OLLAMA_HOST=http://host.docker.internal:11434`.
+This compose file is therefore not the whole system, which is worth saying
+plainly rather than implying one command starts everything.
+
+The same limit applies to indexing. Inside the container the embedder runs on
+CPU, so building the collection takes far longer than the few minutes it takes
+on the host with MPS. Indexing on the host and pointing the container at the
+resulting Qdrant is the faster route.
+
+| Variable | Default | |
+| --- | --- | --- |
+| `QDRANT_URL` | unset, on-disk | a Qdrant server instead |
+| `QDRANT_API_KEY` | unset | sent only when set |
+| `OLLAMA_HOST` | `http://localhost:11434` | where the model is |
+| `COLLECTION` | `absatz_ctx` | which index to read |
+| `RETRIEVER` | `domain` | strategy, as in phase 3 |
+| `TOP_K` | `6` | sections per prompt |
+| `LOG_QUESTIONS` | `true` | keep questions out of the log |
+
 ## Layout
 
 ```
@@ -163,9 +197,15 @@ src/grade.py              grade those answers, one at a time
 src/judge.py              LLM judge, scored against the hand grades
 src/compare_backends.py   two answer runs side by side
 src/api.py                FastAPI service with structured logging
+src/metrics.py            shared percentile and median
+Dockerfile                the API image, CPU-only torch
+docker-compose.yml        qdrant service, api, one-shot indexer
 src/judge.py              LLM judge, scored against the hand grades
 src/compare_backends.py   two answer runs side by side
 src/api.py                FastAPI service with structured logging
+src/metrics.py            shared percentile and median
+Dockerfile                the API image, CPU-only torch
+docker-compose.yml        qdrant service, api, one-shot indexer
 src/judge.py              model-graded scoring, and its agreement with the hand grades
 tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions

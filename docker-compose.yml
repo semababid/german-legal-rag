@@ -1,0 +1,84 @@
+# Qdrant as a service, the API as a container, the language model left on the
+# host. Splitting it this way is what QDRANT_URL exists for: the same code runs
+# against an on-disk directory on a laptop and against a server here, and the
+# exclusive lock that local mode takes on its storage directory stops mattering.
+#
+#   docker compose up --build          serve
+#   docker compose run --rm indexer    build the collections first
+#
+# The model stays outside on purpose. It is 6.6 GB already pulled on the host,
+# it needs Metal to be usable, and a container on this machine cannot have that.
+# The honest consequence is that this compose file is not the whole system.
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.16.2
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    healthcheck:
+      # The image has no curl, wget or nc. It does have bash, whose /dev/tcp
+      # can open the socket, so the probe talks HTTP by hand. It must be
+      # invoked as `bash` rather than through CMD-SHELL: that runs /bin/sh,
+      # which here is dash, and dash has no /dev/tcp. The first version used
+      # CMD-SHELL and reported a perfectly healthy Qdrant as unhealthy.
+      test:
+        - CMD
+        - bash
+        - -c
+        - 'exec 3<>/dev/tcp/127.0.0.1/6333 && printf "GET /readyz HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n" >&3 && grep -q "all shards are ready" <&3'
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      # host.docker.internal is how a container reaches the host on Docker
+      # Desktop. On Linux this needs the extra_hosts entry below.
+      OLLAMA_HOST: http://host.docker.internal:11434
+      COLLECTION: absatz_ctx
+      RETRIEVER: domain
+      BACKEND: ollama
+      TOP_K: "6"
+      # Tenancy questions can carry personal circumstances. Set false to keep
+      # them out of the log without losing the rest of the request record.
+      LOG_QUESTIONS: "true"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - model_cache:/cache/huggingface
+      # Read-only: the API reads the corpus for cross-reference checking and has
+      # no business writing to it.
+      - ./data/processed:/app/data/processed:ro
+
+  # Not a long-running service. `docker compose run --rm indexer` embeds the
+  # corpus into Qdrant, which has to happen once before the API can answer.
+  indexer:
+    build: .
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    environment:
+      QDRANT_URL: http://qdrant:6333
+    volumes:
+      - model_cache:/cache/huggingface
+      - ./data/processed:/app/data/processed:ro
+    command: ["python", "src/index_corpus.py", "--granularity", "absatz", "--with-context"]
+    profiles: ["tools"]
+    # The image's healthcheck probes the API on port 8000. This is a batch job
+    # with no server, so it inherited that check and reported itself unhealthy
+    # while working perfectly.
+    healthcheck:
+      disable: true
+
+volumes:
+  qdrant_data:
+  model_cache:

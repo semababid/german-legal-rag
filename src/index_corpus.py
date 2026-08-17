@@ -20,16 +20,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
-from qdrant_client import QdrantClient, models
+from qdrant_client import models
 
 from embedder import DEFAULT_MODEL, Embedder
 
 # Shared with the retrievers on purpose. If the indexer and the reranker ever
 # built their pair text differently, the reranker would score text the index was
 # never built from, and nothing would fail loudly.
-from retrievers import indexed_text
+from retrievers import indexed_text, qdrant_client
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 QDRANT_PATH = REPO_ROOT / "qdrant_storage"
@@ -61,7 +62,7 @@ def build(granularity: str, with_context: bool, model_name: str, batch_size: int
     vectors = embedder.encode(texts, batch_size=batch_size)
 
     name = collection_name(granularity, with_context)
-    client = QdrantClient(path=str(QDRANT_PATH))
+    client = qdrant_client()
     if client.collection_exists(name):
         client.delete_collection(name)
     client.create_collection(
@@ -93,7 +94,8 @@ def build(granularity: str, with_context: bool, model_name: str, batch_size: int
     )
     client.close()
 
-    print(f"Indexed {len(records)} records into collection '{name}' at {QDRANT_PATH}")
+    target = os.getenv("QDRANT_URL") or QDRANT_PATH
+    print(f"Indexed {len(records)} records into collection '{name}' at {target}")
 
 
 def main() -> int:

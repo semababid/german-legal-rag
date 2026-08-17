@@ -24,6 +24,7 @@ model and a run against the API differ by a flag.
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 import urllib.error
@@ -378,10 +379,13 @@ class OllamaBackend:
 
     name = "ollama"
 
-    def __init__(self, model: str = "qwen3.5:9b", host: str = "http://localhost:11434",
+    def __init__(self, model: str = "qwen3.5:9b", host: str | None = None,
                  timeout: int = 600, think: bool = False, num_ctx: int = 16384):
         self.model = model
-        self.host = host.rstrip("/")
+        # From a container this has to point back at the host, where the
+        # model already lives. Pulling a 6.6 GB model into the image instead
+        # would spend most of the memory the container has to work with.
+        self.host = (host or os.getenv("OLLAMA_HOST", "http://localhost:11434")).rstrip("/")
         self.timeout = timeout
         # Ollama defaults the context window to a few thousand tokens whatever
         # the model supports, and overflowing it truncates in silence. A prompt

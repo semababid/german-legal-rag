@@ -11,11 +11,32 @@ path and the rows stay comparable.
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 QDRANT_PATH = REPO_ROOT / "qdrant_storage"
+
+
+def qdrant_client():
+    """A Qdrant client, on-disk locally or over the network when told to.
+
+    Local mode keeps everything in one directory with no server to run, which is
+    what makes the retrieval experiments reproducible on a laptop. It also takes
+    an exclusive lock on that directory, so indexing and serving cannot happen at
+    once, and a second process gets a lock error rather than a queue.
+
+    Setting QDRANT_URL switches to a server and removes that constraint, which
+    is what the container setup uses. Both paths speak the same client API, so
+    nothing above this function changes.
+    """
+    from qdrant_client import QdrantClient
+
+    url = os.getenv("QDRANT_URL")
+    if url:
+        return QdrantClient(url=url, api_key=os.getenv("QDRANT_API_KEY") or None)
+    return QdrantClient(path=str(QDRANT_PATH))
 
 # Unicode-aware, so German umlauts and ß stay inside tokens rather than splitting
 # words apart. No stemming and no compound splitting: this is the honest lexical
@@ -287,12 +308,9 @@ def build_retriever(kind: str, collection: str = "absatz_raw", model: str | None
         return BM25Retriever(load_records(granularity), with_context)
 
     if kind == "dense":
-        from qdrant_client import QdrantClient
-
         from embedder import DEFAULT_MODEL, Embedder
 
-        client = QdrantClient(path=str(QDRANT_PATH))
-        return DenseRetriever(client, Embedder(model or DEFAULT_MODEL), collection)
+        return DenseRetriever(qdrant_client(), Embedder(model or DEFAULT_MODEL), collection)
 
     if kind == "hybrid":
         dense = build_retriever("dense", collection=collection, model=model)
