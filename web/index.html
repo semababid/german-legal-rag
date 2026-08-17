@@ -6,98 +6,148 @@
 <title>Mietrecht-Auskunft &middot; BGB</title>
 <style>
   :root {
-    --ink: #1a1a1a;
-    --muted: #5c5c5c;
-    --line: #d8d4cc;
-    --bg: #faf8f5;
-    --card: #ffffff;
-    --accent: #37506b;
-    --warn-bg: #fdf6e3;
-    --warn-line: #e0c66a;
-    --bad: #a33a2a;
-    --good: #2f6b4f;
+    --ink: #1c1a17; --muted: #6b655c; --faint: #8d867c;
+    --line: #ded8ce; --bg: #faf8f4; --card: #fff;
+    --accent: #35506e; --accent-soft: #eaf0f7;
+    --warn-bg: #fdf6e3; --warn-line: #dcc06a;
+    --bad: #9c3722; --bad-bg: #fbeeeb;
+    --good: #2c6349; --good-bg: #edf5f0;
+    --radius: 10px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --ink: #e8e6e3; --muted: #a09c96; --line: #3a3833; --bg: #171614;
-      --card: #201f1c; --accent: #9db6d4; --warn-bg: #2a2415; --warn-line: #6b5a20;
-      --bad: #e08b7a; --good: #7fc0a0;
+      --ink: #eae7e2; --muted: #a29c93; --faint: #8a847b;
+      --line: #37342e; --bg: #16151300; --bg: #161513; --card: #1f1e1b;
+      --accent: #9fbadb; --accent-soft: #232c36;
+      --warn-bg: #2a2415; --warn-line: #695a25;
+      --bad: #e59683; --bad-bg: #2e1e1a;
+      --good: #7fc5a3; --good-bg: #182620;
     }
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0; padding: 2rem 1rem 4rem;
-    font: 16px/1.6 Georgia, "Iowan Old Style", serif;
+    margin: 0; padding: 2.5rem 1rem 5rem;
+    font: 17px/1.65 Georgia, "Iowan Old Style", "Times New Roman", serif;
     color: var(--ink); background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    /* German runs words together and the statute is full of them:
+       Modernisierungsmaßnahmen, Betriebskostenabrechnung, Schönheitsreparaturen.
+       On a phone one of those is wider than the screen and spills off the right
+       edge. The page is lang="de", so the browser hyphenates them properly, and
+       anywhere-breaking catches whatever it cannot hyphenate. */
+    hyphens: auto;
+    overflow-wrap: anywhere;
   }
-  main { max-width: 46rem; margin: 0 auto; }
-  h1 { font-size: 1.5rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
-  .sub { color: var(--muted); margin: 0 0 1.5rem; font-size: .95rem; }
+  main { max-width: 44rem; margin: 0 auto; }
+  .sans { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
 
-  /* The RDG notice sits above the answer and is always present, not a footer
-     somebody scrolls past after reading legal text they may act on. */
+  header { margin-bottom: 1.6rem; }
+  h1 { font-size: 1.6rem; margin: 0 0 .35rem; letter-spacing: -.015em; }
+  .sub { color: var(--muted); margin: 0; font-size: .97rem; }
+
   .notice {
     background: var(--warn-bg); border: 1px solid var(--warn-line);
-    border-radius: 6px; padding: .8rem 1rem; margin-bottom: 1.5rem;
-    font-size: .9rem;
+    border-radius: var(--radius); padding: .85rem 1.05rem; margin-bottom: 1.4rem;
+    font-size: .89rem; font-family: system-ui, -apple-system, sans-serif; line-height: 1.55;
   }
-  .notice strong { display: block; margin-bottom: .2rem; }
+  .notice strong { display: block; margin-bottom: .15rem; }
 
-  form { display: flex; gap: .6rem; margin-bottom: 1.2rem; }
+  form { display: flex; gap: .55rem; margin-bottom: .8rem; }
   input[type=search] {
-    flex: 1; padding: .7rem .9rem; font: inherit; font-size: 1rem;
-    border: 1px solid var(--line); border-radius: 6px;
-    background: var(--card); color: var(--ink);
+    flex: 1; min-width: 0; padding: .8rem .95rem; font: inherit; font-size: 1rem;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--card); color: var(--ink); -webkit-appearance: none;
   }
-  input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
-  button {
-    padding: .7rem 1.2rem; font: inherit; cursor: pointer;
-    border: 1px solid var(--accent); border-radius: 6px;
+  input[type=search]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button.primary {
+    padding: .8rem 1.3rem; font: inherit; font-family: system-ui, sans-serif;
+    cursor: pointer; white-space: nowrap;
+    border: 1px solid var(--accent); border-radius: var(--radius);
     background: var(--accent); color: #fff;
   }
-  button[disabled] { opacity: .55; cursor: progress; }
+  button.primary[disabled] { opacity: .6; cursor: progress; }
+  @media (max-width: 30rem) { form { flex-direction: column; } }
 
-  .examples { font-size: .85rem; color: var(--muted); margin: -.6rem 0 1.5rem; }
-  .examples button {
-    background: none; border: none; color: var(--accent); padding: 0 .4rem 0 0;
-    text-decoration: underline; font-size: .85rem; cursor: pointer;
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center;
+           margin-bottom: 2rem; font-family: system-ui, sans-serif; font-size: .85rem; }
+  .chips span { color: var(--faint); margin-right: .1rem; }
+  .chips button {
+    border: 1px solid var(--line); background: var(--card); color: var(--accent);
+    border-radius: 999px; padding: .3rem .75rem; cursor: pointer;
+    font: inherit; font-size: .85rem;
   }
+  .chips button:hover { border-color: var(--accent); background: var(--accent-soft); }
 
   .card {
     background: var(--card); border: 1px solid var(--line);
-    border-radius: 8px; padding: 1.2rem 1.4rem; margin-bottom: 1rem;
+    border-radius: var(--radius); padding: 1.3rem 1.45rem; margin-bottom: 1rem;
   }
-  .answer { font-size: 1.05rem; }
-  .answer p { margin: 0 0 .8rem; }
+  .answer { font-size: 1.06rem; }
+  .answer p { margin: 0 0 .85rem; }
   .answer p:last-child { margin-bottom: 0; }
 
-  .flag { font-size: .85rem; padding: .5rem .8rem; border-radius: 6px; margin-bottom: 1rem; }
-  .flag.ok   { color: var(--good); border: 1px solid var(--good); }
-  .flag.bad  { color: var(--bad);  border: 1px solid var(--bad); }
+  /* Every § in the answer is a link to the provision it came from, so checking
+     a claim is one tap rather than a scroll and a hunt. */
+  a.ref {
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid currentColor; white-space: nowrap;
+    overflow-wrap: normal; hyphens: none;
+  }
+  a.ref:hover { background: var(--accent-soft); }
 
-  h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em;
-       color: var(--muted); margin: 1.6rem 0 .6rem; font-weight: normal; }
+  .flag {
+    font-family: system-ui, sans-serif; font-size: .87rem; line-height: 1.5;
+    padding: .7rem .9rem; border-radius: 8px; margin-top: 1.1rem;
+    display: flex; gap: .55rem; align-items: flex-start;
+  }
+  .flag .icon { flex: none; font-weight: bold; }
+  .flag.ok  { color: var(--good); background: var(--good-bg); border: 1px solid var(--good); }
+  .flag.bad { color: var(--bad);  background: var(--bad-bg);  border: 1px solid var(--bad); }
 
-  details { border-bottom: 1px solid var(--line); padding: .6rem 0; }
-  details:last-of-type { border-bottom: none; }
-  summary { cursor: pointer; font-size: .95rem; }
-  summary::marker { color: var(--muted); }
-  .cite { font-weight: bold; }
-  .title { color: var(--muted); }
-  .score { float: right; color: var(--muted); font-size: .8rem; font-family: ui-monospace, monospace; }
-  .sectext { margin: .6rem 0 .4rem; font-size: .92rem; white-space: pre-wrap; }
-  .srclink { font-size: .85rem; }
+  h2 { font-family: system-ui, sans-serif; font-size: .78rem; text-transform: uppercase;
+       letter-spacing: .09em; color: var(--faint); margin: 1.8rem 0 .7rem; font-weight: 600; }
 
-  footer.meta { color: var(--muted); font-size: .8rem;
-                font-family: ui-monospace, monospace; margin-top: 1.2rem; }
+  details { border-bottom: 1px solid var(--line); padding: .7rem 0; }
+  details:last-of-type { border-bottom: none; padding-bottom: 0; }
+  details[open] { padding-bottom: .9rem; }
+  summary { cursor: pointer; font-size: .97rem; display: flex; gap: .5rem;
+            align-items: baseline; list-style-position: outside; }
+  summary::-webkit-details-marker { color: var(--faint); }
+  .cite { font-weight: bold; white-space: nowrap; overflow-wrap: normal; }
+  .title { color: var(--muted); font-size: .92rem; }
+  details:target, details.flash { background: var(--accent-soft); border-radius: 8px;
+                                  padding-left: .7rem; padding-right: .7rem; }
+  .sectext { margin: .7rem 0 .5rem; font-size: .94rem; white-space: pre-wrap; }
+  .srclink { font-family: system-ui, sans-serif; font-size: .85rem; color: var(--accent); }
+
+  .scope { font-family: system-ui, sans-serif; font-size: .87rem; color: var(--muted);
+           border-top: 1px solid var(--line); margin-top: 2.5rem; padding-top: 1.1rem; }
+  .scope ul { margin: .4rem 0 0; padding-left: 1.1rem; }
+  .scope li { margin-bottom: .25rem; }
+
+  footer.meta { color: var(--faint); font-size: .78rem;
+                font-family: ui-monospace, SFMono-Regular, monospace; margin-top: 1rem; }
+
+  /* A local model takes ten to twenty seconds. A bar that moves is the
+     difference between waiting and assuming it broke. */
+  .loading { font-family: system-ui, sans-serif; font-size: .93rem; color: var(--muted); }
+  .bar { height: 3px; background: var(--line); border-radius: 2px;
+         overflow: hidden; margin-top: .8rem; }
+  .bar i { display: block; height: 100%; width: 35%; background: var(--accent);
+           border-radius: 2px; animation: slide 1.4s ease-in-out infinite; }
+  @keyframes slide { 0% { margin-left: -35%; } 100% { margin-left: 100%; } }
+  @media (prefers-reduced-motion: reduce) { .bar i { animation: none; width: 100%; } }
+
   .error { color: var(--bad); }
   [hidden] { display: none !important; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Mietrecht-Auskunft</h1>
-  <p class="sub">Fragen zum Wohnraummietrecht, beantwortet aus dem Wortlaut des BGB (§§ 535 bis 580a).</p>
+  <header>
+    <h1>Mietrecht-Auskunft</h1>
+    <p class="sub">Fragen zur Wohnungsmiete, beantwortet aus dem Wortlaut des BGB (§§ 535 bis 580a).</p>
+  </header>
 
   <div class="notice">
     <strong>Keine Rechtsberatung</strong>
@@ -110,18 +160,31 @@
   <form id="ask">
     <input type="search" id="q" name="q" placeholder="Wie hoch darf die Mietkaution sein?"
            autocomplete="off" required minlength="3" maxlength="1000" aria-label="Ihre Frage">
-    <button type="submit" id="go">Fragen</button>
+    <button type="submit" id="go" class="primary">Antwort suchen</button>
   </form>
 
-  <p class="examples">
-    Beispiele:
+  <div class="chips">
+    <span>Häufig gefragt:</span>
     <button type="button" data-q="Wie hoch darf die Mietkaution sein?">Kaution</button>
     <button type="button" data-q="Welche Kündigungsfrist gilt für Mieter?">Kündigungsfrist</button>
     <button type="button" data-q="Darf ich die Miete mindern, wenn die Heizung ausfällt?">Mietminderung</button>
     <button type="button" data-q="Darf ich meine Wohnung untervermieten?">Untermiete</button>
-  </p>
+    <button type="button" data-q="Wer zahlt Schönheitsreparaturen?">Renovierung</button>
+  </div>
 
-  <div id="out" hidden></div>
+  <div id="out" aria-live="polite" aria-busy="false" hidden></div>
+
+  <div class="scope">
+    <strong>Was diese Auskunft kann und was nicht</strong>
+    <ul>
+      <li>Sie sucht die passenden Paragrafen des Mietrechts und gibt deren Inhalt wieder.
+          Jede Antwort nennt die Fundstellen, die Sie unten nachlesen können.</li>
+      <li>Sie kennt nur den Gesetzestext. Gerichtsurteile, die viele Mietfragen erst
+          entscheiden, sind nicht enthalten.</li>
+      <li>Sie kennt Ihren Vertrag nicht und beurteilt Ihren Fall nicht.</li>
+      <li>Sie kann sich irren. Prüfen Sie die genannten Paragrafen im Zweifel selbst nach.</li>
+    </ul>
+  </div>
 </main>
 
 <script>
@@ -130,16 +193,12 @@ const input = document.getElementById('q');
 const button = document.getElementById('go');
 const out = document.getElementById('out');
 
-document.querySelectorAll('.examples button').forEach(b =>
+document.querySelectorAll('.chips button').forEach(b =>
   b.addEventListener('click', () => { input.value = b.dataset.q; form.requestSubmit(); }));
 
 const escape = s => String(s ?? '').replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-// The API returns the sections it was given and how each citation checked out.
-// Both are shown. An answer whose § was never retrieved is the failure this
-// project exists to catch, so the page says so rather than rendering it as
-// though it were sourced.
 // NICHT_BEANTWORTBAR is how the model signals it cannot answer from the text it
 // was given. It is a marker for the pipeline, not German, and it has no place in
 // front of a reader. Stripped here rather than in the API, which keeps returning
@@ -147,58 +206,91 @@ const escape = s => String(s ?? '').replace(/[&<>"']/g,
 const REFUSAL_TOKEN = 'NICHT_BEANTWORTBAR';
 const stripToken = s => String(s ?? '')
   .replaceAll(REFUSAL_TOKEN, '')
-  .replace(/\s+([.,;:])/g, '$1')     // the token often sat before punctuation
+  .replace(/\s+([.,;:])/g, '$1')
   .replace(/[ \t]{2,}/g, ' ')
   .trim();
 
+const slug = citation => 'src-' + citation.replace(/[^0-9a-zA-Z]+/g, '-').toLowerCase();
+
+// Turn every § in the answer into a link to the provision below it. Runs after
+// escaping, on the escaped string, so no untrusted markup survives: § and the
+// brackets the model uses are untouched by escaping.
+function linkCitations(html, sources) {
+  const bySection = new Map();
+  sources.forEach(s => {
+    const m = s.citation.match(/§+\s*(\d+[a-z]?)/i);
+    if (m && !bySection.has(m[1].toLowerCase())) bySection.set(m[1].toLowerCase(), s);
+  });
+  return html.replace(/\[?(§+\s*(\d+[a-z]?)(?:\s*Abs\.?\s*\d+[a-z]?)?)\]?/gi,
+    (whole, label, number) => {
+      const hit = bySection.get(String(number).toLowerCase());
+      if (!hit) return whole;
+      return `<a class="ref" href="#${slug(hit.citation)}" data-cite="${escape(hit.citation)}">${label}</a>`;
+    });
+}
+
 function verdict(c, outcome) {
   if (outcome === 'refusal')
-    return {cls: 'ok', text: 'Das System hat die Antwort verweigert: die vorgelegten Vorschriften decken die Frage nicht ab.'};
+    return {cls: 'ok', icon: '–',
+            text: 'Das System hat keine Antwort gegeben, weil die gefundenen Vorschriften die Frage nicht abdecken. Das ist gewollt: lieber keine Antwort als eine erfundene.'};
   if (outcome === 'hedged')
-    return {cls: 'bad', text: 'Das System hat diese Antwort als nicht vollständig gedeckt markiert: '
-            + 'ein Teil der Frage lässt sich aus den vorgelegten Vorschriften nicht beantworten. '
-            + 'Die genannten Fundstellen unten prüfen.'};
+    return {cls: 'bad', icon: '!',
+            text: 'Nur teilweise gedeckt: ein Teil der Frage lässt sich aus den gefundenen Vorschriften nicht beantworten. Bitte die Fundstellen unten selbst nachlesen.'};
   if (c.unsupported && c.unsupported.length)
-    return {cls: 'bad', text: 'Achtung: die Antwort nennt ' + c.unsupported.join(', ') +
-            ' , diese Vorschrift wurde nicht vorgelegt. Bitte nicht ungeprüft übernehmen.'};
+    return {cls: 'bad', icon: '!',
+            text: 'Achtung: die Antwort nennt ' + c.unsupported.join(', ') +
+                  '. Diese Vorschrift wurde nicht vorgelegt und konnte nicht geprüft werden. Bitte nicht ungeprüft übernehmen.'};
   if (c.cross_referenced && c.cross_referenced.length)
-    return {cls: 'ok', text: 'Belegt. ' + c.cross_referenced.join(', ') +
-            ' wird im vorgelegten Text erwähnt, der Wortlaut lag dem Modell aber nicht vor.'};
+    return {cls: 'ok', icon: '✓',
+            text: 'Belegt. ' + c.cross_referenced.join(', ') +
+                  ' wird im gefundenen Text erwähnt, der volle Wortlaut lag dem System aber nicht vor.'};
   if (!c.exact.length && !c.section_only.length)
-    return {cls: 'bad', text: 'Die Antwort nennt keine Fundstelle.'};
-  return {cls: 'ok', text: 'Jede genannte Fundstelle stammt aus den unten aufgeführten Vorschriften.'};
+    return {cls: 'bad', icon: '!', text: 'Die Antwort nennt keine Fundstelle und lässt sich daher nicht überprüfen.'};
+  return {cls: 'ok', icon: '✓',
+          text: 'Jede genannte Fundstelle stammt aus den unten aufgeführten Vorschriften.'};
 }
 
 function render(r) {
   const v = verdict(r.citations, r.outcome);
-  const answer = r.outcome === 'refusal'
-    ? '<p><em>Die vorgelegten Vorschriften beantworten diese Frage nicht.</em></p>'
-    : escape(stripToken(r.answer)).split(/\n{2,}/).map(p => `<p>${p}</p>`).join('');
+  const body = r.outcome === 'refusal'
+    ? '<p><em>Zu dieser Frage steht im Mietrecht des BGB keine passende Regelung, jedenfalls nicht in den gefundenen Vorschriften.</em></p>'
+    : linkCitations(escape(stripToken(r.answer)), r.sources)
+        .split(/\n{2,}/).map(p => `<p>${p}</p>`).join('');
 
   out.innerHTML = `
     <div class="card">
-      <div class="answer">${answer}</div>
-      <div class="flag ${v.cls}" style="margin:1rem 0 0">${escape(v.text)}</div>
+      <div class="answer">${body}</div>
+      <div class="flag ${v.cls}"><span class="icon">${v.icon}</span><span>${escape(v.text)}</span></div>
     </div>
-    <h2>Vorgelegte Vorschriften</h2>
+    <h2>Gefundene Vorschriften &middot; ${r.sources.length}</h2>
     <div class="card">
-      ${r.sources.map(s => `
-        <details>
+      ${r.sources.map((s, i) => `
+        <details id="${slug(s.citation)}"${i === 0 ? ' open' : ''}>
           <summary>
-            <span class="score">${s.score.toFixed(3)}</span>
             <span class="cite">${escape(s.citation)}</span>
-            ${s.title ? ` <span class="title">${escape(s.title)}</span>` : ''}
+            ${s.title ? `<span class="title">${escape(s.title)}</span>` : ''}
           </summary>
           <p class="sectext">${escape(s.text)}</p>
           <a class="srclink" href="${escape(s.url)}" target="_blank" rel="noopener">
-            Volltext auf gesetze-im-internet.de</a>
+            Volltext auf gesetze-im-internet.de &rarr;</a>
         </details>`).join('')}
     </div>
     <footer class="meta">
-      Abruf ${r.timings_ms.retrieval} ms &middot; Antwort ${r.timings_ms.generation} ms &middot;
-      ${r.tokens.input} + ${r.tokens.output} Token &middot; ${escape(r.request_id)}
+      Suche ${r.timings_ms.retrieval} ms &middot; Antwort ${(r.timings_ms.generation / 1000).toFixed(1)} s
+      &middot; ${escape(r.request_id)}
     </footer>`;
-  out.hidden = false;
+
+  // Clicking a § opens the provision and marks it briefly, so the eye lands on
+  // the right one instead of on a page that merely jumped.
+  out.querySelectorAll('a.ref').forEach(a => a.addEventListener('click', event => {
+    const target = document.getElementById(a.getAttribute('href').slice(1));
+    if (!target) return;
+    event.preventDefault();
+    target.open = true;
+    target.scrollIntoView({behavior: 'smooth', block: 'center'});
+    target.classList.add('flash');
+    setTimeout(() => target.classList.remove('flash'), 1600);
+  }));
 }
 
 form.addEventListener('submit', async event => {
@@ -208,8 +300,12 @@ form.addEventListener('submit', async event => {
 
   button.disabled = true;
   button.textContent = 'Sucht …';
-  out.innerHTML = '<div class="card">Sucht in den Vorschriften und formuliert eine Antwort. '
-                + 'Das dauert auf dem lokalen Modell einige Sekunden.</div>';
+  out.setAttribute('aria-busy', 'true');
+  out.innerHTML = `<div class="card loading">
+      Sucht die passenden Vorschriften und formuliert daraus eine Antwort.
+      Das Sprachmodell läuft lokal und braucht dafür meist zehn bis zwanzig Sekunden.
+      <div class="bar"><i></i></div>
+    </div>`;
   out.hidden = false;
 
   try {
@@ -219,22 +315,23 @@ form.addEventListener('submit', async event => {
       body: JSON.stringify({question}),
     });
     if (response.status === 404) {
-      out.innerHTML = '<div class="card">Zu dieser Frage wurde keine Vorschrift im '
-                    + 'Mietrecht gefunden. Diese Auskunft deckt nur §§ 535 bis 580a BGB ab.</div>';
+      out.innerHTML = `<div class="card">Dazu wurde keine Vorschrift gefunden.
+        Diese Auskunft deckt nur das Wohnraummietrecht ab, also §§ 535 bis 580a BGB.</div>`;
       return;
     }
     if (!response.ok) {
       const detail = await response.json().catch(() => ({}));
-      out.innerHTML = `<div class="card error">Fehler ${response.status}: `
-                    + `${escape(detail.detail || 'Die Anfrage ist fehlgeschlagen.')}</div>`;
+      out.innerHTML = `<div class="card error">Es ist ein Fehler aufgetreten (${response.status}).
+        ${escape(detail.detail || 'Bitte versuchen Sie es erneut.')}</div>`;
       return;
     }
     render(await response.json());
   } catch (err) {
-    out.innerHTML = '<div class="card error">Der Dienst ist nicht erreichbar.</div>';
+    out.innerHTML = '<div class="card error">Der Dienst ist gerade nicht erreichbar.</div>';
   } finally {
     button.disabled = false;
-    button.textContent = 'Fragen';
+    button.textContent = 'Antwort suchen';
+    out.setAttribute('aria-busy', 'false');
   }
 });
 </script>

@@ -254,6 +254,40 @@ def test_the_page_does_not_show_the_refusal_token_to_a_reader():
     body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
     assert "stripToken" in body
     assert "stripToken(r.answer)" in body
-    # and the hedged outcome gets its own explanation rather than passing as normal
-    assert "'hedged'" in body
-    assert "nicht vollständig gedeckt" in body
+
+    # The hedged outcome gets its own branch and is flagged as a warning rather
+    # than passing as a normal answer. Asserted on structure, not on wording:
+    # the first version of this test pinned the exact German sentence and broke
+    # the moment the copy was improved, which tests the copywriter not the code.
+    hedged = body.split("outcome === 'hedged'", 1)
+    assert len(hedged) == 2, "no branch for the hedged outcome"
+    assert "cls: 'bad'" in hedged[1][:200], "a hedged answer is not flagged as a warning"
+
+
+def test_the_page_handles_long_german_compounds():
+    """Modernisierungsmaßnahmen is wider than a phone screen. Without
+    hyphenation the section titles ran off the right edge, which a desktop
+    screenshot never shows."""
+    body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
+    assert 'lang="de"' in body                 # hyphenation needs the language
+    assert "hyphens: auto" in body
+    assert "overflow-wrap: anywhere" in body
+    # but a citation must never be broken across lines
+    assert ".cite { font-weight: bold; white-space: nowrap;" in body
+
+
+def test_the_page_works_without_a_pointer_or_animation():
+    body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
+    assert 'aria-live="polite"' in body        # results are announced
+    assert 'aria-label="Ihre Frage"' in body
+    assert "prefers-reduced-motion" in body    # the loading bar stops moving
+    assert "focus-visible" in body
+
+
+def test_the_page_says_what_it_cannot_do():
+    """A tenant needs to know it has no case law and does not read their
+    contract, before they rely on it."""
+    body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
+    assert "Gerichtsurteile" in body
+    assert "kennt Ihren Vertrag nicht" in body
+    assert "kann sich irren" in body
