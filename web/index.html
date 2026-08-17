@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mietrecht-Auskunft &middot; BGB</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5c5c5c;
+    --line: #d8d4cc;
+    --bg: #faf8f5;
+    --card: #ffffff;
+    --accent: #37506b;
+    --warn-bg: #fdf6e3;
+    --warn-line: #e0c66a;
+    --bad: #a33a2a;
+    --good: #2f6b4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #e8e6e3; --muted: #a09c96; --line: #3a3833; --bg: #171614;
+      --card: #201f1c; --accent: #9db6d4; --warn-bg: #2a2415; --warn-line: #6b5a20;
+      --bad: #e08b7a; --good: #7fc0a0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1rem 4rem;
+    font: 16px/1.6 Georgia, "Iowan Old Style", serif;
+    color: var(--ink); background: var(--bg);
+  }
+  main { max-width: 46rem; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 1.5rem; font-size: .95rem; }
+
+  /* The RDG notice sits above the answer and is always present, not a footer
+     somebody scrolls past after reading legal text they may act on. */
+  .notice {
+    background: var(--warn-bg); border: 1px solid var(--warn-line);
+    border-radius: 6px; padding: .8rem 1rem; margin-bottom: 1.5rem;
+    font-size: .9rem;
+  }
+  .notice strong { display: block; margin-bottom: .2rem; }
+
+  form { display: flex; gap: .6rem; margin-bottom: 1.2rem; }
+  input[type=search] {
+    flex: 1; padding: .7rem .9rem; font: inherit; font-size: 1rem;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: var(--card); color: var(--ink);
+  }
+  input[type=search]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button {
+    padding: .7rem 1.2rem; font: inherit; cursor: pointer;
+    border: 1px solid var(--accent); border-radius: 6px;
+    background: var(--accent); color: #fff;
+  }
+  button[disabled] { opacity: .55; cursor: progress; }
+
+  .examples { font-size: .85rem; color: var(--muted); margin: -.6rem 0 1.5rem; }
+  .examples button {
+    background: none; border: none; color: var(--accent); padding: 0 .4rem 0 0;
+    text-decoration: underline; font-size: .85rem; cursor: pointer;
+  }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 8px; padding: 1.2rem 1.4rem; margin-bottom: 1rem;
+  }
+  .answer { font-size: 1.05rem; }
+  .answer p { margin: 0 0 .8rem; }
+  .answer p:last-child { margin-bottom: 0; }
+
+  .flag { font-size: .85rem; padding: .5rem .8rem; border-radius: 6px; margin-bottom: 1rem; }
+  .flag.ok   { color: var(--good); border: 1px solid var(--good); }
+  .flag.bad  { color: var(--bad);  border: 1px solid var(--bad); }
+
+  h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em;
+       color: var(--muted); margin: 1.6rem 0 .6rem; font-weight: normal; }
+
+  details { border-bottom: 1px solid var(--line); padding: .6rem 0; }
+  details:last-of-type { border-bottom: none; }
+  summary { cursor: pointer; font-size: .95rem; }
+  summary::marker { color: var(--muted); }
+  .cite { font-weight: bold; }
+  .title { color: var(--muted); }
+  .score { float: right; color: var(--muted); font-size: .8rem; font-family: ui-monospace, monospace; }
+  .sectext { margin: .6rem 0 .4rem; font-size: .92rem; white-space: pre-wrap; }
+  .srclink { font-size: .85rem; }
+
+  footer.meta { color: var(--muted); font-size: .8rem;
+                font-family: ui-monospace, monospace; margin-top: 1.2rem; }
+  .error { color: var(--bad); }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Mietrecht-Auskunft</h1>
+  <p class="sub">Fragen zum Wohnraummietrecht, beantwortet aus dem Wortlaut des BGB (§§ 535 bis 580a).</p>
+
+  <div class="notice">
+    <strong>Keine Rechtsberatung</strong>
+    Diese Seite gibt den Gesetzeswortlaut wieder und stellt keine Rechtsberatung im Sinne
+    des Rechtsdienstleistungsgesetzes dar. Grundlage ist ausschließlich der Gesetzestext,
+    ohne Rechtsprechung. Für eine Bewertung Ihres Falls wenden Sie sich an eine Anwältin
+    oder einen Anwalt oder an einen Mieterverein.
+  </div>
+
+  <form id="ask">
+    <input type="search" id="q" name="q" placeholder="Wie hoch darf die Mietkaution sein?"
+           autocomplete="off" required minlength="3" maxlength="1000" aria-label="Ihre Frage">
+    <button type="submit" id="go">Fragen</button>
+  </form>
+
+  <p class="examples">
+    Beispiele:
+    <button type="button" data-q="Wie hoch darf die Mietkaution sein?">Kaution</button>
+    <button type="button" data-q="Welche Kündigungsfrist gilt für Mieter?">Kündigungsfrist</button>
+    <button type="button" data-q="Darf ich die Miete mindern, wenn die Heizung ausfällt?">Mietminderung</button>
+    <button type="button" data-q="Darf ich meine Wohnung untervermieten?">Untermiete</button>
+  </p>
+
+  <div id="out" hidden></div>
+</main>
+
+<script>
+const form = document.getElementById('ask');
+const input = document.getElementById('q');
+const button = document.getElementById('go');
+const out = document.getElementById('out');
+
+document.querySelectorAll('.examples button').forEach(b =>
+  b.addEventListener('click', () => { input.value = b.dataset.q; form.requestSubmit(); }));
+
+const escape = s => String(s ?? '').replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// The API returns the sections it was given and how each citation checked out.
+// Both are shown. An answer whose § was never retrieved is the failure this
+// project exists to catch, so the page says so rather than rendering it as
+// though it were sourced.
+// NICHT_BEANTWORTBAR is how the model signals it cannot answer from the text it
+// was given. It is a marker for the pipeline, not German, and it has no place in
+// front of a reader. Stripped here rather than in the API, which keeps returning
+// the model's exact output so a log line still shows what was actually said.
+const REFUSAL_TOKEN = 'NICHT_BEANTWORTBAR';
+const stripToken = s => String(s ?? '')
+  .replaceAll(REFUSAL_TOKEN, '')
+  .replace(/\s+([.,;:])/g, '$1')     // the token often sat before punctuation
+  .replace(/[ \t]{2,}/g, ' ')
+  .trim();
+
+function verdict(c, outcome) {
+  if (outcome === 'refusal')
+    return {cls: 'ok', text: 'Das System hat die Antwort verweigert: die vorgelegten Vorschriften decken die Frage nicht ab.'};
+  if (outcome === 'hedged')
+    return {cls: 'bad', text: 'Das System hat diese Antwort als nicht vollständig gedeckt markiert: '
+            + 'ein Teil der Frage lässt sich aus den vorgelegten Vorschriften nicht beantworten. '
+            + 'Die genannten Fundstellen unten prüfen.'};
+  if (c.unsupported && c.unsupported.length)
+    return {cls: 'bad', text: 'Achtung: die Antwort nennt ' + c.unsupported.join(', ') +
+            ' , diese Vorschrift wurde nicht vorgelegt. Bitte nicht ungeprüft übernehmen.'};
+  if (c.cross_referenced && c.cross_referenced.length)
+    return {cls: 'ok', text: 'Belegt. ' + c.cross_referenced.join(', ') +
+            ' wird im vorgelegten Text erwähnt, der Wortlaut lag dem Modell aber nicht vor.'};
+  if (!c.exact.length && !c.section_only.length)
+    return {cls: 'bad', text: 'Die Antwort nennt keine Fundstelle.'};
+  return {cls: 'ok', text: 'Jede genannte Fundstelle stammt aus den unten aufgeführten Vorschriften.'};
+}
+
+function render(r) {
+  const v = verdict(r.citations, r.outcome);
+  const answer = r.outcome === 'refusal'
+    ? '<p><em>Die vorgelegten Vorschriften beantworten diese Frage nicht.</em></p>'
+    : escape(stripToken(r.answer)).split(/\n{2,}/).map(p => `<p>${p}</p>`).join('');
+
+  out.innerHTML = `
+    <div class="card">
+      <div class="answer">${answer}</div>
+      <div class="flag ${v.cls}" style="margin:1rem 0 0">${escape(v.text)}</div>
+    </div>
+    <h2>Vorgelegte Vorschriften</h2>
+    <div class="card">
+      ${r.sources.map(s => `
+        <details>
+          <summary>
+            <span class="score">${s.score.toFixed(3)}</span>
+            <span class="cite">${escape(s.citation)}</span>
+            ${s.title ? ` <span class="title">${escape(s.title)}</span>` : ''}
+          </summary>
+          <p class="sectext">${escape(s.text)}</p>
+          <a class="srclink" href="${escape(s.url)}" target="_blank" rel="noopener">
+            Volltext auf gesetze-im-internet.de</a>
+        </details>`).join('')}
+    </div>
+    <footer class="meta">
+      Abruf ${r.timings_ms.retrieval} ms &middot; Antwort ${r.timings_ms.generation} ms &middot;
+      ${r.tokens.input} + ${r.tokens.output} Token &middot; ${escape(r.request_id)}
+    </footer>`;
+  out.hidden = false;
+}
+
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  const question = input.value.trim();
+  if (question.length < 3) return;
+
+  button.disabled = true;
+  button.textContent = 'Sucht …';
+  out.innerHTML = '<div class="card">Sucht in den Vorschriften und formuliert eine Antwort. '
+                + 'Das dauert auf dem lokalen Modell einige Sekunden.</div>';
+  out.hidden = false;
+
+  try {
+    const response = await fetch('/ask', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question}),
+    });
+    if (response.status === 404) {
+      out.innerHTML = '<div class="card">Zu dieser Frage wurde keine Vorschrift im '
+                    + 'Mietrecht gefunden. Diese Auskunft deckt nur §§ 535 bis 580a BGB ab.</div>';
+      return;
+    }
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({}));
+      out.innerHTML = `<div class="card error">Fehler ${response.status}: `
+                    + `${escape(detail.detail || 'Die Anfrage ist fehlgeschlagen.')}</div>`;
+      return;
+    }
+    render(await response.json());
+  } catch (err) {
+    out.innerHTML = '<div class="card error">Der Dienst ist nicht erreichbar.</div>';
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Fragen';
+  }
+});
+</script>
+</body>
+</html>

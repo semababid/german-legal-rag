@@ -205,3 +205,55 @@ def test_answer_dataclass_shape_matches_what_the_route_reads():
     for attribute in ("text", "outcome", "citations", "model",
                       "input_tokens", "output_tokens", "latency_ms"):
         assert hasattr(answer, attribute)
+
+
+def test_the_page_is_served_at_the_root(client):
+    r = client().get("/")
+    assert r.status_code == 200
+    assert r.headers["content-type"].startswith("text/html")
+    assert "<title>" in r.text
+
+
+def test_the_page_states_the_rdg_position_without_needing_a_request(client):
+    """A notice that only appears after an answer is a notice people act before
+    reading. It is in the markup, not injected by the script."""
+    body = client().get("/").text
+    assert "Rechtsdienstleistungsgesetz" in body
+    assert "Keine Rechtsberatung" in body
+    # and the page says the corpus is statute text only, no case law
+    assert "Rechtsprechung" in body
+
+
+def test_the_page_renders_the_citation_check_rather_than_hiding_it(client):
+    """The whole point of the project is visible in the frontend or it isn't."""
+    body = client().get("/").text
+    for key in ("unsupported", "cross_referenced", "exact"):
+        assert key in body, f"the page ignores citations.{key}"
+    assert "nicht vorgelegt" in body          # the wording for an invented §
+
+
+def test_the_page_escapes_model_output():
+    """Answers and section text are interpolated into HTML. They come from a
+    model and a statute, neither of which is trusted markup."""
+    body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
+    assert "const escape" in body
+    assert "escape(stripToken(r.answer))" in body   # escaped after the token is removed
+    assert "escape(s.text)" in body
+    assert "escape(s.url)" in body
+
+
+def test_missing_frontend_is_a_clean_404_not_a_crash(client, monkeypatch):
+    monkeypatch.setattr(api, "WEB_DIR", Path("/nonexistent"))
+    r = client().get("/")
+    assert r.status_code == 404
+
+
+def test_the_page_does_not_show_the_refusal_token_to_a_reader():
+    """Found by looking at the rendered page: a hedged answer displayed the raw
+    NICHT_BEANTWORTBAR marker mid-sentence. It is protocol, not German."""
+    body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
+    assert "stripToken" in body
+    assert "stripToken(r.answer)" in body
+    # and the hedged outcome gets its own explanation rather than passing as normal
+    assert "'hedged'" in body
+    assert "nicht vollständig gedeckt" in body

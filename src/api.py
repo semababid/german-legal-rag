@@ -31,8 +31,10 @@ import time
 import uuid
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -150,6 +152,24 @@ def require_pipeline() -> Pipeline:
     if pipeline is None:
         raise HTTPException(503, "model still loading")
     return pipeline
+
+
+WEB_DIR = Path(__file__).resolve().parent.parent / "web"
+
+
+@app.get("/", include_in_schema=False)
+def index() -> FileResponse:
+    """The page itself.
+
+    One file, no build step, no framework. It shows the answer, the sections the
+    model was given, and what the citation check made of each reference, because
+    an answer that cites a § nobody retrieved is the failure this project is
+    about and hiding it behind a clean paragraph would defeat the purpose.
+    """
+    page = WEB_DIR / "index.html"
+    if not page.exists():
+        raise HTTPException(404, "no frontend built into this deployment")
+    return FileResponse(page, media_type="text/html")
 
 
 @app.get("/health")

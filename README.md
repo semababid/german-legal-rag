@@ -15,7 +15,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Experiments | Six run, two significant improvements. Phase complete |
 | Generation | Working end to end on the local model. Answers are cited and grounding-checked |
 | Judging | 30 answers graded by hand. The local judge scored below the guessing baseline on faithfulness, so answers are not model-judged |
-| Serving | FastAPI with structured logging, running in containers against a Qdrant service. Frontend and deployment still to do |
+| Serving | FastAPI with structured logging, a page showing cited sources, containers against a Qdrant service. Deployment still to do |
 
 ## The corpus
 
@@ -144,6 +144,23 @@ between retrieval and generation time:
 Questions can carry personal circumstances, so `LOG_QUESTIONS=false` keeps them
 out of the log while leaving everything else in place.
 
+## The page
+
+`GET /` serves a single HTML file. No build step, no framework, no npm: the
+whole frontend is one file the API returns, which keeps the deployment a
+container with a Python process in it.
+
+It shows the answer, then every section the model was given with its score and a
+link to the full text on gesetze-im-internet.de, then how the citation check
+came out. That last part is the reason the page exists at all. An answer citing
+a § that was never retrieved is rendered with a warning rather than as clean
+prose, because presenting it identically to a sourced answer would undo the
+measurement work the rest of the project is about.
+
+The Rechtsdienstleistungsgesetz notice sits above the search box rather than in
+a footer, since a notice placed after the answer is one people read after acting
+on it. The page also says the corpus is statute text with no case law.
+
 ## In containers
 
 ```bash
@@ -198,12 +215,14 @@ src/judge.py              LLM judge, scored against the hand grades
 src/compare_backends.py   two answer runs side by side
 src/api.py                FastAPI service with structured logging
 src/metrics.py            shared percentile and median
+web/index.html            the page, one file, no build step
 Dockerfile                the API image, CPU-only torch
 docker-compose.yml        qdrant service, api, one-shot indexer
 src/judge.py              LLM judge, scored against the hand grades
 src/compare_backends.py   two answer runs side by side
 src/api.py                FastAPI service with structured logging
 src/metrics.py            shared percentile and median
+web/index.html            the page, one file, no build step
 Dockerfile                the API image, CPU-only torch
 docker-compose.yml        qdrant service, api, one-shot indexer
 src/judge.py              model-graded scoring, and its agreement with the hand grades
