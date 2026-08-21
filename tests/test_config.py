@@ -87,3 +87,41 @@ def test_ollama_host_comes_from_the_environment(monkeypatch):
 def test_a_trailing_slash_does_not_produce_a_double_slash(monkeypatch):
     monkeypatch.setenv("OLLAMA_HOST", "http://host.docker.internal:11434/")
     assert generator.OllamaBackend().host == "http://host.docker.internal:11434"
+
+
+def test_every_image_ships_what_the_api_serves():
+    """Found while writing the Oracle deployment: the local Dockerfile copied
+    src/ but not web/, so the container answered every endpoint except the one
+    a person actually visits. Testing with curl on /ask never caught it."""
+    root = Path(__file__).resolve().parent.parent
+
+    # whatever api.py reads from disk at request time has to be in the image
+    api_source = (root / "src" / "api.py").read_text(encoding="utf-8")
+    assert 'parent.parent / "web"' in api_source, "the page location moved; update this test"
+
+    for dockerfile in (root / "Dockerfile", root / "deploy" / "Dockerfile"):
+        body = dockerfile.read_text(encoding="utf-8")
+        assert "COPY src/" in body or "COPY --chown=user src/" in body, dockerfile.name
+        assert "web/" in body, f"{dockerfile.name} does not ship the page"
+
+
+def test_the_oracle_stack_points_caddy_at_the_port_the_api_listens_on():
+    """A reverse proxy aimed at the wrong port is a 502 that looks like a
+    broken app."""
+    root = Path(__file__).resolve().parent.parent / "deploy" / "oracle"
+    compose = (root / "docker-compose.yml").read_text(encoding="utf-8")
+    caddyfile = (root / "Caddyfile").read_text(encoding="utf-8")
+
+    assert 'expose:\n      - "8000"' in compose
+    assert "reverse_proxy api:8000" in caddyfile
+    # and the image's own CMD serves on that port
+    dockerfile = (Path(__file__).resolve().parent.parent / "Dockerfile").read_text(encoding="utf-8")
+    assert '"--port", "8000"' in dockerfile
+
+
+def test_the_public_deployment_keeps_questions_out_of_its_log():
+    """Different call from the local default: a public demo should not collect
+    strangers' tenancy problems on a disk somebody owns."""
+    for path in ("deploy/oracle/docker-compose.yml", "deploy/Dockerfile"):
+        body = (Path(__file__).resolve().parent.parent / path).read_text(encoding="utf-8")
+        assert "LOG_QUESTIONS" in body and "false" in body.lower(), path

@@ -291,3 +291,36 @@ def test_the_page_says_what_it_cannot_do():
     assert "Gerichtsurteile" in body
     assert "kennt Ihren Vertrag nicht" in body
     assert "kann sich irren" in body
+
+
+def test_retrieval_only_mode_says_so_and_refuses_cleanly(monkeypatch):
+    """A free deployment has no room for the 9B model. Rather than ship a weak
+    generator and let it speak for the project, the service runs retrieval and
+    is explicit that no answer was written."""
+    monkeypatch.setitem(api.SETTINGS, "backend", "none")
+    api.pipeline = api.Pipeline(StubRetriever(), None, threading.Lock())
+    try:
+        c = TestClient(api.app)
+
+        assert c.get("/health").json()["generation"] is False
+
+        r = c.post("/ask", json={"question": "Wie hoch darf die Kaution sein?"})
+        assert r.status_code == 501
+        assert "retrieval only" in r.json()["detail"]
+
+        # retrieval itself still works, which is the part this project measures
+        assert c.get("/search", params={"q": "Kaution"}).json()["hits"]
+    finally:
+        api.pipeline = None
+
+
+def test_health_reports_generation_available_when_a_backend_exists(client):
+    assert client().get("/health").json()["generation"] is True
+
+
+def test_the_page_adapts_when_nothing_can_write_an_answer():
+    body = (Path(__file__).resolve().parent.parent / "web" / "index.html").read_text(encoding="utf-8")
+    assert "fetch('/health')" in body
+    assert "canGenerate" in body
+    assert "renderSearch" in body            # a search-only rendering path exists
+    assert "scope-first" in body             # and the scope text stops promising answers

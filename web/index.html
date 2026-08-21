@@ -177,7 +177,7 @@
   <div class="scope">
     <strong>Was diese Auskunft kann und was nicht</strong>
     <ul>
-      <li>Sie sucht die passenden Paragrafen des Mietrechts und gibt deren Inhalt wieder.
+      <li id="scope-first">Sie sucht die passenden Paragrafen des Mietrechts und gibt deren Inhalt wieder.
           Jede Antwort nennt die Fundstellen, die Sie unten nachlesen können.</li>
       <li>Sie kennt nur den Gesetzestext. Gerichtsurteile, die viele Mietfragen erst
           entscheiden, sind nicht enthalten.</li>
@@ -293,10 +293,62 @@ function render(r) {
   }));
 }
 
+// A deployment without a language model can still do the part this project
+// actually measures. The page asks what is available and changes what it
+// promises, rather than offering an answer button that always fails.
+let canGenerate = true;
+fetch('/health').then(r => r.json()).then(h => {
+  canGenerate = h.generation !== false;
+  if (canGenerate) return;
+  button.textContent = 'Vorschriften suchen';
+  document.querySelector('.sub').textContent =
+    'Findet die passenden Paragrafen des Mietrechts (BGB §§ 535 bis 580a). '
+    + 'Diese Installation formuliert keine Antworten, sie zeigt die Fundstellen.';
+  // The scope list promises what answers will contain, and here there are none.
+  document.getElementById('scope-first').textContent =
+    'Sie sucht die passenden Paragrafen des Mietrechts und zeigt deren Wortlaut. '
+    + 'Den Schluss daraus ziehen Sie selbst.';
+}).catch(() => {});
+
+function renderSearch(r) {
+  out.innerHTML = `
+    <h2>Gefundene Vorschriften &middot; ${r.hits.length}</h2>
+    <div class="card">
+      ${r.hits.map((h, i) => `
+        <details id="${slug(h.citation)}"${i === 0 ? ' open' : ''}>
+          <summary>
+            <span class="cite">${escape(h.citation)}</span>
+            ${h.title ? `<span class="title">${escape(h.title)}</span>` : ''}
+          </summary>
+          <p class="sectext">${escape(h.text)}</p>
+        </details>`).join('')}
+    </div>
+    <footer class="meta">Suche ${r.took_ms} ms</footer>`;
+}
+
 form.addEventListener('submit', async event => {
   event.preventDefault();
   const question = input.value.trim();
   if (question.length < 3) return;
+
+  if (!canGenerate) {
+    button.disabled = true;
+    out.hidden = false;
+    out.innerHTML = '<div class="card loading">Sucht …<div class="bar"><i></i></div></div>';
+    try {
+      const response = await fetch('/search?q=' + encodeURIComponent(question) + '&k=6');
+      const data = await response.json();
+      data.hits.length
+        ? renderSearch(data)
+        : out.innerHTML = '<div class="card">Dazu wurde keine Vorschrift gefunden. '
+                        + 'Diese Auskunft deckt nur §§ 535 bis 580a BGB ab.</div>';
+    } catch (err) {
+      out.innerHTML = '<div class="card error">Der Dienst ist gerade nicht erreichbar.</div>';
+    } finally {
+      button.disabled = false;
+    }
+    return;
+  }
 
   button.disabled = true;
   button.textContent = 'Sucht …';

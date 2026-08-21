@@ -1,0 +1,26 @@
+# Replace this hostname with yours before starting anything. Caddy asks Let's
+# Encrypt for a certificate the first time it starts, and the request only
+# succeeds if the name already points at this machine and ports 80 and 443 are
+# reachable from outside. Getting that order wrong is the usual reason a first
+# deployment sits there without a certificate.
+mietrecht-rag.duckdns.org {
+	reverse_proxy api:8000
+
+	encode gzip
+
+	# The page is one HTML file and the answers are short, so nothing here needs
+	# a long timeout. Retrieval takes under a second once the model is loaded.
+	header {
+		# Sent because this is a public page that embeds nothing and posts
+		# nowhere else. It costs nothing and removes a class of easy mistakes.
+		Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}

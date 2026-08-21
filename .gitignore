@@ -9,6 +9,9 @@ data/raw/*/*
 !data/raw/*/provenance.txt
 data/processed/
 
+# API keys live in .env, which must never be committed
+.env
+
 # Vector stores and model caches
 .chroma/
 qdrant_storage/

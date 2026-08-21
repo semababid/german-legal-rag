@@ -25,6 +25,10 @@ RUN pip install --no-cache-dir torch==2.13.0 --index-url https://download.pytorc
     && pip install --no-cache-dir -r requirements.txt
 
 COPY src/ ./src/
+# api.py serves the page from ../web relative to itself. Leaving this out builds
+# an image whose API answers every endpoint except the one a person visits, and
+# `curl /ask` never notices.
+COPY web/ ./web/
 
 # bge-m3 is about 2.3 GB. Baking it in would make the image enormous and pin it
 # to one embedding model, so it downloads on first start into a mounted cache

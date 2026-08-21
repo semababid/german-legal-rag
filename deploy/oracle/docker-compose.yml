@@ -1,0 +1,58 @@
+# The stack that runs on an Oracle Always Free VM.
+#
+# Two containers rather than the three in the local setup. Qdrant runs inside
+# the API process in on-disk mode, because a VM that one person administers is
+# better off with fewer moving parts, and the exclusive lock that local mode
+# takes on its storage directory does not matter when nothing else writes to it.
+# The index is copied up from a laptop rather than built here: two Arm cores
+# would spend hours embedding 4,921 records.
+#
+# Caddy sits in front purely for TLS. It obtains and renews a Let's Encrypt
+# certificate on its own, which is the difference between a link a recruiter
+# clicks and a browser warning they close.
+
+services:
+  api:
+    image: german-legal-rag:latest
+    restart: unless-stopped
+    environment:
+      # Retrieval without a generator. Twelve gigabytes would hold the 9B model,
+      # but two Arm cores would take minutes per answer, and a model small
+      # enough to be quick would answer worse than the retrieval it sits on.
+      BACKEND: none
+      COLLECTION: absatz_ctx
+      RETRIEVER: domain
+      TOP_K: "6"
+      # A public demo should not accumulate other people's tenancy problems on
+      # a disk you own. Everything else about the request is still logged.
+      LOG_QUESTIONS: "false"
+    volumes:
+      - ./qdrant_storage:/app/qdrant_storage:ro
+      - ./data/processed:/app/data/processed:ro
+      - model_cache:/cache/huggingface
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 180s
+      retries: 3
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data          # certificates live here, keep this volume
+      - caddy_config:/config
+    depends_on:
+      - api
+
+volumes:
+  model_cache:
+  caddy_data:
+  caddy_config:

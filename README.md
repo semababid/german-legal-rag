@@ -15,7 +15,7 @@ Work in progress. The plan and the phase I am on live in [ROADMAP.md](ROADMAP.md
 | Experiments | Six run, two significant improvements. Phase complete |
 | Generation | Working end to end on the local model. Answers are cited and grounding-checked |
 | Judging | 30 answers graded by hand. The local judge scored below the guessing baseline on faithfulness, so answers are not model-judged |
-| Serving | FastAPI with structured logging, a page showing cited sources, containers against a Qdrant service. Deployment still to do |
+| Serving | FastAPI, a page showing cited sources, containers against a Qdrant service, and a Space image that runs retrieval without a model |
 
 ## The corpus
 
@@ -195,6 +195,43 @@ resulting Qdrant is the faster route.
 | `TOP_K` | `6` | sections per prompt |
 | `LOG_QUESTIONS` | `true` | keep questions out of the log |
 
+## Deploying it
+
+Two targets, both built and tested.
+
+```bash
+python src/index_corpus.py --granularity absatz --with-context   # build the index first
+
+./deploy/push_to_spaces.sh <username>/<space-name>   # Hugging Face, needs PRO
+./deploy/oracle/upload.sh ubuntu@<instance-ip>       # a free Oracle VM
+```
+
+Hugging Face moved Docker Spaces behind a paid plan at $9 a month; only Static
+Spaces are free now, and those cannot run Python. The Oracle path uses their
+Always Free tier, which gives 2 Arm cores and 12 GB for the life of the account,
+with Caddy in front for automatic TLS so the result is a real HTTPS link rather
+than an IP. Step by step, including the two firewalls Oracle makes you open
+separately, is in [deploy/oracle/SETUP.md](deploy/oracle/SETUP.md).
+
+The Space is a separate repository holding a subset of this one, assembled in a
+scratch directory by the script: source, page, corpus, the 49 MB index for the
+one collection actually served, and its own Dockerfile.
+
+The index travels with it rather than being built on arrival. A Space gets two
+cores and no GPU, and embedding 4,921 records took about thirty five minutes in
+a ten-core container without Metal, so building at startup would leave it
+unreachable for hours after every restart.
+
+The language model does not travel at all. It is 6.6 GB and wants a GPU, and a
+model small enough to run on two cores would answer worse than the retrieval it
+sits on. So `BACKEND=none` runs retrieval alone: `/ask` returns 501, the page
+asks `/health` on load and stops offering answers it cannot write, and the
+sections come back with their scores and text. Setting `BACKEND=anthropic` and
+an `ANTHROPIC_API_KEY` secret turns generation on with nothing else changed.
+
+Shipping a weak generator instead would have been easy and would have
+misrepresented the project, since the retrieval is the measured part.
+
 ## Layout
 
 ```
@@ -218,14 +255,8 @@ src/metrics.py            shared percentile and median
 web/index.html            the page, one file, no build step
 Dockerfile                the API image, CPU-only torch
 docker-compose.yml        qdrant service, api, one-shot indexer
-src/judge.py              LLM judge, scored against the hand grades
-src/compare_backends.py   two answer runs side by side
-src/api.py                FastAPI service with structured logging
-src/metrics.py            shared percentile and median
-web/index.html            the page, one file, no build step
-Dockerfile                the API image, CPU-only torch
-docker-compose.yml        qdrant service, api, one-shot indexer
-src/judge.py              model-graded scoring, and its agreement with the hand grades
+deploy/                   Hugging Face Space: image, README, push script
+deploy/oracle/            a free VM: compose, Caddy, upload script, setup guide
 tests/                    unit tests for the metric, retrieval and citation logic
 data/eval/mietrecht.jsonl the evaluation questions
 RESULTS.md                retrieval scores

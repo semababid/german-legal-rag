@@ -1,0 +1,29 @@
+# Build context for the Spaces image. BuildKit prefers this over the root
+# .dockerignore when building deploy/Dockerfile.
+#
+# The difference that matters: the root file excludes qdrant_storage, because
+# the local compose setup talks to a Qdrant service and copying a stale on-disk
+# index into that image would be misleading. A Space has no second container, so
+# the index has to travel with it.
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Regenerable and large.
+data/raw/
+
+# Phase 3 experiment collections. Only the collection actually served is copied
+# by the Dockerfile, but excluding these keeps the build context small.
+qdrant_storage/collection/absatz_raw/
+qdrant_storage/collection/paragraph_ctx/
+
+results/
+notes/
+tests/
+.git/
+.gitignore
+.DS_Store
+.pytest_cache/
+docker-compose.yml

@@ -54,6 +54,13 @@ DISCLAIMER = (
 SETTINGS = {
     "retriever": os.getenv("RETRIEVER", "domain"),
     "collection": os.getenv("COLLECTION", "absatz_ctx"),
+    # "none" runs retrieval without a generator. That is the honest shape of a
+    # free deployment: the 9B model is 6.6 GB and wants a GPU, so a two-core
+    # container cannot host it, and a small enough model to fit would answer
+    # worse than the retrieval it is built on. Rather than ship a weak
+    # generator and let it speak for the project, the deployed service returns
+    # the provisions it found and says plainly that no answer was written.
+    # Setting a real backend turns generation back on with no other change.
     "backend": os.getenv("BACKEND", "ollama"),
     "model": os.getenv("MODEL") or None,
     "k": int(os.getenv("TOP_K", "6")),
@@ -105,7 +112,8 @@ async def lifespan(app: FastAPI):
     global pipeline
     started = time.perf_counter()
     retriever = build_retriever(SETTINGS["retriever"], collection=SETTINGS["collection"])
-    backend = build_backend(SETTINGS["backend"], SETTINGS["model"])
+    backend = (None if SETTINGS["backend"] == "none"
+               else build_backend(SETTINGS["backend"], SETTINGS["model"]))
     pipeline = Pipeline(retriever, backend, threading.Lock())
     log.info({"event": "startup", "seconds": round(time.perf_counter() - started, 1),
               **{k: v for k, v in SETTINGS.items() if k != "log_questions"}})
@@ -175,13 +183,22 @@ def index() -> FileResponse:
 @app.get("/health")
 def health() -> dict:
     ready = pipeline is not None
-    return {"ready": ready, "backend": SETTINGS["backend"],
-            "collection": SETTINGS["collection"]}
+    return {
+        "ready": ready,
+        "backend": SETTINGS["backend"],
+        "collection": SETTINGS["collection"],
+        # The page reads this and hides the answer box when nothing can write
+        # one, rather than offering a button that always fails.
+        "generation": ready and pipeline.backend is not None,
+    }
 
 
 @app.post("/ask", response_model=Answer)
 def ask(body: Question) -> Answer:
     p = require_pipeline()
+    if p.backend is None:
+        raise HTTPException(
+            501, "this deployment runs retrieval only; use /search for the provisions")
     request_id = uuid.uuid4().hex[:12]
     k = body.k or SETTINGS["k"]
 
