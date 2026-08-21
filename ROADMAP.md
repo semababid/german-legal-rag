@@ -13,8 +13,8 @@ Assumed pace is six weeks part time, with no fixed deadline baked in. If you are
 | 2 | Baseline retrieval | Dense-only pipeline, deliberately untuned | hit-rate@1/3/5 and MRR recorded against the eval set | Done: hit@1 0.62, hit@5 0.85, MRR 0.71 |
 | 3 | Retrieval experiments | Six configurations, one results table | Table filled in and you can explain each result | Done: two significant wins. Final hit@1 0.700, MRR 0.790 at n=150 |
 | 4 | Generation and judging | Cited German answers, calibrated LLM judge, local vs API comparison | Faithfulness and relevance scored, cost and p95 latency reported for both models | 4.1 done, 4.2 next |
-| 5 | Serving | FastAPI, Docker Compose, thin frontend, structured logging, deployed | Public URL resolves and every request is logged with query, retrieved IDs, scores, tokens, latency | 5.1 to 5.3 done. 5.4 built for two hosts, waiting on an account to push to |
-| 6 | Write-up | README in English, German screenshots and queries | Results table leads the README and limitations are stated plainly | 3 d |
+| 5 | Serving | FastAPI, Docker Compose, thin frontend, structured logging, deployed | Public URL resolves and every request is logged with query, retrieved IDs, scores, tokens, latency | 5.1 to 5.3 done. 5.4 built and tested for two hosts, neither pushed |
+| 6 | Write-up | README in English, German screenshots and queries | Results table leads the README and limitations are stated plainly | Done |
 
 Phase 1 comes before any retrieval code on purpose. Build the pipeline first and you will tune it against your own impressions, and by the time an eval exists you have already committed to choices you cannot defend with numbers.
 
@@ -120,7 +120,7 @@ Chosen defaults. None are hard to change later except the vector store, where na
 | Vector store | Qdrant via Docker | Dense and sparse hybrid search is native |
 | Local LLM | Qwen 3.5 9B via Ollama | Strong German for its size, and 6.6 GB fits a 16 GB machine alongside the embedding model. A 14B at 9 GB does not, which is what ruled out the larger option rather than any quality argument. |
 | Judge | Claude Haiku 4.5 | Cheap enough that full judge runs stay under a euro |
-| Deployment | Hugging Face Spaces, PRO | Docker Spaces moved behind a paid plan at $9 a month. Only Static Spaces are free now, and those cannot run Python, so they cannot run the embedder. |
+| Deployment | A free Oracle VM, with a Hugging Face Space as the alternative | Docker Spaces moved behind a paid plan at $9 a month partway through, and Static Spaces cannot run Python, so they cannot run the embedder. Oracle Always Free stays free and costs a VM to administer instead. Both are built; neither is live. |
 
 ## Cost and data status
 
@@ -134,7 +134,7 @@ Everything required runs at zero cost. The only money in the project is optional
 | Embeddings, reranker, vector store, local LLM | Open weights and open source, run on the local machine | Free |
 | LLM judge (phase 4) | Claude Haiku 4.5, under one euro per full eval run | Optional, a few euros total |
 | API side of the local vs API comparison (phase 4) | Same budget as the judge | Optional |
-| Deployment (phase 5) | Hugging Face Spaces, image built and tested | $9 a month for PRO, or another host with at least 3 GB of memory |
+| Deployment (phase 5) | Both images built and tested, neither pushed | Free on Oracle Always Free, or $9 a month for a Docker Space |
 
 If the optional API spend is dropped entirely, phase 4 still works with a local judge; the numbers get noisier and the local vs API comparison table loses its second column, but nothing blocks. No dataset, license, GPU rental, or paid service is needed at any phase.
 
@@ -165,3 +165,4 @@ Describe this one as retrieval quality work and that one as agentic control flow
 | Topic balance in the eval set | During phase 1 | Betriebskosten and Mieterhöhung have two questions each against eight for Kündigung. Worth evening out before the set is treated as final. |
 | Whether phase 3 needs all seven experiments | Start of phase 3 | If the first three produce a clear story, the rest become optional rather than obligatory |
 | Whether to spend the API budget | Blocking 4.4 | Roughly 26 cents for 150 answers and 8 more for a judge run over the 30 graded ones, at Haiku 4.5 rates. Without it the comparison has one column and 4.3's question about whether a stronger judge clears the bar stays open. |
+| Getting the thing online | Blocking 5.4 | Needs an Oracle account, which needs a card for identity verification, and an instance in a region with Arm capacity free. Nothing in the code is waiting on this: `deploy/oracle/upload.sh` runs against an IP. |
