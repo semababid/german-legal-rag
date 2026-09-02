@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Copy everything the VM needs, over ssh.
 #
-#   ./deploy/oracle/upload.sh ubuntu@140.238.12.34
+#   ./deploy/oracle/upload.sh ubuntu@<your-instance-ip>
 #
 # Sends the source, the page, the corpus and the prebuilt index, and builds the
 # image on the far side. The index is copied rather than built there because two
